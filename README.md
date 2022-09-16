@@ -8,7 +8,7 @@ _Thursday Class (22-2-23359)_
 | No. | Name        | Members                     | Requirements      |   
 |-----|-------------|-----------------------------|-------------------|
 | 0   | [Instructors](teams/instructors.md) | Scott Uk-Jin Lee, [Hansae Ju](https://github.com/Verssae/Verssae) | Instruct students |  
-|     |             |                             |                   |
+| 2   |  [Team2](teams/Team2.md)   |  [Jaehyeok Jo](https://github.com/poer2424/poer2424)      |  Gameplay HUD   |
 
 
 ## Screenshots
