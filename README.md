@@ -8,7 +8,7 @@ _Thursday Class (22-2-23359)_
 | No. | Name        | Members                     | Requirements      |   
 |-----|-------------|-----------------------------|-------------------|
 | 0   | [Instructors](teams/instructors.md) | Scott Uk-Jin Lee, [Hansae Ju](https://github.com/Verssae/Verssae) | Instruct students |  
-| 1   |[Group1]https://github.com/Farhiya11/thu-space-invaders-group1/blob/main/README.md     | Farhiya https://github.com/Farhiya11/Farhiya11 , Andreas https://github.com/AndreasEgholm/AndreasEgholm , 조해초 https://github.com/haechojo/haechojo, 서엽 克拉斯克1/- (github.com)                     |  https://docs.google.com/document/d/1G3VtR-ycsRAnrmbLCeS6fTqo1qIWd4vJO8Lu-dMOBlo/edit?usp=sharing                 |
+| 1   |[Group1]https://github.com/Farhiya11/thu-space-invaders-group1/blob/main/README.md     | Farhiya https://github.com/Farhiya11/Farhiya11 , Andreas https://github.com/AndreasEgholm/AndreasEgholm , 조해초 https://github.com/haechojo/haechojo, 서엽 https://github.com/xuyu0916/xuyu0916-gmail.com, 하가휘 https://github.com/qlask1/-/tree/main                   |  https://docs.google.com/document/d/1G3VtR-ycsRAnrmbLCeS6fTqo1qIWd4vJO8Lu-dMOBlo/edit?usp=sharing                 |
 
 
 ## Screenshots
