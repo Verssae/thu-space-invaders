@@ -8,7 +8,7 @@ _Thursday Class (22-2-23359)_
 | No. | Name        | Members                     | Requirements      |   
 |-----|-------------|-----------------------------|-------------------|
 | 0   | [Instructors](teams/instructors.md) | Scott Uk-Jin Lee, [Hansae Ju](https://github.com/Verssae/Verssae) | Instruct students |  
-| 2   |  [Team2](teams/Team2.md)   |  [Jaehyeok Jo](https://github.com/poer2424/poer2424), [Yoonyoung Kim](https://github.com/rladbsdud123/rladbsdud123), [Hoseung Nam](https://github.com/hsnam99/hsnam99), [Hyeongil Lee](https://github.com/201HI/201HI)      |  Gameplay HUD   |
+| 2   |  [Team2](teams/Team2.md)   |  [Jaehyeok Jo](https://github.com/poer2424/poer2424), [Yoonyoung Kim](https://github.com/rladbsdud123/rladbsdud123), [Hoseung Nam](https://github.com/hsnam99/hsnam99), [Hyeongil Lee](https://github.com/201HI/201HI), [Woonyoung Kim](https://github.com/woon325/woon325)      |  Gameplay HUD   |
 
 
 ## Screenshots
