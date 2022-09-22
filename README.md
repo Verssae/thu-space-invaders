@@ -16,7 +16,7 @@ _Thursday Class (22-2-23359)_
 | 6   | [HappyDevelping](https://github.com/hsoo3844/thu-space-invaders.git) | [Hyeonsoo Kim](https://github.com/hsoo3844/hsoo3844), [Soyeon Kwon](https://github.com/annkwon1123/annkwon1123), [Taeyoon Lee](https://github.com/TYParrot/TYParrot), [Jeongwoo Eum](https://github.com/jeongwoo99/jeongwoo99), [Jaeho Sin](https://github.com/sjh7535/sjh7535)       |                   |
 | 7   | [Dropship](teams/dropship.md) | [Jeahyeon Jeong](https://github.com/jjangjjh2222/jjangjjh2222.git), [Joonghyeon Park](https://github.com/pjh2976/Joonghyeon.git), [Myeongin Jin](https://github.com/myeonginjin/myeonginjin.git), [Jinsung Sim](https://github.com/Sims0212/Sims0212.git), [Jongha Kim](https://github.com/hanyangduck/hanyangduck.git) | Item System |
 |  8   | [Team 8](teams/team8.md)     |[Jun Young Lee](https://github.com/intelli21c/intelli21c), [Jeong Min Park](https://github.com/snavellib/snavellib), [Yeon Ju Ko](https://github.com/koyeonju126/koyeonju126), [Jae Wan Choi](https://github.com/Jaewan0/Jaewan0), [Ji Yoon Jeong](https://github.com/j1037/j1037)| Currency System             |
-
+| 9   | [Java Chip Frappuccino](https://github.com/devITae/thu-space-invaders) | [이재형](https://github.com/devITae/devITae/) [박선빈](https://github.com/whaleflyingsky/whaleflyingsky/) [이선우](https://github.com/tjsdn1204/tjsdn1204/) [정성우](https://github.com/jsw3285/jsw3285/) [정연욱](https://github.com/dhfpdhaos/dhfpdhaos/) [D.Bat_Undrakh](https://github.com/Bat-Undrakh/Bat-Undrakh/) | [Level Design System](https://github.com/devITae/thu-space-invaders/blob/main/teams/JavaChipFrappuccino.md) |
 
 ## Screenshots
  
