@@ -1,4 +1,4 @@
-# Team6 전체 프로젝트 합치기 전 버전
+# Team6 branch
 
 # Space Invaders bb
 
