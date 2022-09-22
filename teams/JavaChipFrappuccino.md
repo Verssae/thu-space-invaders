@@ -13,7 +13,7 @@ We are in charge of the development of the Level Design System.
 | 3   | [Seonwoo Lee](https://github.com/tjsdn1204/tjsdn1204) | Member | tjsdn1204@hanyang.ac.kr |
 | 4   | [Seongwoo Jeong](https://github.com/jsw3285/jsw3285) | Member | jsw3285@hanyang.ac.kr |
 | 5   | [Yeonuk Jeong](https://github.com/dhfpdhaos/dhfpdhaos)| Member | jayla2002.1@gmail.com|
-|     |             |                          |                             |
+| 6   | [D.Bat_Undrakh](https://github.com/Bat-Undrakh/Bat-Undrakh/) | Member | davaadorjbatundrakh@gmail.com |
 
 ## Development Plan
 ### 1. Project에서 사용할 Work-flow에 대한 조사
