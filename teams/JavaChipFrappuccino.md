@@ -9,7 +9,11 @@ We are in charge of the development of the Level Design System.
 | No. | Name        | Role                     | Contact                     | 
 |-----|-------------|--------------------------|-----------------------------|
 | 1   | [Jaehyung Lee](https://github.com/devITae/devITae) | Leader | alpha@hanyang.ac.kr |
-|     |             |                             |
+|     |             |                          |                             |
+|     |             |                          |                             |
+| 4   | [Seongwoo Jeong](https://github.com/jsw3285/jsw3285) | Member | jsw3285@hanyang.ac.kr |
+|     |             |                          |                             |
+|     |             |                          |                             |
 
 ## Development Plan
 ### 1. Project에서 사용할 Work-flow에 대한 조사
