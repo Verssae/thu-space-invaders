@@ -9,7 +9,7 @@ We are in charge of the development of the Level Design System.
 | No. | Name        | Role                     | Contact                     | 
 |-----|-------------|--------------------------|-----------------------------|
 | 1   | [Jaehyung Lee](https://github.com/devITae/devITae) | Leader | alpha@hanyang.ac.kr |
-|     |             |                          |                             |
+| 2    | [Sunbean Park](https://github.com/whaleflyingsky) | Member | sunbeanp@gmail.com |
 | 3   | [Seonwoo Lee](https://github.com/tjsdn1204/tjsdn1204) | Member | tjsdn1204@hanyang.ac.kr |
 | 4   | [Seongwoo Jeong](https://github.com/jsw3285/jsw3285) | Member | jsw3285@hanyang.ac.kr |
 | 5   | [Yeonuk Jeong](https://github.com/dhfpdhaos/dhfpdhaos)| Member | jayla2002.1@gmail.com|
