@@ -8,7 +8,7 @@ We are in charge of the development of the Level Design System.
 
 | No. | Name        | Role                     | Contact                     | 
 |-----|-------------|--------------------------|-----------------------------|
-| 1   | [Jaehyung Lee](https://github.com/devITae/devITae) | Team Leader | alpha@hanyang.ac.kr |
+| 1   | [Jaehyung Lee](https://github.com/devITae/devITae) | Leader | alpha@hanyang.ac.kr |
 |     |             |                             |
 
 ## Development Plan
