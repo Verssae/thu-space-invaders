@@ -1,7 +1,7 @@
-WE ARE TEAM8
-
-**8. Currency System**
+**TEAM 8: Currency System**
 - Players can collect coins to buy customizable things such as ships, items, sound effects, BGM, etc
+
+-------------------------------------------------------
 
 1) Acquire coins when dealing with enemies or when conditions are satisfied
 2) Earn coins when earning points // Ex. 1 coin per 100 points
