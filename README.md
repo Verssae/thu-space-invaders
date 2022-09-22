@@ -1,6 +1,6 @@
 # Team6 전체 프로젝트 합치기 전 버전
 
-# Space Invaders
+# Space Invaders bb
 
 This is a project that extends the [Space Invaders](https://en.wikipedia.org/wiki/Space_Invaders) clone ([RobertoIA/Invaders](https://github.com/RobertoIA/Invaders)).
 
