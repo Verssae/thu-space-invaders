@@ -10,7 +10,7 @@ _Thursday Class (22-2-23359)_
 | No. | Name                                                                 | Members                                                           | Requirements      |   
 |-----|----------------------------------------------------------------------|-------------------------------------------------------------------|-------------------|
 | 0   | [Instructors](teams/instructors.md)                                  | Scott Uk-Jin Lee, [Hansae Ju](https://github.com/Verssae/Verssae) | Instruct students |  
-| 6   | [HappyDevelping](https://github.com/hsoo3844/thu-space-invaders.git) | [Hyeonsoo Kim](https://github.com/hsoo3844/hsoo3844), [Soyeon Kwon](https://github.com/annkwon11123/annkwon1123), [Taeyoon Lee](https://github.com/TYParrot/TYParrot), [Jeongwoo Eum](https://github.com/jeongwoo99/jeongwoo99), [Jaeho Sin](https://github.com/sjh7535/sjh7535)       |                   |
+| 6   | [HappyDevelping](https://github.com/hsoo3844/thu-space-invaders.git) | [Hyeonsoo Kim](https://github.com/hsoo3844/hsoo3844), [Soyeon Kwon](https://github.com/annkwon1123/annkwon1123), [Taeyoon Lee](https://github.com/TYParrot/TYParrot), [Jeongwoo Eum](https://github.com/jeongwoo99/jeongwoo99), [Jaeho Sin](https://github.com/sjh7535/sjh7535)       |                   |
 
 
 ## Screenshots
