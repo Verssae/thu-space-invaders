@@ -8,7 +8,7 @@ _Thursday Class (22-2-23359)_
 | No. | Name        | Members                     | Requirements      |   
 |-----|-------------|-----------------------------|-------------------|
 | 0   | [Instructors](teams/instructors.md) | Scott Uk-Jin Lee, [Hansae Ju](https://github.com/Verssae/Verssae) | Instruct students |  
-| 7   | [Dropship](teams/dropship.md) | [Jeahyeon Jeong](https://github.com/jjangjjh2222/jjangjjh2222.git)  | Item System |
+| 7   | [Dropship](teams/dropship.md) | [Jeahyeon Jeong](https://github.com/jjangjjh2222/jjangjjh2222.git), [Joonghyeon Park](https://github.com/pjh2976/Joonghyeon.git)  | Item System |
 
 
 ## Screenshots
