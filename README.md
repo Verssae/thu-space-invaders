@@ -8,7 +8,7 @@ _Thursday Class (22-2-23359)_
 | No. | Name        | Members                     | Requirements      |   
 |-----|-------------|-----------------------------|-------------------|
 | 0   | [Instructors](teams/instructors.md) | Scott Uk-Jin Lee, [Hansae Ju](https://github.com/Verssae/Verssae) | Instruct students |  
-|  8   | [Team 8](teams/team8.md)     |[Jun Young Lee](https://github.com/intelli21c/intelli21c), [Jeong Min Park](https://github.com/snavellib/snavellib), [Yeon Ju Ko](https://github.com/koyeonju126/koyeonju126), [Jae Wan Choi](https://github.com/Jaewan0/Jaewan0)| Currency System             |
+|  8   | [Team 8](teams/team8.md)     |[Jun Young Lee](https://github.com/intelli21c/intelli21c), [Jeong Min Park](https://github.com/snavellib/snavellib), [Yeon Ju Ko](https://github.com/koyeonju126/koyeonju126), [Jae Wan Choi](https://github.com/Jaewan0/Jaewan0), [Ji Yoon Jeong](https://github.com/j1037/j1037)| Currency System             |
 
 
 ## Screenshots
