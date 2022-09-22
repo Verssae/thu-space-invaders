@@ -12,7 +12,7 @@ We are in charge of the development of the Level Design System.
 |     |             |                          |                             |
 |     |             |                          |                             |
 | 4   | [Seongwoo Jeong](https://github.com/jsw3285/jsw3285) | Member | jsw3285@hanyang.ac.kr |
-|     |             |                          |                             |
+| 5   | [Yeonuk Jeong](https://github.com/dhfpdhaos/dhfpdhaos)| Member | jayla2002.1@gmail.com|
 |     |             |                          |                             |
 
 ## Development Plan
