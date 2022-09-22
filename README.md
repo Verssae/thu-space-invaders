@@ -1,3 +1,5 @@
+# Team6 전체 프로젝트 합치기 전 버전
+
 # Space Invaders
 
 This is a project that extends the [Space Invaders](https://en.wikipedia.org/wiki/Space_Invaders) clone ([RobertoIA/Invaders](https://github.com/RobertoIA/Invaders)).
@@ -5,10 +7,10 @@ This is a project that extends the [Space Invaders](https://en.wikipedia.org/wik
 ## Teams
 _Thursday Class (22-2-23359)_
 
-| No. | Name        | Members                     | Requirements      |   
-|-----|-------------|-----------------------------|-------------------|
-| 0   | [Instructors](teams/instructors.md) | Scott Uk-Jin Lee, [Hansae Ju](https://github.com/Verssae/Verssae) | Instruct students |  
-|     |             |                             |                   |
+| No. | Name                                                                 | Members                                                           | Requirements      |   
+|-----|----------------------------------------------------------------------|-------------------------------------------------------------------|-------------------|
+| 0   | [Instructors](teams/instructors.md)                                  | Scott Uk-Jin Lee, [Hansae Ju](https://github.com/Verssae/Verssae) | Instruct students |  
+| 6   | [HappyDevelping](https://github.com/hsoo3844/thu-space-invaders.git) | [Soyeon Kwon](https://github.com/annkwon11123/annkwon1123), [Taeyoon Lee](https://github.com/TYParrot/TYParrot)        |                   |
 
 
 ## Screenshots
