@@ -1,4 +1,4 @@
-# Team.6 Space Invaders
+# Team.6 Space Invaders (Developing branch)
 
 This is a project that extends the [Space Invaders](https://en.wikipedia.org/wiki/Space_Invaders) clone ([RobertoIA/Invaders](https://github.com/RobertoIA/Invaders)).
 
