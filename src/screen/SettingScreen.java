@@ -6,8 +6,3 @@ import java.util.List;
 
 import engine.Core;
 import engine.Score;
-
-
-public class SettingScreen extends Screen {
-
-}
