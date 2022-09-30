@@ -305,26 +305,40 @@ public final class DrawManager {
 	public void drawMenu(final Screen screen, final int option) {
 		String playString = "Play";
 		String highScoresString = "High scores";
+		String settingString = "Settings";
 		String exitString = "exit";
 
+		// returnCode == 2 : play
 		if (option == 2)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, playString,
 				screen.getHeight() / 3 * 2);
+
+		// returnCode == 3 : highscores
 		if (option == 3)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+
+		// returnCode == 4 : settings
+		if (option == 4)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, settingString, screen.getHeight() / 3
+				* 2 + fontRegularMetrics.getHeight() * 4);
+
+		// returnCode == 0 : exit
 		if (option == 0)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 4);
+				* 2 + fontRegularMetrics.getHeight() * 6);
 	}
 
 	/**
@@ -485,6 +499,38 @@ public final class DrawManager {
 					/ 4 + fontRegularMetrics.getHeight() * (i + 1) * 2);
 			i++;
 		}
+	}
+
+	/**
+	 * Draws settings screen title and instructions.
+	 *
+	 * @param screen
+	 *            Screen to draw on.
+	 */
+	public void drawSettingsMenu(final Screen screen) {
+		String settingsString = "Settings";
+		String instructionsString = "Press Space to Save Changes";
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, settingsString, screen.getHeight() / 8);
+
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, instructionsString,
+				screen.getHeight() / 5);
+	}
+
+	/**
+	 * Draws settings.
+	 *
+	 * @param screen
+	 *            Screen to draw on.
+	 * @param settings
+	 *            List of settings categories.
+	 */
+	// have to change
+	public void drawSettings(final Screen screen,
+							   final List<Score> highScores) {
+
 	}
 
 	/**
