@@ -305,6 +305,7 @@ public final class DrawManager {
 	public void drawMenu(final Screen screen, final int option) {
 		String playString = "Play";
 		String highScoresString = "High scores";
+		String storeString = "Store";
 		String settingString = "Settings";
 		String exitString = "exit";
 
@@ -330,7 +331,15 @@ public final class DrawManager {
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, settingString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 4);
+				* 2 + fontRegularMetrics.getHeight() * 3);
+
+		// returnCode == 5 : store
+		if (option == 5)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, storeString, screen.getHeight() / 3
+				* 2 + fontRegularMetrics.getHeight() * 1);
 
 		// returnCode == 0 : exit
 		if (option == 0)
@@ -338,7 +347,7 @@ public final class DrawManager {
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 6);
+				* 2 + fontRegularMetrics.getHeight() * 4);
 	}
 
 	/**
@@ -519,6 +528,20 @@ public final class DrawManager {
 				screen.getHeight() / 5);
 	}
 
+	public void drawStoreMenu(final Screen screen) {
+		String storeString = "Store";
+		String instructionsString = "Store";
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, storeString, screen.getHeight() / 8);
+
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, instructionsString,
+				screen.getHeight() / 5);
+	}
+
+
+
 	/**
 	 * Draws settings.
 	 *
@@ -530,6 +553,11 @@ public final class DrawManager {
 	// have to change
 	public void drawSettings(final Screen screen,
 							   final List<Score> highScores) {
+
+	}
+
+	public void drawStore(final Screen screen
+						  ){
 
 	}
 
