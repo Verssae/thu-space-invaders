@@ -227,7 +227,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					}
 			} else if (currentDirection == Direction.LEFT) {
 				if (isAtLeftSide)
-					if (!isAtBottom) {
+					if (!isAtBottom && movementY != 0) {
 						previousDirection = currentDirection;
 						currentDirection = Direction.DOWN;
 						this.logger.info("Formation now moving down 3");
@@ -237,7 +237,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					}
 			} else {
 				if (isAtRightSide)
-					if (!isAtBottom) {
+					if (!isAtBottom && movementY != 0) {
 						previousDirection = currentDirection;
 						currentDirection = Direction.DOWN;
 						this.logger.info("Formation now moving down 5");
@@ -271,12 +271,28 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				}
 				column.removeAll(destroyed);
 			}
-
 			for (List<EnemyShip> column : this.enemyShips)
 				for (EnemyShip enemyShip : column) {
+					if (!isAtBottom) {/*DIRECTION.DOWN인 상황에서 한개라도 바닥에 닿으면 계속 아래로만 움직이는 버그가 있음. 아래에 movementY=0 으로 설정했기 때문에
+					 내려가는 판정이 없어서 계속 DOWN으로 유지되었던 것 같음. 그래서 위에 DIRECTION의 조건문에서 movementY가 0이 아니면 아래로 내려가라는 설정을 넣었는데,
+					 메소드 시작 부분에 movementY는 0으로 초기화되어 있어서 아예 DOWN하는 상황으로 빠지지 않음. 맨 윗줄이 첫번째라인에 해당하지 않으면 내려오지 않음. 게임 플레이에는 문제 없음.*/
+						int randomPlace = (int) (Math.random() * column.size() - 1);
+						movementY = 1;
+						if(randomPlace < enemyShips.size()) {
+							if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+								movementY = (int) (Math.random() * Y_SPEED + 5);
+							}
+						}
+						if(enemyShips.get(enemyShips.size()-1) == column && column.get(column.size()-1) == enemyShip){
+							movementY = (int) (Math.random() * Y_SPEED + 3);
+						}
+					}else{
+						movementY = 0;
+					}
 					enemyShip.move(movementX, movementY);
 					enemyShip.update();
 				}
+
 		}
 	}
 
