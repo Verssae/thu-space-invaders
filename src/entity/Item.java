@@ -33,7 +33,7 @@ public class Item extends Entity {
 	 *            Speed of the bullet, positive or negative depending on
 	 *            direction - positive is down.
 	 */
-	public Item(final int positionX, final int positionY, final int speed) {
+	public Item(final int positionX, final int positionY, final int speed, final int itemType) {
 		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
 
 		this.speed = speed;
