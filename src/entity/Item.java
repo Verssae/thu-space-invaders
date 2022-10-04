@@ -17,6 +17,11 @@ public class Item extends Entity {
 	 */
 	private int speed;
 
+    /**
+	 * Type of item, 0 is heart, 1 is attack speed item.
+	 */
+    public int itemType;
+
 	/**
 	 * Constructor, establishes the item's properties.
 	 * 
