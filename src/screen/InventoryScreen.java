@@ -23,11 +23,9 @@ public class InventoryScreen extends Screen {
 	 * @param fps
 	 *            Frames per second, frame rate at which the game is run.
 	 */
-	public InventoryScreen(final int width, final int height, final int fps) {
+	public InventoryScreen(final int width, final int height, final int fps, final int retpos) {
 		super(width, height, fps);
-
-		// Defaults to play.
-		this.returnCode = 2;
+		this.returnCode=retpos;
 		this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
 		this.selectionCooldown.reset();
 	}
@@ -39,7 +37,6 @@ public class InventoryScreen extends Screen {
 	 */
 	public final int run() {
 		super.run();
-
 		return this.returnCode;
 	}
 
@@ -54,12 +51,6 @@ public class InventoryScreen extends Screen {
 				&& this.inputDelay.checkFinished()) {
 			if (inputManager.isKeyDown(KeyEvent.VK_UP)
 					|| inputManager.isKeyDown(KeyEvent.VK_W)) {
-				previousMenuItem();
-				this.selectionCooldown.reset();
-			}
-			if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
-					|| inputManager.isKeyDown(KeyEvent.VK_S)) {
-				nextMenuItem();
 				this.selectionCooldown.reset();
 			}
 			if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
@@ -67,39 +58,14 @@ public class InventoryScreen extends Screen {
 		}
 	}
 
-	/**
-	 * Shifts the focus to the next menu item.
-	 */
-	private void nextMenuItem() {
-		if (this.returnCode == 3)
-			this.returnCode = 0;
-		else if (this.returnCode == 0)
-			this.returnCode = 2;
-		else
-			this.returnCode++;
-	}
-
-	/**
-	 * Shifts the focus to the previous menu item.
-	 */
-	private void previousMenuItem() {
-		if (this.returnCode == 0)
-			this.returnCode = 3;
-		else if (this.returnCode == 2)
-			this.returnCode = 0;
-		else
-			this.returnCode--;
-	}
 
 	/**
 	 * Draws the elements associated with the screen.
 	 */
 	private void draw() {
 		drawManager.initDrawing(this);
-
-		drawManager.drawTitle(this);
-		drawManager.drawMenu(this, this.returnCode);
-
+		drawManager.drawshop(this);
+		//drawManager.drawshopmodal(this);
 		drawManager.completeDrawing(this);
 	}
 }

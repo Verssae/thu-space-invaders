@@ -6,6 +6,7 @@ import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -305,6 +306,8 @@ public final class DrawManager {
 	public void drawMenu(final Screen screen, final int option) {
 		String playString = "Play";
 		String highScoresString = "High scores";
+		//temporary, UI Team should implement this.
+		String sShop = "shop"; 
 		String exitString = "exit";
 
 		if (option == 2)
@@ -319,6 +322,12 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option==4)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, sShop, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 3);
 		if (option == 0)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
@@ -558,5 +567,20 @@ public final class DrawManager {
 		else
 			drawCenteredBigString(screen, "GO!", screen.getHeight() / 2
 					+ fontBigMetrics.getHeight() / 3);
+	}
+
+	public void drawshop(Screen screen)
+	{
+		int x=0, y=0;
+		x=backBuffer.getWidth()/2;
+		y=backBuffer.getHeight()/2;
+		backBufferGraphics.setFont(fontBig);
+		backBufferGraphics.setColor(Color.GREEN);	
+		for (Inventory.InventoryEntry entry : Inventory.inventory) {
+
+			backBufferGraphics.drawString(entry.item.name, x, y);
+			
+		}
+		backBufferGraphics.drawRect(0, 0, 0, 0);
 	}
 }

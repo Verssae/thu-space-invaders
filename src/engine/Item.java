@@ -11,9 +11,9 @@ public class Item {
     public int price;
     public boolean appliedp;
 
-    Item()
+    public Item(String pName)
     {
-
+        name=pName;
     }
 
     // wanted to implement via higher-order function(lambda)

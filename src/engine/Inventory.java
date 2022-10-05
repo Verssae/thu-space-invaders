@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 public class Inventory {
-    private class InventoryEntry {
+    public static class InventoryEntry {
         public Item item;
         public int quantaty;
 
