@@ -541,14 +541,11 @@ public final class DrawManager {
 	}
 
 
-
 	/**
 	 * Draws settings.
 	 *
 	 * @param screen
 	 *            Screen to draw on.
-	 * @param settings
-	 *            List of settings categories.
 	 */
 	// have to change
 	public void drawSettings(final Screen screen,
