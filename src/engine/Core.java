@@ -14,6 +14,7 @@ import screen.ScoreScreen;
 import screen.Screen;
 import screen.TitleScreen;
 import screen.SettingScreen;
+import screen.StoreScreen;
 
 /**
  * Implements core game logic.
