@@ -3,6 +3,7 @@ import java.awt.event.KeyEvent;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.DrawManager.shopmodaltype;
 
 //notimplementedexception
 public class InventoryScreen extends Screen {
@@ -65,7 +66,7 @@ public class InventoryScreen extends Screen {
 	private void draw() {
 		drawManager.initDrawing(this);
 		drawManager.drawshop(this);
-		//drawManager.drawshopmodal(this);
+		drawManager.drawshopmodal(this, "sss", shopmodaltype.SM_YESNO);
 		drawManager.completeDrawing(this);
 	}
 }

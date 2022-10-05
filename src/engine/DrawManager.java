@@ -574,13 +574,28 @@ public final class DrawManager {
 		int x=0, y=0;
 		x=backBuffer.getWidth()/2;
 		y=backBuffer.getHeight()/2;
-		backBufferGraphics.setFont(fontBig);
-		backBufferGraphics.setColor(Color.GREEN);	
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.drawRect(x, y, 100, 100);
 		for (Inventory.InventoryEntry entry : Inventory.inventory) {
 
 			backBufferGraphics.drawString(entry.item.name, x, y);
 			
 		}
-		backBufferGraphics.drawRect(0, 0, 0, 0);
+	
+	}
+
+	//like MessageBox
+	public enum shopmodaltype
+	{
+		SM_YESNO, SM_OK
+	}
+	public void drawshopmodal(Screen screen, String text, shopmodaltype mode)
+	{
+		int winw=backBuffer.getWidth()*8/10;
+		int winh=400;
+		backBufferGraphics.setColor(Color.CYAN);
+		backBufferGraphics.drawRect((backBuffer.getWidth()-winw)/2, (backBuffer.getHeight()-winh)/2, winw, winh);
+		
 	}
 }
