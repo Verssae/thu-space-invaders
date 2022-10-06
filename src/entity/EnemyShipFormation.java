@@ -271,6 +271,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				}
 				column.removeAll(destroyed);
 			}
+
 			for (List<EnemyShip> column : this.enemyShips)
 				for (EnemyShip enemyShip : column) {
 					if (!isAtBottom) {
@@ -278,11 +279,11 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 						movementY = 1;
 						if(randomPlace < enemyShips.size()) {
 							if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
-								movementY = (int) (Math.random() * Y_SPEED + 5);
+								movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 							}
 						}
 						if(enemyShips.get(enemyShips.size()-1) == column && column.get(column.size()-1) == enemyShip){
-							movementY = (int) (Math.random() * Y_SPEED + 3);
+							movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 						}
 					}
 					enemyShip.move(movementX, movementY);
@@ -348,8 +349,15 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
-			bullets.add(BulletPool.getBullet(shooter.getPositionX()
-					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+			if(Math.random()>0.7) {
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2));
+			}else{
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+			}
 		}
 	}
 
