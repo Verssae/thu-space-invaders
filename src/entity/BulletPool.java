@@ -35,7 +35,7 @@ public final class BulletPool {
 	 * @return Requested bullet.
 	 */
 	public static Bullet getBullet(final int positionX,
-			final int positionY, final int speed, final int move) {
+			final int positionY, int speed, int movingPattern) {
 		Bullet bullet;
 		if (!pool.isEmpty()) {
 			bullet = pool.iterator().next();
@@ -44,8 +44,9 @@ public final class BulletPool {
 			bullet.setPositionY(positionY);
 			bullet.setSpeed(speed);
 			bullet.setSprite();
+			bullet.setMovingPattern(movingPattern);
 		} else {
-			bullet = new Bullet(positionX, positionY, speed, move);
+			bullet = new Bullet(positionX, positionY, speed, movingPattern);
 			bullet.setPositionX(positionX - bullet.getWidth() / 2);
 		}
 		return bullet;
