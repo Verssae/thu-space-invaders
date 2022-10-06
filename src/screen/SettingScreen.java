@@ -2,6 +2,9 @@ package screen;
 
 import java.awt.event.KeyEvent;
 
+import engine.Cooldown;
+import engine.Core;
+
 
 /**
  * Implements the setting screen, it shows setting menu.
@@ -10,6 +13,13 @@ import java.awt.event.KeyEvent;
  *
  */
 public class SettingScreen extends Screen {
+
+
+    /** Milliseconds between changes in user selection. */
+    private static final int SELECTION_TIME = 200;
+
+    /** Time between changes in user selection. */
+    private Cooldown selectionCooldown;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -24,7 +34,10 @@ public class SettingScreen extends Screen {
     public SettingScreen(final int width, final int height, final int fps) {
         super(width, height, fps);
 
+        //defults to setting
         this.returnCode = 1;
+        this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
+        this.selectionCooldown.reset();
     }
 
     /**
@@ -45,17 +58,49 @@ public class SettingScreen extends Screen {
         super.update();
 
         draw();
-        if (inputManager.isKeyDown(KeyEvent.VK_SPACE)
-                && this.inputDelay.checkFinished())
-            this.isRunning = false;
+        if (this.selectionCooldown.checkFinished()
+                && this.inputDelay.checkFinished()) {
+            if (inputManager.isKeyDown(KeyEvent.VK_UP)
+                    || inputManager.isKeyDown(KeyEvent.VK_W)) {
+                previousMenuItem();
+                this.selectionCooldown.reset();
+            }
+            if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
+                    || inputManager.isKeyDown(KeyEvent.VK_S)) {
+                nextMenuItem();
+                this.selectionCooldown.reset();
+            }
+            if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+                this.isRunning = false;
+        }
     }
+
+    private void nextMenuItem(){
+        if(this.returnCode == 0)
+            this.returnCode = 1;
+        else if (this.returnCode == 1)
+            this.returnCode = 0;
+        else
+            this.returnCode++;
+    }
+
+    private void previousMenuItem(){
+        if(this.returnCode == 1)
+            this.returnCode = 0;
+        else if (this.returnCode == 0)
+            this.returnCode = 1;
+        else
+            this.returnCode--;
+    }
+
+
 
     /**
      * Draws the elements associated with the screen.
      */
     private void draw() {
         drawManager.initDrawing(this);
-        drawManager.drawSettingsMenu(this);
+        drawManager.drawSettingsMenu(this,this.returnCode);
         drawManager.completeDrawing(this);
     }
 }

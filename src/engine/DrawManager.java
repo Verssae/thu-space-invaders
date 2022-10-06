@@ -516,9 +516,11 @@ public final class DrawManager {
 	 * @param screen
 	 *            Screen to draw on.
 	 */
-	public void drawSettingsMenu(final Screen screen) {
+	public void drawSettingsMenu(final Screen screen, final int option) {
 		String settingsString = "Settings";
 		String instructionsString = "Press Space to Save Changes";
+		String InterfaceSettingString = "Interface";
+		String BackString = "Back";
 
 		backBufferGraphics.setColor(Color.GREEN);
 		drawCenteredBigString(screen, settingsString, screen.getHeight() / 8);
@@ -526,6 +528,25 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, instructionsString,
 				screen.getHeight() / 5);
+
+
+		// returnCode == 1 : Interface
+		if (option == 1)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, InterfaceSettingString,
+				screen.getHeight() / 3 * 2);
+
+		// returnCode == 0 : Back
+		if (option == 0)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, BackString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+
+
 	}
 
 	public void drawStoreMenu(final Screen screen) {
