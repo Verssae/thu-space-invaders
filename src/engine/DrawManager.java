@@ -615,9 +615,11 @@ public final class DrawManager {
 			}
 		}
 		//draw items
-
+		
 		//draw item info
 
+		//subtyping is dangerous, but use this!
+		//((ShopScreen)screen).selecteditem();
 		//draw cursor
 		//var tempship=new Ship(0, 0);
 		//drawEntity(tempship, x, y);
@@ -635,13 +637,19 @@ public final class DrawManager {
 	{
 		SM_YESNO, SM_OK
 	}
-	public void drawshopmodal(Screen screen, String text, shopmodaltype mode)
+	public void drawshopmodal(Screen screen, String title, String text, shopmodaltype mode, int modaloption)
 	{
 		int winw=backBuffer.getWidth()*8/10;
 		int winh=400;
+		int winxbase=(backBuffer.getWidth()-winw)/2;
+		int winybase=(backBuffer.getHeight()-winh)/2;
 		backBufferGraphics.setColor(Color.CYAN);
-		backBufferGraphics.drawRect((backBuffer.getWidth()-winw)/2, (backBuffer.getHeight()-winh)/2, winw, winh);
-		backBufferGraphics.fillRect((backBuffer.getWidth()-winw)/2, (backBuffer.getHeight()-winh)/2, winw, winh);
-		
+		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
+		backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredBigString(screen, title, winxbase+40);
+		drawCenteredBigString(screen, text, winxbase+150);
+		backBufferGraphics.drawString("YES", winxbase+50, winybase+270);
+		backBufferGraphics.drawString("NO", winxbase+winw-150, winybase+270);
 	}
 }

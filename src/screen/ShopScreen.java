@@ -1,9 +1,11 @@
 package screen;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.Item;
 import engine.DrawManager.shopmodaltype;
 
 //notimplementedexception
@@ -41,6 +43,7 @@ public class ShopScreen extends Screen {
 	 */
 	public final int run() {
 		this.state = shopstates.SHOP_INVEN;
+		viewing=new ArrayList<Item>();
 		super.run();
 		return this.returnCode;
 	}
@@ -55,6 +58,9 @@ public class ShopScreen extends Screen {
 	shopstates state;
 	int invrow = 0;
 	int invcol = 0;
+
+	shopmodaltype modaltype;
+	int modaloption;
 
 	protected final void update() {
 		super.update();
@@ -115,6 +121,22 @@ public class ShopScreen extends Screen {
 					this.isRunning = false;
 				break;
 			case SHOP_MODAL:
+			if (this.selectionCooldown.checkFinished()
+						&& this.inputDelay.checkFinished()) {
+					if (inputManager.isKeyDown(KeyEvent.VK_LEFT)
+							|| inputManager.isKeyDown(KeyEvent.VK_A)) {
+						this.selectionCooldown.reset();
+					} else if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
+							|| inputManager.isKeyDown(KeyEvent.VK_D)) {
+
+						this.selectionCooldown.reset();
+					}
+					else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+						//item selection!!
+						this.state=shopstates.SHOP_INVEN;
+						this.selectionCooldown.reset();
+					}
+				}
 				break;
 			case SHOP_FILTER:
 				break;
@@ -129,7 +151,7 @@ public class ShopScreen extends Screen {
 		drawManager.initDrawing(this);
 		drawManager.drawshop(this, invrow, invcol, this.state);
 		if (this.state == shopstates.SHOP_MODAL) {
-			drawManager.drawshopmodal(this, "sss", shopmodaltype.SM_YESNO);
+			drawManager.drawshopmodal(this, "HELLO", "BYE",  shopmodaltype.SM_YESNO, modaloption);
 		}
 
 		drawManager.completeDrawing(this);
@@ -137,5 +159,16 @@ public class ShopScreen extends Screen {
 
 	public boolean purchase(engine.Item item, int qty) {
 		return (engine.Coin.spend(item.price * qty) == -1) ? true : false;
+	}
+
+	static ArrayList<Item> viewing;
+	private void layoutitem()
+	{
+		engine.Item.itemregistry.size();
+	}
+
+	public engine.Item selecteditem()
+	{
+		return viewing.get(3*invrow+invcol);
 	}
 }
