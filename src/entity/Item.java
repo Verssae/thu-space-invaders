@@ -17,11 +17,6 @@ public class Item extends Entity {
 	 */
 	private int speed;
 
-    /**
-	 * Type of item, 0 is heart, 1 is attack speed item.
-	 */
-    public int itemType;
-
 	/**
 	 * Constructor, establishes the item's properties.
 	 * 
@@ -33,7 +28,7 @@ public class Item extends Entity {
 	 *            Speed of the bullet, positive or negative depending on
 	 *            direction - positive is down.
 	 */
-	public Item(final int positionX, final int positionY, final int speed, final int itemType) {
+	public Item(final int positionX, final int positionY, final int speed) {
 		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
 
 		this.speed = speed;
