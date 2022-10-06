@@ -277,13 +277,16 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					if (!isAtBottom) {
 						int randomPlace = (int) (Math.random() * column.size() - 1);
 						movementY = 1;
-						if(randomPlace < enemyShips.size()) {
-							if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+						if(Math.random()<0.70){
+							if(randomPlace < enemyShips.size()) {
+								if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+									movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
+								}
+							}
+						}else{
+							if(enemyShips.get(enemyShips.size()-1) == column && column.get(column.size()-1) == enemyShip){
 								movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 							}
-						}
-						if(enemyShips.get(enemyShips.size()-1) == column && column.get(column.size()-1) == enemyShip){
-							movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 						}
 					}
 					enemyShip.move(movementX, movementY);
