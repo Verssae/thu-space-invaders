@@ -14,6 +14,8 @@ import entity.EnemyShip;
 import entity.EnemyShipFormation;
 import entity.Entity;
 import entity.Ship;
+import entity.Item;
+import entity.ItemPool;
 
 /**
  * Implements the game screen, where the action happens.
@@ -56,6 +58,8 @@ public class GameScreen extends Screen {
 	private Cooldown screenFinishedCooldown;
 	/** Set of all bullets fired by on screen ships. */
 	private Set<Bullet> bullets;
+	/** Set of all items on screen. */
+	private Set<Item> items;
 	/** Current score. */
 	private int score;
 	/** Player lives left. */
@@ -265,6 +269,17 @@ public class GameScreen extends Screen {
 		BulletPool.recycle(recyclable);
 	}
 
+	private void cleanItems() {
+		Set<Item> recyclable = new HashSet<Item>();
+		for (Item item : this.items) {
+			item.update();
+			if (item.getPositionY() < SEPARATION_LINE_HEIGHT
+					|| item.getPositionY() > this.height)
+				recyclable.add(item);
+		}
+		this.items.removeAll(recyclable);
+		ItemPool.recycle(recyclable);
+	}
 	/**
 	 * Manages collisions between bullets and ships.
 	 */
