@@ -10,8 +10,10 @@ import java.util.logging.Logger;
 
 import screen.GameScreen;
 import screen.HighScoreScreen;
+import screen.InventoryScreen;
 import screen.ScoreScreen;
 import screen.Screen;
+import screen.ShopScreen;
 import screen.TitleScreen;
 
 /**
@@ -103,6 +105,10 @@ public final class Core {
 		int width = frame.getWidth();
 		int height = frame.getHeight();
 
+		Inventory.inventory=new ArrayList<Inventory.InventoryEntry>();
+		//test only
+		Inventory.inventory.add(new Inventory.InventoryEntry(new Item("testtest"), 1));
+
 		gameSettings = new ArrayList<GameSettings>();
 		gameSettings.add(SETTINGS_LEVEL_1);
 		gameSettings.add(SETTINGS_LEVEL_2);
@@ -171,6 +177,10 @@ public final class Core {
 						+ " high score screen at " + FPS + " fps.");
 				returnCode = frame.setScreen(currentScreen);
 				LOGGER.info("Closing high score screen.");
+				break;
+			case 4:
+				currentScreen = new InventoryScreen(width, height, FPS, 1);
+				returnCode=frame.setScreen(currentScreen);
 				break;
 			default:
 				break;
