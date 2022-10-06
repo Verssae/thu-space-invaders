@@ -56,6 +56,9 @@ public class SettingScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
         drawManager.drawSettingsMenu(this);
+        drawManager.drawSetting_screen(this, this.returnCode);
+        drawManager.drawSetting_sound(this, this.returnCode);
+        drawManager.drawSetting_bottom(this, this.returnCode);
         drawManager.completeDrawing(this);
     }
 }

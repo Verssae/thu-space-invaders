@@ -40,6 +40,7 @@ public final class DrawManager {
 	private static BufferedImage backBuffer;
 	/** Normal sized font. */
 	private static Font fontRegular;
+	private static Font fontRegular2;
 	/** Normal sized font properties. */
 	private static FontMetrics fontRegularMetrics;
 	/** Big sized font. */
@@ -107,6 +108,7 @@ public final class DrawManager {
 
 			// Font loading.
 			fontRegular = fileManager.loadFont(14f);
+			fontRegular2 = fileManager.loadFont(16f);
 			fontBig = fileManager.loadFont(24f);
 			logger.info("Finished loading the fonts.");
 
@@ -302,6 +304,71 @@ public final class DrawManager {
 	 * @param option
 	 *            Option selected.
 	 */
+	public void drawSetting_screen(final Screen screen, final int option) {
+		String screensizeString = "Screen Size";
+		String screensizesettingString = "Full Screen"; // 버튼으로 대체 예정이니까 Screen size 조절 담당하는 사람이 지우고 사용하면 됩니다.
+
+		// returnCode == 2 : screenSize
+		if (option == 2)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, screensizeString, screen.getHeight() / 3);
+	}
+
+	public void drawSetting_sound(final Screen screen, final int option) {
+		String mastersoundString = "Master Sound";
+		String effectsoundString = "Effect Sound";
+		String musicsoundString = "Music Sound";
+		String soundiconString = "- ■ % +"; // 버튼으로 대체 예정이니까 Sound 담당하는 사람이 지우고 사용하면 됩니다.
+		// returnCode == 2 : masterSound
+		if (option == 2)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, mastersoundString, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 3);
+
+		// returnCode == 3 : effectSound
+		if (option == 3)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, effectsoundString, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 5);
+
+		// returnCode == 0 : musicSound
+		if (option == 0)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, musicsoundString, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 7);
+	}
+
+	public void drawSetting_bottom(final Screen screen, final int option) {
+		String hudoptionString = "Hud Option";
+		String helpString = "Help";
+		String exitString = "Exit";
+		// returnCode == 2 : hudOption
+		if (option == 2)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, hudoptionString, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 10);
+
+		// returnCode == 3 : help
+		if (option == 3)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, helpString, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 12);
+
+		// returnCode == 0 : exit
+		if (option == 0)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 14);
+	}
+
 	public void drawMenu(final Screen screen, final int option) {
 		String playString = "Play";
 		String highScoresString = "High scores";
