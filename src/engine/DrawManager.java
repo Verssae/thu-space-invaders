@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import screen.Screen;
+import screen.ShopScreen;
+import screen.ShopScreen.shopstates;
 import entity.Entity;
 import entity.Ship;
 
@@ -589,18 +591,20 @@ public final class DrawManager {
 		//assumed grid size
 	}
 
-	public void drawshop(Screen screen, int curr, int curc)
+	public void drawshop(Screen screen, int curr, int curc, ShopScreen.shopstates state)
 	{
 		int x=0, y=0;
 		//draw top bar
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.drawString("RETURN", 0, 40);
+		if(state==shopstates.SHOP_RET) backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.drawString("RETURN", 10, 40);
+		backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredBigString(screen, "ShOp", 40);
 		backBufferGraphics.drawLine(0, 60, backBuffer.getWidth(), 60);
 		for ( int i = 0; i < 3; i++) {
 			for (int j = 0; j < 5; j++) {
-				if(curr==i&&curc==j)
+				if(curr==i&&curc==j&&state==shopstates.SHOP_INVEN)
 				{
 					backBufferGraphics.setColor(Color.GREEN);
 					backBufferGraphics.drawRect(getshopgridcoordx(i), getshopgridcoordy(j), 50, 50);
