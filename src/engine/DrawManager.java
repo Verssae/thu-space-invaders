@@ -308,6 +308,7 @@ public final class DrawManager {
 		String highScoresString = "High scores";
 		//temporary, UI Team should implement this.
 		String sShop = "shop"; 
+		String sInventory="INveNTorY";
 		String exitString = "exit";
 
 		if (option == 2)
@@ -328,6 +329,12 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, sShop, screen.getHeight()
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 3);
+		if (option==5)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+			drawCenteredRegularString(screen, sInventory, screen.getHeight()
+			/ 3 * 2 + fontRegularMetrics.getHeight() * 5);
 		if (option == 0)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
@@ -576,6 +583,8 @@ public final class DrawManager {
 		y=backBuffer.getHeight()/2;
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.GREEN);
+		var tempship=new Ship(0, 0);
+		drawEntity(tempship, x, y);
 		backBufferGraphics.drawRect(x, y, 100, 100);
 		for (Inventory.InventoryEntry entry : Inventory.inventory) {
 
