@@ -43,6 +43,7 @@ public final class DrawManager {
 	private static Font fontRegular2;
 	/** Normal sized font properties. */
 	private static FontMetrics fontRegularMetrics;
+	private static FontMetrics fontRegular2Metrics;
 	/** Big sized font. */
 	private static Font fontBig;
 	/** Big sized font properties. */
@@ -108,7 +109,7 @@ public final class DrawManager {
 
 			// Font loading.
 			fontRegular = fileManager.loadFont(14f);
-			fontRegular2 = fileManager.loadFont(16f);
+			fontRegular2 = fileManager.loadFont(18f);
 			fontBig = fileManager.loadFont(24f);
 			logger.info("Finished loading the fonts.");
 
@@ -159,6 +160,7 @@ public final class DrawManager {
 				.fillRect(0, 0, screen.getWidth(), screen.getHeight());
 
 		fontRegularMetrics = backBufferGraphics.getFontMetrics(fontRegular);
+		fontRegular2Metrics = backBufferGraphics.getFontMetrics(fontRegular2);
 		fontBigMetrics = backBufferGraphics.getFontMetrics(fontBig);
 
 		// drawBorders(screen);
@@ -304,43 +306,81 @@ public final class DrawManager {
 	 * @param option
 	 *            Option selected.
 	 */
+
+	public void drawSettingsMenu(final Screen screen) {
+		String settingsString = "Settings";
+		String instructionsString = "Press Space to Save Changes";
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, settingsString, screen.getHeight() / 8);
+
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, instructionsString, screen.getHeight() / 5);
+	}
+
 	public void drawSetting_screen(final Screen screen, final int option) {
 		String screensizeString = "Screen Size";
-		String screensizesettingString = "Full Screen"; // 버튼으로 대체 예정이니까 Screen size 조절 담당하는 사람이 지우고 사용하면 됩니다.
+		String screensizesettingString = "SCREEN"; // 스크린조절로 대체 예정이니까 Screen size 조절 담당하는 사람이 지우고 사용하면 됩니다.
 
 		// returnCode == 2 : screenSize
 		if (option == 2)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, screensizeString, screen.getHeight() / 3);
+		drawLeftRegular2String(screen, screensizeString, screen.getHeight() / 3);
+
+		// returnCode == 3 : screenSizeSetting
+		if (option == 3)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawRightRegular2String(screen, screensizesettingString, screen.getHeight() / 3);
 	}
 
 	public void drawSetting_sound(final Screen screen, final int option) {
 		String mastersoundString = "Master Sound";
 		String effectsoundString = "Effect Sound";
 		String musicsoundString = "Music Sound";
-		String soundiconString = "- ■ % +"; // 버튼으로 대체 예정이니까 Sound 담당하는 사람이 지우고 사용하면 됩니다.
+		String soundiconString = "SCROLL"; // 스크롤로 대체 예정이니까 Sound 담당하는 사람이 지우고 사용하면 됩니다.
 		// returnCode == 2 : masterSound
 		if (option == 2)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, mastersoundString, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 3);
+		drawLeftRegular2String(screen, mastersoundString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 3);
+
+		// 추후 수정
+		if (option == 4)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawRightRegular2String(screen, soundiconString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 3);
 
 		// returnCode == 3 : effectSound
 		if (option == 3)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, effectsoundString, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 5);
+		drawLeftRegular2String(screen, effectsoundString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 5);
+
+		if (option == 4)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawRightRegular2String(screen, soundiconString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 5);
 
 		// returnCode == 0 : musicSound
 		if (option == 0)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, musicsoundString, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 7);
+		drawLeftRegular2String(screen, musicsoundString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 7);
+
+		if (option == 4)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawRightRegular2String(screen, soundiconString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 7);
 	}
 
 	public void drawSetting_bottom(final Screen screen, final int option) {
@@ -352,21 +392,21 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, hudoptionString, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 10);
+		drawCenteredRegular2String(screen, hudoptionString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 10);
 
 		// returnCode == 3 : help
 		if (option == 3)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, helpString, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 12);
+		drawCenteredRegular2String(screen, helpString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 12);
 
 		// returnCode == 0 : exit
 		if (option == 0)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 14);
+		drawCenteredRegular2String(screen, exitString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 14);
 	}
 
 	public void drawMenu(final Screen screen, final int option) {
@@ -583,17 +623,6 @@ public final class DrawManager {
 	 * @param screen
 	 *            Screen to draw on.
 	 */
-	public void drawSettingsMenu(final Screen screen) {
-		String settingsString = "Settings";
-		String instructionsString = "Press Space to Save Changes";
-
-		backBufferGraphics.setColor(Color.GREEN);
-		drawCenteredBigString(screen, settingsString, screen.getHeight() / 8);
-
-		backBufferGraphics.setColor(Color.GRAY);
-		drawCenteredRegularString(screen, instructionsString,
-				screen.getHeight() / 5);
-	}
 
 	public void drawStoreMenu(final Screen screen) {
 		String storeString = "Store";
@@ -603,8 +632,7 @@ public final class DrawManager {
 		drawCenteredBigString(screen, storeString, screen.getHeight() / 8);
 
 		backBufferGraphics.setColor(Color.GRAY);
-		drawCenteredRegularString(screen, instructionsString,
-				screen.getHeight() / 5);
+		drawCenteredRegularString(screen, instructionsString, screen.getHeight() / 5);
 	}
 
 
@@ -635,11 +663,28 @@ public final class DrawManager {
 	 * @param height
 	 *            Height of the drawing.
 	 */
+	public void drawCenteredRegular2String(final Screen screen,
+										  final String string, final int height) {
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(string, screen.getWidth() / 2 - fontRegular2Metrics.stringWidth(string) / 2, height);
+	}
+
 	public void drawCenteredRegularString(final Screen screen,
 			final String string, final int height) {
 		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.drawString(string, screen.getWidth() / 2
-				- fontRegularMetrics.stringWidth(string) / 2, height);
+		backBufferGraphics.drawString(string, screen.getWidth() / 2 - fontRegularMetrics.stringWidth(string) / 2, height);
+	}
+
+	public void drawLeftRegular2String(final Screen screen,
+									   final String string, final int height) {
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(string, screen.getWidth() / 4 - fontRegular2Metrics.stringWidth(string) / 2, height);
+	}
+
+	public void drawRightRegular2String(final Screen screen,
+									   final String string, final int height) {
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(string, screen.getWidth() / 4 + fontRegular2Metrics.stringWidth(string) * 2, height);
 	}
 
 	/**
@@ -655,8 +700,7 @@ public final class DrawManager {
 	public void drawCenteredBigString(final Screen screen, final String string,
 			final int height) {
 		backBufferGraphics.setFont(fontBig);
-		backBufferGraphics.drawString(string, screen.getWidth() / 2
-				- fontBigMetrics.stringWidth(string) / 2, height);
+		backBufferGraphics.drawString(string, screen.getWidth() / 2 - fontBigMetrics.stringWidth(string) / 2, height);
 	}
 
 	/**
