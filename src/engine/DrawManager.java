@@ -576,16 +576,48 @@ public final class DrawManager {
 					+ fontBigMetrics.getHeight() / 3);
 	}
 
-	public void drawshop(Screen screen)
+	public int getshopgridcoordx(int c)
+	{
+		int leftbuf=(backBuffer.getWidth()-(50*5+30*4))/2;
+		return leftbuf+80*c;
+		//assumed grid size
+	}
+	public int getshopgridcoordy(int r)
+	{
+		int shopgridbaseheight = backBuffer.getHeight()*20/100;
+		return shopgridbaseheight+80*r;
+		//assumed grid size
+	}
+
+	public void drawshop(Screen screen, int curr, int curc)
 	{
 		int x=0, y=0;
-		x=backBuffer.getWidth()/2;
-		y=backBuffer.getHeight()/2;
+		//draw top bar
 		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.GREEN);
-		var tempship=new Ship(0, 0);
-		drawEntity(tempship, x, y);
-		backBufferGraphics.drawRect(x, y, 100, 100);
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.drawString("RETURN", 0, 40);
+		drawCenteredBigString(screen, "ShOp", 40);
+		backBufferGraphics.drawLine(0, 60, backBuffer.getWidth(), 60);
+		for ( int i = 0; i < 3; i++) {
+			for (int j = 0; j < 5; j++) {
+				if(curr==i&&curc==j)
+				{
+					backBufferGraphics.setColor(Color.GREEN);
+					backBufferGraphics.drawRect(getshopgridcoordx(i), getshopgridcoordy(j), 50, 50);
+					backBufferGraphics.setColor(Color.WHITE);
+					continue;
+				}
+				backBufferGraphics.drawRect(getshopgridcoordx(i), getshopgridcoordy(j), 50, 50);
+			}
+		}
+		//draw items
+
+		//draw item info
+
+		//draw cursor
+		//var tempship=new Ship(0, 0);
+		//drawEntity(tempship, x, y);
+		//backBufferGraphics.drawRect(x, y, 100, 100);
 		for (Inventory.InventoryEntry entry : Inventory.inventory) {
 
 			backBufferGraphics.drawString(entry.item.name, x, y);
@@ -605,6 +637,7 @@ public final class DrawManager {
 		int winh=400;
 		backBufferGraphics.setColor(Color.CYAN);
 		backBufferGraphics.drawRect((backBuffer.getWidth()-winw)/2, (backBuffer.getHeight()-winh)/2, winw, winh);
+		backBufferGraphics.fillRect((backBuffer.getWidth()-winw)/2, (backBuffer.getHeight()-winh)/2, winw, winh);
 		
 	}
 }

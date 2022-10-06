@@ -1,8 +1,78 @@
 package screen;
+import java.awt.event.KeyEvent;
 
-public class ShopScreen {
+import engine.Cooldown;
+import engine.Core;
+import engine.DrawManager.shopmodaltype;
 
-    public boolean purchase(engine.Item item, int qty) {
+//notimplementedexception
+public class ShopScreen extends Screen {
+
+	/** Milliseconds between changes in user selection. */
+	private static final int SELECTION_TIME = 200;
+	
+	/** Time between changes in user selection. */
+	private Cooldown selectionCooldown;
+
+	private boolean modalp; 
+
+	/**
+	 * Constructor, establishes the properties of the screen.
+	 * 
+	 * @param width
+	 *            Screen width.
+	 * @param height
+	 *            Screen height.
+	 * @param fps
+	 *            Frames per second, frame rate at which the game is run.
+	 */
+	public ShopScreen(final int width, final int height, final int fps, final int retpos) {
+		super(width, height, fps);
+		this.returnCode=retpos;
+		this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
+		this.selectionCooldown.reset();
+	}
+
+	/**
+	 * Starts the action.
+	 * 
+	 * @return Next screen code.
+	 */
+	public final int run() {
+		super.run();
+		return this.returnCode;
+	}
+
+	/**
+	 * Updates the elements on screen and checks for events.
+	 */
+	protected final void update() {
+		super.update();
+
+		draw();
+		if (this.selectionCooldown.checkFinished()
+				&& this.inputDelay.checkFinished()) {
+			if (inputManager.isKeyDown(KeyEvent.VK_UP)
+					|| inputManager.isKeyDown(KeyEvent.VK_W)) {
+				this.selectionCooldown.reset();
+			}
+			if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+				this.isRunning = false;
+		}
+	}
+
+
+	/**
+	 * Draws the elements associated with the screen.
+	 */
+	private void draw() {
+		drawManager.initDrawing(this);
+		drawManager.drawshop(this, 0, 0);
+		//drawManager.drawshopmodal(this, "sss", shopmodaltype.SM_YESNO);
+		drawManager.completeDrawing(this);
+	}
+	
+	public boolean purchase(engine.Item item, int qty) {
         return (engine.Coin.spend(item.price*qty) == -1) ? true : false;
     }
 }

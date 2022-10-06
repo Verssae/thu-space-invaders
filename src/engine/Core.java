@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 import screen.GameScreen;
 import screen.HighScoreScreen;
-import screen.InventoryScreen;
+import screen.ShopScreen;
 import screen.ScoreScreen;
 import screen.Screen;
 import screen.ShopScreen;
@@ -179,7 +179,7 @@ public final class Core {
 				LOGGER.info("Closing high score screen.");
 				break;
 			case 4:
-				currentScreen = new InventoryScreen(width, height, FPS, 1);
+				currentScreen = new ShopScreen(width, height, FPS, 1);
 				returnCode=frame.setScreen(currentScreen);
 				break;
 			default:
