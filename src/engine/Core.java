@@ -73,6 +73,7 @@ public final class Core {
 	private static ConsoleHandler consoleHandler;
 
 
+
 	/**
 	 * Test implementation.
 	 * 
@@ -130,6 +131,7 @@ public final class Core {
 			case 2:
 				// Game & score.
 				do {
+					new Sound();
 					// One extra live every few levels.
 					boolean bonusLife = gameState.getLevel()
 							% EXTRA_LIFE_FRECUENCY == 0
@@ -182,6 +184,8 @@ public final class Core {
 		fileHandler.close();
 		System.exit(0);
 	}
+
+
 
 	/**
 	 * Constructor, not called.
