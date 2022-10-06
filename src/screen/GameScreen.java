@@ -3,7 +3,6 @@ package screen;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
-
 import engine.Cooldown;
 import engine.Core;
 import engine.GameSettings;
@@ -94,14 +93,7 @@ public class GameScreen extends Screen {
 	 */
 	private Set<Bullet> bullets;
 
-	/**
-	 * Current score.
-	 */
-
-	/** Set of all items on screen. */
-	private Set<Item> items;
 	/** Current score. */
-
 	private int score;
 	/**
 	 * Player lives left.
@@ -127,12 +119,14 @@ public class GameScreen extends Screen {
 	 * Checks if a bonus life is received.
 	 */
 	private boolean bonusLife;
-
-	private Ship ship_;
 	/**
 	 * ship
+	 */	
+	private Ship ship_;
+	/**
+	 * Set of all items dropped by on screen enemyships.
 	 */
-	private Set<Item> items; /** Set of all items dropped by on screen enemyships. */
+	private Set<Item> items; 
 
 
 	/**
@@ -382,7 +376,7 @@ public class GameScreen extends Screen {
 		Set<Item> recyclable = new HashSet<Item>(); //ItemPool
 		for (Item item : this.items) {
 			if (item.getSpeed() > 0) {
-				if (checkCollisionItem(item, this.ship) && !this.levelFinished) {
+				if (checkCollision(item, this.ship) && !this.levelFinished) {
 					recyclable.add(item);
 
 
@@ -408,7 +402,7 @@ public class GameScreen extends Screen {
 		 * Checks if two entities are colliding.
 		 *
 		 * @param a
-		 *            First entity, the bullet.
+		 *            First entity, the bullet or item.
 		 * @param b
 		 *            Second entity, the ship.
 		 * @return Result of the collision test.
@@ -429,30 +423,6 @@ public class GameScreen extends Screen {
 			return distanceX < maxDistanceX && distanceY < maxDistanceY;
 		}
 
-		/**
-		 * Checks if two entities are colliding.
-		 *
-		 * @param a
-		 *            First entity, the item.
-		 * @param b
-		 *            Second entity, the ship.
-		 * @return Result of the collision test.
-		 */
-		private boolean checkCollisionItem ( final Entity a, final Entity b){
-			// Calculate center point of the entities in both axis.
-			int centerAX = a.getPositionX() + a.getWidth() / 2;
-			int centerAY = a.getPositionY() + a.getHeight() / 2;
-			int centerBX = b.getPositionX() + b.getWidth() / 2;
-			int centerBY = b.getPositionY() + b.getHeight() / 2;
-			// Calculate maximum distance without collision.
-			int maxDistanceX = a.getWidth() / 2 + b.getWidth() / 2;
-			int maxDistanceY = a.getHeight() / 2 + b.getHeight() / 2;
-			// Calculates distance.
-			int distanceX = Math.abs(centerAX - centerBX);
-			int distanceY = Math.abs(centerAY - centerBY);
-
-			return distanceX < maxDistanceX && distanceY < maxDistanceY;
-		}
 
 		/**
 		 * Returns a GameState object representing the status of the game.
