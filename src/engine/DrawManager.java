@@ -318,97 +318,6 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, instructionsString, screen.getHeight() / 5);
 	}
 
-	public void drawSetting_screen(final Screen screen, final int option) {
-		String screensizeString = "Screen Size";
-		String screensizesettingString = "SCREEN"; // 스크린조절로 대체 예정이니까 Screen size 조절 담당하는 사람이 지우고 사용하면 됩니다.
-
-		// returnCode == 2 : screenSize
-		if (option == 2)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawLeftRegular2String(screen, screensizeString, screen.getHeight() / 3 );
-
-		// returnCode == 3 : screenSizeSetting
-		if (option == 3)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawRightRegular2String(screen, screensizesettingString, screen.getHeight() / 3);
-	}
-
-	public void drawSetting_sound(final Screen screen, final int option) {
-		String mastersoundString = "Master Sound";
-		String effectsoundString = "Effect Sound";
-		String musicsoundString = "Music Sound";
-		String soundiconString = "SCROLL"; // 스크롤로 대체 예정이니까 Sound 담당하는 사람이 지우고 사용하면 됩니다.
-		// returnCode == 2 : masterSound
-		if (option == 2)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawLeftRegular2String(screen, mastersoundString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 2);
-
-		// 추후 수정
-		if (option == 4)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawRightRegular2String(screen, soundiconString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 2);
-
-		// returnCode == 3 : effectSound
-		if (option == 3)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawLeftRegular2String(screen, musicsoundString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
-
-		if (option == 4)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawRightRegular2String(screen, soundiconString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
-
-		// returnCode == 0 : musicSound
-		if (option == 0)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawLeftRegular2String(screen, effectsoundString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 6);
-
-		if (option == 4)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawRightRegular2String(screen, soundiconString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 6);
-	}
-
-	public void drawSetting_bottom(final Screen screen, final int option) {
-		String hudoptionString = "Hud Option";
-		String helpString = "Help";
-		String exitString = "Exit";
-		// returnCode == 2 : hudOption
-		if (option == 2)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegular2String(screen, hudoptionString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 9);
-
-		// returnCode == 3 : help
-		if (option == 3)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegular2String(screen, helpString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 11);
-
-		// returnCode == 0 : exit
-		if (option == 0)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegular2String(screen, exitString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 13);
-	}
-
 	public void drawMenu(final Screen screen, final int option) {
 		String playString = "Play";
 		String highScoresString = "High scores";
@@ -455,6 +364,97 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
 				* 2 + fontRegularMetrics.getHeight() * 4);
+	}
+
+	public void drawSettingItems(final Screen screen, final int option) {
+
+		String screensizeString = "Screen Size";
+		String screensizesettingString = "SCREEN"; // 스크린조절로 대체 예정이니까 Screen size 조절 담당하는 사람이 지우고 사용하면 됩니다.
+		String mastersoundString = "Master Sound";
+		String musicsoundString = "Music Sound";
+		String effectsoundString = "Effect Sound";
+		String soundiconString = "SCROLL"; // 스크롤로 대체 예정이니까 Sound 담당하는 사람이 지우고 사용하면 됩니다.
+		String hudoptionString = "Hud Option";
+		String helpString = "Help";
+		String exitString = "Exit";
+
+
+		// returnCode == 1 : screenSize
+		if (option == 1)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawLeftRegular2String(screen, screensizeString, screen.getHeight() / 3 );
+
+		// returnCode == 2 : screenSizeSetting
+		if (option == 2)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawRightRegular2String(screen, screensizesettingString, screen.getHeight() / 3);
+
+		// returnCode == 3 : masterSound
+		if (option == 3)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawLeftRegular2String(screen, mastersoundString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 2);
+
+		// 추후 수정
+		if (option == 4)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawRightRegular2String(screen, soundiconString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 2);
+
+		// returnCode == 5 : musicSound
+		if (option == 5)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawLeftRegular2String(screen, musicsoundString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
+
+		// 추후 수정
+		if (option == 6)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawRightRegular2String(screen, soundiconString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
+
+		// returnCode == 7 : effectSound
+		if (option == 7)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawLeftRegular2String(screen, effectsoundString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 6);
+
+		// 추후 수정
+		if (option == 8)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawRightRegular2String(screen, soundiconString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 6);
+
+		// returnCode == 9 : hudOption
+		if (option == 9)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegular2String(screen, hudoptionString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 9);
+
+		// returnCode == 10 : help
+		if (option == 10)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegular2String(screen, helpString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 11);
+
+		// returnCode == 0 : exit
+		if (option == 0)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegular2String(screen, exitString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 13);
 	}
 
 	/**
