@@ -12,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 
 import screen.Screen;
 import entity.Entity;
@@ -610,6 +611,21 @@ public final class DrawManager {
 				backBufferGraphics.drawRect(getshopgridcoordx(i), getshopgridcoordy(j), 50, 50);
 			}
 		}
+
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.drawRect(270, 99, 140, 370);
+
+		ArrayList info = new ArrayList();
+		info.add(0, "HP : 500");
+		info.add(1, "DAMAGE : 100");
+		info.add(2, "SPEED : 50");
+
+		for (int i = 0; i < 3; i++) {
+			backBufferGraphics.setColor((Color.WHITE));
+			backBufferGraphics.setFont(fontSmall);
+			backBufferGraphics.drawString((String) info.get(i), 285, i * 25 + 124);
+		}
+
 		//draw items
 
 		//draw item info
