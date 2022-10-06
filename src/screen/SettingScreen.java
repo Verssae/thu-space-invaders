@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 
 import engine.Cooldown;
 import engine.Core;
-
+import engine.DrawManager;
 
 /**
  * Implements the setting screen, it shows setting menu.
@@ -14,6 +14,7 @@ import engine.Core;
  */
 public class SettingScreen extends Screen {
 
+    int optioncode;
 
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
@@ -33,9 +34,9 @@ public class SettingScreen extends Screen {
      */
     public SettingScreen(final int width, final int height, final int fps) {
         super(width, height, fps);
-
-        //defults to setting
         this.returnCode = 1;
+        //defults to setting
+        optioncode = 1;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
     }
@@ -70,27 +71,45 @@ public class SettingScreen extends Screen {
                 nextMenuItem();
                 this.selectionCooldown.reset();
             }
-            if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+            if (inputManager.isKeyDown(KeyEvent.VK_SPACE) && optioncode == 0)
+                this.isRunning = false;
+            if (inputManager.isKeyDown(KeyEvent.VK_SPACE) && optioncode == 11)
+                this.isRunning = false;
+            if (inputManager.isKeyDown(KeyEvent.VK_SPACE) && optioncode == 12)
+                this.isRunning = false;
+            if (inputManager.isKeyDown(KeyEvent.VK_SPACE) && optioncode == 13)
                 this.isRunning = false;
         }
     }
 
     private void nextMenuItem(){
-        if(this.returnCode == 0)
-            this.returnCode = 1;
-        else if (this.returnCode == 1)
-            this.returnCode = 0;
+        if(optioncode == 0)
+            optioncode = 1;
+        else if (optioncode == 1)
+            optioncode = 11;
+        else if(optioncode == 11)
+            optioncode = 12;
+        else if(optioncode == 12)
+            optioncode = 13;
+        else if(optioncode == 13)
+            optioncode = 0;
         else
-            this.returnCode++;
+            optioncode++;
     }
 
     private void previousMenuItem(){
-        if(this.returnCode == 1)
-            this.returnCode = 0;
-        else if (this.returnCode == 0)
-            this.returnCode = 1;
+        if(optioncode == 1)
+            optioncode = 0;
+        else if (optioncode == 0)
+            optioncode = 13;
+        else if(optioncode == 13)
+            optioncode = 12;
+        else if(optioncode == 12)
+            optioncode = 11;
+        else if(optioncode == 11)
+            optioncode = 1;
         else
-            this.returnCode--;
+            optioncode--;
     }
 
 
@@ -100,7 +119,11 @@ public class SettingScreen extends Screen {
      */
     private void draw() {
         drawManager.initDrawing(this);
-        drawManager.drawSettingsMenu(this,this.returnCode);
+
+        drawManager.drawSettingsMenu(this);
+        drawManager.drawSettings(this, optioncode);
+
         drawManager.completeDrawing(this);
     }
+
 }

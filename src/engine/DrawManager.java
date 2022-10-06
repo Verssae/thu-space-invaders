@@ -516,11 +516,9 @@ public final class DrawManager {
 	 * @param screen
 	 *            Screen to draw on.
 	 */
-	public void drawSettingsMenu(final Screen screen, final int option) {
+	public void drawSettingsMenu(final Screen screen) {
 		String settingsString = "Settings";
 		String instructionsString = "Press Space to Save Changes";
-		String InterfaceSettingString = "Interface";
-		String BackString = "Back";
 
 		backBufferGraphics.setColor(Color.GREEN);
 		drawCenteredBigString(screen, settingsString, screen.getHeight() / 8);
@@ -528,23 +526,6 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, instructionsString,
 				screen.getHeight() / 5);
-
-
-		// returnCode == 1 : Interface
-		if (option == 1)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, InterfaceSettingString,
-				screen.getHeight() / 3 * 2);
-
-		// returnCode == 0 : Back
-		if (option == 0)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, BackString,
-				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
 
 
 	}
@@ -561,7 +542,6 @@ public final class DrawManager {
 				screen.getHeight() / 5);
 	}
 
-
 	/**
 	 * Draws settings.
 	 *
@@ -569,8 +549,49 @@ public final class DrawManager {
 	 *            Screen to draw on.
 	 */
 	// have to change
-	public void drawSettings(final Screen screen,
-							   final List<Score> highScores) {
+	public void drawSettings(final Screen screen, final int option) {
+		String InterfaceSettingString = "Interface: ";
+		String option1String = "Green";
+		String option2String = "Red";
+		String option3String = "Blue";
+		String BackString = "Back";
+
+		// returnCode == 1 : Interface
+		if (option == 1)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, InterfaceSettingString,
+				screen.getHeight() / 3 * 2);
+
+		if (option == 11)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, option1String,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() + 5);
+
+		if (option == 12)
+			backBufferGraphics.setColor(Color.RED);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, option2String,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() + 20);
+
+		if (option == 13)
+			backBufferGraphics.setColor(Color.BLUE);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, option3String,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() + 35);
+
+		// returnCode == 0 : Back
+		if (option == 0)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, BackString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 6);
 
 	}
 
