@@ -3,6 +3,7 @@ package entity;
 import java.awt.Color;
 
 import engine.DrawManager.SpriteType;
+import engine.GameState;
 
 /**
  * Implements a bullet that moves vertically up or down.
