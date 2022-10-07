@@ -170,7 +170,7 @@ public class SettingScreen extends Screen {
     private void nextScreenMenuChange() {
         int num_changes = 3;
 
-        if (this.returnCode == 40020 || this.returnCode == 40030 || this.returnCode == 40040)
+        if (this.returnCode == 400020 || this.returnCode == 400030 || this.returnCode == 400040)
             num_changes = 5;
 
         if (this.Screenchange == num_changes)
