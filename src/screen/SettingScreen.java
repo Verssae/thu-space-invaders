@@ -30,7 +30,7 @@ public class SettingScreen extends Screen {
     public SettingScreen(final int width, final int height, final int fps) {
         super(width, height, fps);
 
-        this.returnCode = 1;
+        this.returnCode = 400010;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
     }
@@ -76,31 +76,31 @@ public class SettingScreen extends Screen {
      */
     private void nextItem() {
         // returnCode
-        // 1 = Screen Size
+        // 400001 = Screen Size
         // 2 = ScreenSizeSetting
-        // 3 = Master sound
+        // 400002 = Master sound
         // 4 = soundicon
-        // 5 = Music sound
+        // 400003 = Music sound
         // 6 = soundicon
-        // 7 = Effect sound
+        // 400004 = Effect sound
         // 8 = soundicon
-        // 9 = hudOptions
-        // 10 = help
-        // 0 = exit
-        if (this.returnCode == 1)
-            this.returnCode = 3;
-        else if (this.returnCode == 3)
-            this.returnCode = 5;
-        else if (this.returnCode == 5)
-            this.returnCode = 7;
-        else if (this.returnCode == 7)
-            this.returnCode = 9;
-        else if (this.returnCode == 9)
-            this.returnCode = 10;
-        else if (this.returnCode == 10)
-            this.returnCode = 0;
-        else if (this.returnCode == 0)
+        // 400005 = hudOptions
+        // 400006 = help
+        // 1 = exit
+        if (this.returnCode == 400010)
+            this.returnCode = 400020;
+        else if (this.returnCode == 400020)
+            this.returnCode = 400030;
+        else if (this.returnCode == 400030)
+            this.returnCode = 400040;
+        else if (this.returnCode == 400040)
+            this.returnCode = 400050;
+        else if (this.returnCode == 400050)
+            this.returnCode = 400060;
+        else if (this.returnCode == 400060)
             this.returnCode = 1;
+        else if (this.returnCode == 1)
+            this.returnCode = 400010;
     }
 
     /**
@@ -108,32 +108,30 @@ public class SettingScreen extends Screen {
      */
     private void previousItem() {
         // returnCode
-        // 1 = Screen Size
-        // 2 = ScreenSizeSetting
-        // 3 = Master sound
-        // 4 = soundicon
-        // 5 = Music sound
-        // 6 = soundicon
-        // 7 = Effect sound
-        // 8 = soundicon
-        // 9 = hudOptions
-        // 10 = help
-        // 0 = exit
-        if (this.returnCode == 0)
-            this.returnCode = 10;
-        else if (this.returnCode == 10)
-            this.returnCode = 9;
-        else if (this.returnCode == 9)
-            this.returnCode = 7;
-        else if (this.returnCode == 7)
-            this.returnCode = 5;
-        else if (this.returnCode == 5)
-            this.returnCode = 3;
-        else if (this.returnCode == 3)
+        // 400010 = Screen Size
+        // 400020 = Master sound
+        // 400030 = Music sound
+        // 400040 = Effect sound
+        // 400050 = hudOptions
+        // 400060 = help
+        // 1 = exit
+        if (this.returnCode == 1)
+            this.returnCode = 400060;
+        else if (this.returnCode == 400060)
+            this.returnCode = 400050;
+        else if (this.returnCode == 400050)
+            this.returnCode = 400040;
+        else if (this.returnCode == 400040)
+            this.returnCode = 400030;
+        else if (this.returnCode == 400030)
+            this.returnCode = 400020;
+        else if (this.returnCode == 400020)
+            this.returnCode = 400010;
+        else if (this.returnCode == 400010)
             this.returnCode = 1;
-        else if (this.returnCode == 1)
-            this.returnCode = 0;
     }
+
+
 
     /**
      * Draws the elements associated with the screen.

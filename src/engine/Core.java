@@ -8,13 +8,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import screen.GameScreen;
-import screen.HighScoreScreen;
-import screen.ScoreScreen;
-import screen.Screen;
-import screen.TitleScreen;
-import screen.SettingScreen;
-import screen.StoreScreen;
+import screen.*;
 
 /**
  * Implements core game logic.
@@ -190,6 +184,24 @@ public final class Core {
 				returnCode = frame.setScreen(currentScreen);
 				LOGGER.info("Closing store screen.");
 				break;
+				/**
+			case 400050:
+				//HUDSettingScreen.
+				currentScreen = new HUDSettingScreen(width, height, FPS);
+				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+						+ " HUDSetting screen at " + FPS + " fps.");
+				returnCode = frame.setScreen(currentScreen);
+				LOGGER.info("Closing HUDSetting screen.");
+				break;
+			case 400060:
+				//HelpScreen.
+				currentScreen = new HelpScreen(width, height, FPS);
+				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+						+ " Help screen at " + FPS + " fps.");
+				returnCode = frame.setScreen(currentScreen);
+				LOGGER.info("Closing Help screen.");
+				break;
+				 */
 			default:
 				break;
 			}
