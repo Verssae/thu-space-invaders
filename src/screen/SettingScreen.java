@@ -109,32 +109,27 @@ public class SettingScreen extends Screen {
      */
     private void nextItem() {
         // returnCode
-        // 400001 = Screen Size
-        // 2 = ScreenSizeSetting
-        // 400002 = Master sound
-        // 4 = soundicon
-        // 400003 = Music sound
-        // 6 = soundicon
-        // 400004 = Effect sound
-        // 8 = soundicon
-        // 400005 = hudOptions
-        // 400006 = help
+        // 400010 = Screen Size
+        // 400020 = Master sound
+        // 400030 = Music sound
+        // 400040 = Effect sound
+        // 400050 = HUD Options
+        // 400060 = help
         // 1 = exit
         if (this.returnCode == 400010)
             this.returnCode = 400020;
         else if (this.returnCode == 400020)
             this.returnCode = 400030;
-        else if (this.returnCode == 400030) {
+        else if (this.returnCode == 400030)
+            this.returnCode = 400040;
+        else if (this.returnCode == 400040)
+            this.returnCode = 400050;
+        else if (this.returnCode == 400050)
             this.returnCode = 400060;
-        } else if (this.returnCode == 400040) {
-            this.returnCode = 400060;
-        } else if (this.returnCode == 400050) {
-            this.returnCode = 400060;
-        } else if (this.returnCode == 400060) {
+        else if (this.returnCode == 400060)
             this.returnCode = 1;
-        } else if (this.returnCode == 1) {
+        else if (this.returnCode == 1)
             this.returnCode = 400010;
-        }
     }
 
     /**
@@ -146,38 +141,23 @@ public class SettingScreen extends Screen {
         // 400020 = Master sound
         // 400030 = Music sound
         // 400040 = Effect sound
-        // 400050 = hudOptions
+        // 400050 = HUD Options
         // 400060 = help
         // 1 = exit
-        if (this.returnCode == 1){
+        if (this.returnCode == 1)
             this.returnCode = 400060;
-        }
-
-        else if (this.returnCode == 400060){
+        else if (this.returnCode == 400060)
             this.returnCode = 400050;
-        }
-
-        else if (this.returnCode == 400050){
+        else if (this.returnCode == 400050)
             this.returnCode = 400040;
-        }
-
-
-        else if (this.returnCode == 400040){
+        else if (this.returnCode == 400040)
             this.returnCode = 400030;
-        }
-
-        else if (this.returnCode == 400030){
+        else if (this.returnCode == 400030)
             this.returnCode = 400020;
-        }
-
-        else if (this.returnCode == 400020){
+        else if (this.returnCode == 400020)
             this.returnCode = 400010;
-        }
-
-        else if (this.returnCode == 400010){
+        else if (this.returnCode == 400010)
             this.returnCode = 1;
-        }
-
     }
 
     /**

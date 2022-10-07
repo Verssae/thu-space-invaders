@@ -403,7 +403,7 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.WHITE);
 		drawLeftRegular2String(screen, effectsoundString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 6);
 
-		// returnCode == 400050 : hudOption
+		// returnCode == 400050 : HUD Options
 		if (option == 400050)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
@@ -427,10 +427,10 @@ public final class DrawManager {
 
 	// 스크린 설정
 	public void drawSettingOption(final Screen screen, final int option, final int screenchange) {
+		String defaultScreenmessage = "Three mod";
 		String screenSizeOption1 = " Standard";
 		String screenSizeOption2 = "Wide  Mode";
 		String screenSizeOption3 = "Full Mode";
-		String defaultScreenmessage = "Three mod";
 		String soundiconString1 = "SCROLL1";
 		String soundiconString2 = "SCROLL2";
 		String soundiconString3 = "SCROLL3";
@@ -454,13 +454,14 @@ public final class DrawManager {
 		else {
 			backBufferGraphics.setColor(Color.darkGray);
 		}
+		//drawRightRegular2String(screen, defaultScreenmessage, screen.getHeight() / 3);
 		drawRightRegular2String(screen, defaultScreenmessage, screen.getHeight() / 3);
 		backBufferGraphics.setColor(Color.darkGray);
 		drawRightRegular2String(screen, soundiconString1, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 2);
 		drawRightRegular2String(screen, soundiconString2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
 		drawRightRegular2String(screen, soundiconString3, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 6);
 
-
+		// Master sound, Music sound, Effect sound
 		if (option == 400020 || option == 400030 || option == 400040) {
 			if (option == 400020)
 				backBufferGraphics.setColor(Color.white);
@@ -720,8 +721,8 @@ public final class DrawManager {
 	public void drawRightRegular2String(final Screen screen,
 									   final String string, final int height) {
 		backBufferGraphics.setFont(fontRegular2);
-		backBufferGraphics.drawString(string, screen.getWidth() / 10
-				+ fontRegular2Metrics.stringWidth(string) * 2, height);
+		backBufferGraphics.drawString(string, 3 * screen.getWidth() / 4
+				- fontRegular2Metrics.stringWidth(string) / 2, height);
 	}
 
 	/**
