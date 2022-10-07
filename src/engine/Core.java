@@ -184,7 +184,7 @@ public final class Core {
 				returnCode = frame.setScreen(currentScreen);
 				LOGGER.info("Closing store screen.");
 				break;
-				/**
+
 			case 400050:
 				//HUDSettingScreen.
 				currentScreen = new HUDSettingScreen(width, height, FPS);
@@ -193,6 +193,7 @@ public final class Core {
 				returnCode = frame.setScreen(currentScreen);
 				LOGGER.info("Closing HUDSetting screen.");
 				break;
+				/*
 			case 400060:
 				//HelpScreen.
 				currentScreen = new HelpScreen(width, height, FPS);

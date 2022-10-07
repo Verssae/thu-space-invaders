@@ -636,8 +636,8 @@ public final class DrawManager {
 	}
 
 	public void drawHUDSettingMenu(final Screen screen) {
-		String HUDString = "HUDSetting";
-		String instructionsString = "HUDSetting menu";
+		String HUDString = "HUD Setting";
+		String instructionsString = "Press Space to return";
 
 		backBufferGraphics.setColor(Color.GREEN);
 		drawCenteredBigString(screen, HUDString, screen.getHeight() / 8);
