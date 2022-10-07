@@ -387,9 +387,14 @@ public class GameScreen extends Screen {
 						}
 					}
 					if (true) {
-						int speed = (int) (ship_.getSHOOTING_INTERVAL() * 1.3);
-						ship_.setSHOOTING_INTERVAL(speed);
-						this.logger.info("Acquire a item_shootingSpeedUp," + speed + " Time between shots.");
+						int shootingSpeed = (int) (ship_.getSHOOTING_INTERVAL() * 1.3);
+						ship_.setSHOOTING_INTERVAL(shootingSpeed);
+						this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
+					}
+					if (true) {
+						int shipSpeed = (int) (ship_.getSPEED() + 1);
+						ship_.setSPEED(shipSpeed);
+						this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
 					}
 				}
 			}
