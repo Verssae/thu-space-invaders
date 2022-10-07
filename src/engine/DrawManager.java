@@ -428,12 +428,18 @@ public final class DrawManager {
 	// 스크린 설정
 	public void drawSettingOption(final Screen screen, final int option, final int screenchange) {
 		String defaultScreenmessage = "Three mod";
+		String defaultMasterSoundmessage = "Five mod";
+		String defaultMusicSoundmessage = "Five mod";
+		String defaultEffectSoundmessage = "Five mod";
 		String screenSizeOption1 = " Standard";
 		String screenSizeOption2 = "Wide  Mode";
 		String screenSizeOption3 = "Full Mode";
-		String soundiconString1 = "SCROLL1";
-		String soundiconString2 = "SCROLL2";
-		String soundiconString3 = "SCROLL3";
+		String SoundOption1 = "25%";
+		String SoundOption2 = "50%";
+		String SoundOption3 = "75%";
+		String SoundOption4 = "100%";
+		String SoundOption5 = "Mute";
+
 		// 스크롤로 대체 예정이니까 Sound 담당하는 사람이 지우고 사용하면 됩니다.
 
 		// screenSize
@@ -456,37 +462,91 @@ public final class DrawManager {
 		}
 		//drawRightRegular2String(screen, defaultScreenmessage, screen.getHeight() / 3);
 		drawRightRegular2String(screen, defaultScreenmessage, screen.getHeight() / 3);
-		backBufferGraphics.setColor(Color.darkGray);
-		drawRightRegular2String(screen, soundiconString1, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 2);
-		drawRightRegular2String(screen, soundiconString2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
-		drawRightRegular2String(screen, soundiconString3, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 6);
+
 
 		// Master sound, Music sound, Effect sound
-		if (option == 400020 || option == 400030 || option == 400040) {
-			if (option == 400020)
+		if (option == 400020) {
+			if (screenchange == 1) {
 				backBufferGraphics.setColor(Color.white);
-			else
-				backBufferGraphics.setColor(Color.darkGray);
-			drawRightRegular2String(screen, soundiconString1, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 2);
-			// 추후 수정
-			if (option == 400030)
+				defaultMasterSoundmessage = SoundOption1;
+			}
+			if (screenchange == 2) {
 				backBufferGraphics.setColor(Color.white);
-			else
+				defaultMasterSoundmessage = SoundOption2;
+			}
+			if (screenchange == 3) {
+				backBufferGraphics.setColor(Color.white);
+				defaultMasterSoundmessage = SoundOption3;
+			}
+			if (screenchange == 4) {
+				backBufferGraphics.setColor(Color.white);
+				defaultMasterSoundmessage = SoundOption4;
+			}
+			if (screenchange == 5) {
+				backBufferGraphics.setColor(Color.white);
+				defaultMasterSoundmessage = SoundOption5;
+			}
+		}
+		else
 				backBufferGraphics.setColor(Color.darkGray);
-			drawRightRegular2String(screen, soundiconString2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
+		drawRightRegular2String(screen, defaultMasterSoundmessage, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 2);
+
 
 			// 추후 수정
-			if (option == 400040)
+		if (option == 400030) {
+			if (screenchange == 1) {
 				backBufferGraphics.setColor(Color.white);
-			else
-				backBufferGraphics.setColor(Color.darkGray);
-			drawRightRegular2String(screen, soundiconString3, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 6);
+				defaultMusicSoundmessage = SoundOption1;
+			}
+			if (screenchange == 2) {
+				backBufferGraphics.setColor(Color.white);
+				defaultMusicSoundmessage = SoundOption2;
+			}
+			if (screenchange == 3) {
+				backBufferGraphics.setColor(Color.white);
+				defaultMusicSoundmessage = SoundOption3;
+			}
+			if (screenchange == 4) {
+				backBufferGraphics.setColor(Color.white);
+				defaultMusicSoundmessage= SoundOption4;
+			}
+			if (screenchange == 5) {
+				backBufferGraphics.setColor(Color.white);
+				defaultMusicSoundmessage = SoundOption5;
+			}
 		}
-		else{
-			defaultScreenmessage = "3 mode";
-		}
+		else
+			backBufferGraphics.setColor(Color.darkGray);
+		drawRightRegular2String(screen, defaultMusicSoundmessage, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
 
+		// 추후 수정
+		if (option == 400040) {
+			if (screenchange == 1) {
+				backBufferGraphics.setColor(Color.white);
+				defaultEffectSoundmessage = SoundOption1;
+			}
+			if (screenchange == 2) {
+				backBufferGraphics.setColor(Color.white);
+				defaultEffectSoundmessage = SoundOption2;
+			}
+			if (screenchange == 3) {
+				backBufferGraphics.setColor(Color.white);
+				defaultEffectSoundmessage = SoundOption3;
+			}
+			if (screenchange == 4) {
+				backBufferGraphics.setColor(Color.white);
+				defaultEffectSoundmessage = SoundOption4;
+			}
+			if (screenchange == 5) {
+				backBufferGraphics.setColor(Color.white);
+				defaultEffectSoundmessage = SoundOption5;
+			}
+		}
+		else
+			backBufferGraphics.setColor(Color.darkGray);
+		drawRightRegular2String(screen, defaultEffectSoundmessage, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 6);
 	}
+
 
 
 	/**

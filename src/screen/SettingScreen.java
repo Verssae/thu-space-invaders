@@ -12,27 +12,30 @@ import engine.Core;
  */
 public class SettingScreen extends Screen {
 
-    /** Milliseconds between changes in user selection. */
+    /**
+     * Milliseconds between changes in user selection.
+     */
     private static final int SELECTION_TIME = 200;
-    /** Time between changes in user selection. */
+    /**
+     * Time between changes in user selection.
+     */
     private Cooldown selectionCooldown;
-    /** Screen Change settings. */
+    /**
+     * Screen Change settings.
+     */
     private static int Screenchange;
-    /** Get screen size */
+    /**
+     * Get screen size
+     */
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-
 
 
     /**
      * Constructor, establishes the properties of the screen.
      *
-     * @param width
-     *            Screen width.
-     * @param height
-     *            Screen height.
-     * @param fps
-     *            Frames per second, frame rate at which the game is run.
+     * @param width  Screen width.
+     * @param height Screen height.
+     * @param fps    Frames per second, frame rate at which the game is run.
      */
     public SettingScreen(final int width, final int height, final int fps) {
         super(width, height, fps);
@@ -91,6 +94,7 @@ public class SettingScreen extends Screen {
             }
         }
     }
+
     /**
      * change screen size
      */
@@ -98,7 +102,7 @@ public class SettingScreen extends Screen {
         if (this.Screenchange == 1) // Standard
             Core.setSize(448, 520);
         else if (this.Screenchange == 2) // Extended
-            Core.setSize(1280,720);
+            Core.setSize(1280, 720);
         else if (this.Screenchange == 3) // Full Screen
             Core.setSize(screenSize.width, screenSize.height);
     }
@@ -165,6 +169,10 @@ public class SettingScreen extends Screen {
      */
     private void nextScreenMenuChange() {
         int num_changes = 3;
+
+        if (this.returnCode == 40020 || this.returnCode == 40030 || this.returnCode == 40040)
+            num_changes = 5;
+
         if (this.Screenchange == num_changes)
             this.Screenchange = 1;
         else if (this.Screenchange == 1)
@@ -178,10 +186,13 @@ public class SettingScreen extends Screen {
      */
     private void previousScreenMenuChange() {
         int num_changes = 3;
+        if (this.returnCode == 40020 || this.returnCode == 40030 || this.returnCode == 40040)
+            num_changes = 5;
+
         if (this.Screenchange == 1)
-            this.Screenchange = 3;
-        else if (this.Screenchange == 3)
-            this.Screenchange = 2;
+            this.Screenchange = num_changes;
+        else if (this.Screenchange == 2)
+            this.Screenchange = 1;
         else
             this.Screenchange--;
     }
