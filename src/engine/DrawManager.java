@@ -303,8 +303,6 @@ public final class DrawManager {
 	 * 
 	 * @param screen
 	 *            Screen to draw on.
-	 * @param option
-	 *            Option selected.
 	 */
 
 	public void drawSettingsMenu(final Screen screen) {
@@ -428,9 +426,7 @@ public final class DrawManager {
 	}
 
 	// 스크린 설정
-	public void drawSettingOption(final Screen screen, final int option, final int change) {
-		int screen_change = change;
-		int sound_change = change;
+	public void drawSettingOption(final Screen screen, final int option, final int screenchange) {
 		String screenSizeOption1 = " Standard";
 		String screenSizeOption2 = "Wide  Mode";
 		String screenSizeOption3 = "Full Mode";
@@ -442,15 +438,15 @@ public final class DrawManager {
 
 		// screenSize
 		if (option == 400010){
-			if(screen_change == 1) {
+			if(screenchange == 1) {
 				backBufferGraphics.setColor(Color.white);
 				defaultScreenmessage = screenSizeOption1;
 			}
-			if(screen_change == 2) {
+			if(screenchange == 2) {
 				backBufferGraphics.setColor(Color.white);
 				defaultScreenmessage = screenSizeOption2;
 			}
-			if(screen_change == 3) {
+			if(screenchange == 3) {
 				backBufferGraphics.setColor(Color.white);
 				defaultScreenmessage = screenSizeOption3;
 			}

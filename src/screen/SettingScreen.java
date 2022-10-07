@@ -1,7 +1,7 @@
 package screen;
 
 import java.awt.event.KeyEvent;
-
+import java.awt.*;
 import engine.Cooldown;
 import engine.Core;
 /**
@@ -16,8 +16,12 @@ public class SettingScreen extends Screen {
     private static final int SELECTION_TIME = 200;
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
-    /** Change settings. */
-    private static int change;
+    /** Screen Change settings. */
+    private static int Screenchange;
+    /** Get screen size */
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+
 
 
     /**
@@ -34,6 +38,7 @@ public class SettingScreen extends Screen {
         super(width, height, fps);
 
         this.returnCode = 400010;
+        this.Screenchange = 1;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
     }
@@ -60,12 +65,12 @@ public class SettingScreen extends Screen {
                 && this.inputDelay.checkFinished()) {
             if (inputManager.isKeyDown(KeyEvent.VK_LEFT)
                     || inputManager.isKeyDown(KeyEvent.VK_A)) {
-                previousMenuChange();
+                previousScreenMenuChange();
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
                     || inputManager.isKeyDown(KeyEvent.VK_D)) {
-                nextMenuChange();
+                nextScreenMenuChange();
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_UP)
@@ -80,7 +85,22 @@ public class SettingScreen extends Screen {
             }
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
                 this.isRunning = false;
+
+            if (this.returnCode == 400010) {
+                changeScreenSize();
+            }
         }
+    }
+    /**
+     * change screen size
+     */
+    private void changeScreenSize() {
+        if (this.Screenchange == 1) // Standard
+            Core.setSize(448, 520);
+        else if (this.Screenchange == 2) // Extended
+            Core.setSize(1280,720);
+        else if (this.Screenchange == 3) // Full Screen
+            Core.setSize(screenSize.width, screenSize.height);
     }
 
 
@@ -104,16 +124,17 @@ public class SettingScreen extends Screen {
             this.returnCode = 400020;
         else if (this.returnCode == 400020)
             this.returnCode = 400030;
-        else if (this.returnCode == 400030)
-            this.returnCode = 400040;
-        else if (this.returnCode == 400040)
-            this.returnCode = 400050;
-        else if (this.returnCode == 400050)
+        else if (this.returnCode == 400030) {
             this.returnCode = 400060;
-        else if (this.returnCode == 400060)
+        } else if (this.returnCode == 400040) {
+            this.returnCode = 400060;
+        } else if (this.returnCode == 400050) {
+            this.returnCode = 400060;
+        } else if (this.returnCode == 400060) {
             this.returnCode = 1;
-        else if (this.returnCode == 1)
+        } else if (this.returnCode == 1) {
             this.returnCode = 400010;
+        }
     }
 
     /**
@@ -128,46 +149,61 @@ public class SettingScreen extends Screen {
         // 400050 = hudOptions
         // 400060 = help
         // 1 = exit
-        if (this.returnCode == 1)
+        if (this.returnCode == 1){
             this.returnCode = 400060;
-        else if (this.returnCode == 400060)
+        }
+
+        else if (this.returnCode == 400060){
             this.returnCode = 400050;
-        else if (this.returnCode == 400050)
+        }
+
+        else if (this.returnCode == 400050){
             this.returnCode = 400040;
-        else if (this.returnCode == 400040)
+        }
+
+
+        else if (this.returnCode == 400040){
             this.returnCode = 400030;
-        else if (this.returnCode == 400030)
+        }
+
+        else if (this.returnCode == 400030){
             this.returnCode = 400020;
-        else if (this.returnCode == 400020)
+        }
+
+        else if (this.returnCode == 400020){
             this.returnCode = 400010;
-        else if (this.returnCode == 400010)
+        }
+
+        else if (this.returnCode == 400010){
             this.returnCode = 1;
+        }
+
     }
 
     /**
      * Shifts the focus to the next change in the settings option.
      */
-    private void nextMenuChange() {
+    private void nextScreenMenuChange() {
         int num_changes = 3;
-        if (this.change == num_changes)
-            this.change = 1;
-        else if (this.change == 1)
-            this.change = 2;
+        if (this.Screenchange == num_changes)
+            this.Screenchange = 1;
+        else if (this.Screenchange == 1)
+            this.Screenchange = 2;
         else
-            this.change++;
+            this.Screenchange++;
     }
 
     /**
      * Shifts the focus to the previous change in the settings option.
      */
-    private void previousMenuChange() {
+    private void previousScreenMenuChange() {
         int num_changes = 3;
-        if (this.change == 1)
-            this.change = 3;
-        else if (this.change == 3)
-            this.change = 2;
+        if (this.Screenchange == 1)
+            this.Screenchange = 3;
+        else if (this.Screenchange == 3)
+            this.Screenchange = 2;
         else
-            this.change--;
+            this.Screenchange--;
     }
 
 
@@ -177,8 +213,8 @@ public class SettingScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
         drawManager.drawSettingsMenu(this);
+        drawManager.drawSettingOption(this, this.returnCode, Screenchange);
         drawManager.drawSettingItems(this, this.returnCode);
-        drawManager.drawSettingOption(this, this.returnCode, change);
         drawManager.completeDrawing(this);
     }
 }
