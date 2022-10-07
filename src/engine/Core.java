@@ -193,6 +193,7 @@ public final class Core {
 				returnCode = frame.setScreen(currentScreen);
 				LOGGER.info("Closing HUDSetting screen.");
 				break;
+
 				case 400010:
 					// Main menu.
 					/* This makes the old window disappear */
@@ -208,6 +209,17 @@ public final class Core {
 					returnCode = frame.setScreen(currentScreen);
 					LOGGER.info("Closing title screen.");
 					break;
+
+			case 400060:
+				//HelpScreen.
+				currentScreen = new HelpScreen(width, height, FPS);
+				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+						+ " Help screen at " + FPS + " fps.");
+				returnCode = frame.setScreen(currentScreen);
+				LOGGER.info("Closing Help screen.");
+				break;
+
+
 			default:
 				break;
 			}

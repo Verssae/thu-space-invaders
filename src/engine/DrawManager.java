@@ -741,12 +741,32 @@ public final class DrawManager {
 	public void drawHelpMenu(final Screen screen) {
 		String HelpString = "Help";
 		String instructionsString = "Help menu";
+		String[] help1 = {"Press the arrow keys <- / -> (or the A or D keys)", "to move your ship"};
+		String[] help2 = {"Press space to shoot & hit an enemy ships"};
+		String[] help3 = {"Dodge enemy missiles by pressing the key"};
+		String[] help4 = {"The life to play the game is 3"};
+		String[] help5 = {"Eliminate all enemies", "to advance to the next level"};
+		String[] help6 = {"check your highscore in highscore menu"};
+		String[][] helps = {help1, help2, help3, help4, help5, help6};
+		int i = 0;
+		int j = 0;
 
 		backBufferGraphics.setColor(Color.GREEN);
 		drawCenteredBigString(screen, HelpString, screen.getHeight() / 8);
 
 		backBufferGraphics.setColor(Color.GRAY);
-		drawCenteredRegularString(screen, instructionsString, screen.getHeight() / 5);
+		drawCenteredRegularString(screen, instructionsString, screen.getHeight() / 6);
+
+		backBufferGraphics.setColor(Color.WHITE);
+		for (String[] help : helps) {
+			for (String helpString : help) {
+				drawCenteredRegularString(screen, helpString,
+						screen.getHeight() * 3 / 13 + fontRegularMetrics.getHeight() * i +
+								fontRegularMetrics.getHeight() * 2 * j);
+				i++;
+			}
+			j++;
+		}
 	}
 
 
