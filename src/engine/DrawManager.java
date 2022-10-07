@@ -369,11 +369,9 @@ public final class DrawManager {
 	public void drawSettingItems(final Screen screen, final int option) {
 
 		String screensizeString = "Screen Size";
-		String screensizesettingString = "SCREEN"; // 스크린조절로 대체 예정이니까 Screen size 조절 담당하는 사람이 지우고 사용하면 됩니다.
 		String mastersoundString = "Master Sound";
 		String musicsoundString = "Music Sound";
 		String effectsoundString = "Effect Sound";
-		String soundiconString = "SCROLL"; // 스크롤로 대체 예정이니까 Sound 담당하는 사람이 지우고 사용하면 됩니다.
 		String hudoptionString = "Hud Option";
 		String helpString = "Help";
 		String exitString = "Exit";
@@ -427,35 +425,72 @@ public final class DrawManager {
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegular2String(screen, exitString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 13);
-
-		// returnCode == 2 : screenSizeSetting
-		if (option == 2)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawRightRegular2String(screen, screensizesettingString, screen.getHeight() / 3);
-
-		// 추후 수정
-		if (option == 4)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawRightRegular2String(screen, soundiconString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 2);
-
-		// 추후 수정
-		if (option == 6)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawRightRegular2String(screen, soundiconString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
-
-		// 추후 수정
-		if (option == 8)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawRightRegular2String(screen, soundiconString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 6);
 	}
+
+	// 스크린 설정
+	public void drawSettingOption(final Screen screen, final int option, final int change) {
+		int screen_change = change;
+		int sound_change = change;
+		String screenSizeOption1 = " Standard";
+		String screenSizeOption2 = "Wide  Mode";
+		String screenSizeOption3 = "Full Mode";
+		String defaultScreenmessage = "Three mod";
+		String soundiconString1 = "SCROLL1";
+		String soundiconString2 = "SCROLL2";
+		String soundiconString3 = "SCROLL3";
+		// 스크롤로 대체 예정이니까 Sound 담당하는 사람이 지우고 사용하면 됩니다.
+
+		// screenSize
+		if (option == 400010){
+			if(screen_change == 1) {
+				backBufferGraphics.setColor(Color.white);
+				defaultScreenmessage = screenSizeOption1;
+			}
+			if(screen_change == 2) {
+				backBufferGraphics.setColor(Color.white);
+				defaultScreenmessage = screenSizeOption2;
+			}
+			if(screen_change == 3) {
+				backBufferGraphics.setColor(Color.white);
+				defaultScreenmessage = screenSizeOption3;
+			}
+		}
+		else {
+			backBufferGraphics.setColor(Color.darkGray);
+		}
+		drawRightRegular2String(screen, defaultScreenmessage, screen.getHeight() / 3);
+		backBufferGraphics.setColor(Color.darkGray);
+		drawRightRegular2String(screen, soundiconString1, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 2);
+		drawRightRegular2String(screen, soundiconString2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
+		drawRightRegular2String(screen, soundiconString3, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 6);
+
+
+		if (option == 400020 || option == 400030 || option == 400040) {
+			if (option == 400020)
+				backBufferGraphics.setColor(Color.white);
+			else
+				backBufferGraphics.setColor(Color.darkGray);
+			drawRightRegular2String(screen, soundiconString1, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 2);
+			// 추후 수정
+			if (option == 400030)
+				backBufferGraphics.setColor(Color.white);
+			else
+				backBufferGraphics.setColor(Color.darkGray);
+			drawRightRegular2String(screen, soundiconString2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
+
+			// 추후 수정
+			if (option == 400040)
+				backBufferGraphics.setColor(Color.white);
+			else
+				backBufferGraphics.setColor(Color.darkGray);
+			drawRightRegular2String(screen, soundiconString3, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 6);
+		}
+		else{
+			defaultScreenmessage = "3 mode";
+		}
+
+	}
+
 
 	/**
 	 * Draws game results.
@@ -659,23 +694,6 @@ public final class DrawManager {
 
 
 	/**
-	 * Draws settings.
-	 *
-	 * @param screen
-	 *            Screen to draw on.
-	 */
-	// have to change
-	public void drawSettings(final Screen screen,
-							   final List<Score> highScores) {
-
-	}
-
-	public void drawStore(final Screen screen
-						  ){
-
-	}
-
-	/**
 	 * Draws a centered string on regular font.
 	 * 
 	 * @param screen
@@ -706,7 +724,8 @@ public final class DrawManager {
 	public void drawRightRegular2String(final Screen screen,
 									   final String string, final int height) {
 		backBufferGraphics.setFont(fontRegular2);
-		backBufferGraphics.drawString(string, screen.getWidth() / 4 + fontRegular2Metrics.stringWidth(string) * 2, height);
+		backBufferGraphics.drawString(string, screen.getWidth() / 10
+				+ fontRegular2Metrics.stringWidth(string) * 2, height);
 	}
 
 	/**

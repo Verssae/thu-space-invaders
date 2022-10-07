@@ -14,9 +14,12 @@ public class SettingScreen extends Screen {
 
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
-
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
+    /** Change settings. */
+    private static int change;
+
+
     /**
      * Constructor, establishes the properties of the screen.
      *
@@ -55,6 +58,16 @@ public class SettingScreen extends Screen {
         draw();
         if (this.selectionCooldown.checkFinished()
                 && this.inputDelay.checkFinished()) {
+            if (inputManager.isKeyDown(KeyEvent.VK_LEFT)
+                    || inputManager.isKeyDown(KeyEvent.VK_A)) {
+                previousMenuChange();
+                this.selectionCooldown.reset();
+            }
+            if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
+                    || inputManager.isKeyDown(KeyEvent.VK_D)) {
+                nextMenuChange();
+                this.selectionCooldown.reset();
+            }
             if (inputManager.isKeyDown(KeyEvent.VK_UP)
                     || inputManager.isKeyDown(KeyEvent.VK_W)) {
                 previousItem();
@@ -131,6 +144,31 @@ public class SettingScreen extends Screen {
             this.returnCode = 1;
     }
 
+    /**
+     * Shifts the focus to the next change in the settings option.
+     */
+    private void nextMenuChange() {
+        int num_changes = 3;
+        if (this.change == num_changes)
+            this.change = 1;
+        else if (this.change == 1)
+            this.change = 2;
+        else
+            this.change++;
+    }
+
+    /**
+     * Shifts the focus to the previous change in the settings option.
+     */
+    private void previousMenuChange() {
+        int num_changes = 3;
+        if (this.change == 1)
+            this.change = 3;
+        else if (this.change == 3)
+            this.change = 2;
+        else
+            this.change--;
+    }
 
 
     /**
@@ -140,6 +178,7 @@ public class SettingScreen extends Screen {
         drawManager.initDrawing(this);
         drawManager.drawSettingsMenu(this);
         drawManager.drawSettingItems(this, this.returnCode);
+        drawManager.drawSettingOption(this, this.returnCode, change);
         drawManager.completeDrawing(this);
     }
 }
