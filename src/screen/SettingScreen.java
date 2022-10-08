@@ -133,20 +133,55 @@ public class SettingScreen extends Screen {
         // 400050 = HUD Options
         // 400060 = help
         // 1 = exit
-        if (this.returnCode == 400010)
+        if (this.returnCode == 400010) {
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 400020;
-        else if (this.returnCode == 400020)
+        }
+        else if (this.returnCode == 400020) {
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 400030;
-        else if (this.returnCode == 400030)
+        }
+        else if (this.returnCode == 400030) {
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 400040;
-        else if (this.returnCode == 400040)
+        }
+        else if (this.returnCode == 400040) {
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 400050;
-        else if (this.returnCode == 400050)
+        }
+        else if (this.returnCode == 400050) {
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 400060;
-        else if (this.returnCode == 400060)
+        }
+        else if (this.returnCode == 400060) {
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 1;
-        else if (this.returnCode == 1)
+        }
+        else if (this.returnCode == 1) {
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 400010;
+        }
     }
 
     /**
@@ -161,20 +196,55 @@ public class SettingScreen extends Screen {
         // 400050 = HUD Options
         // 400060 = help
         // 1 = exit
-        if (this.returnCode == 1)
+        if (this.returnCode == 1){
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 400060;
-        else if (this.returnCode == 400060)
+        }
+        else if (this.returnCode == 400060){
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 400050;
-        else if (this.returnCode == 400050)
+        }
+        else if (this.returnCode == 400050){
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 400040;
-        else if (this.returnCode == 400040)
+        }
+        else if (this.returnCode == 400040){
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 400030;
-        else if (this.returnCode == 400030)
+        }
+        else if (this.returnCode == 400030) {
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 400020;
-        else if (this.returnCode == 400020)
+        }
+        else if (this.returnCode == 400020){
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 400010;
-        else if (this.returnCode == 400010)
+        }
+        else if (this.returnCode == 400010){
+            this.Screenchange = 1;
+            this.MasterSoundchange = 1;
+            this.EffectSoundchange = 1;
+            this.MusicSoundchange = 1;
             this.returnCode = 1;
+        }
     }
 
     /**
