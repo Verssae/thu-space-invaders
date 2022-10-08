@@ -13,7 +13,7 @@ public class HelpScreen extends Screen{
     public HelpScreen(final int width, final int height, final int fps){
         super(width, height, fps);
 
-        this.returnCode = 400060;
+        this.returnCode = 1;
     }
 
     public final int run() {
