@@ -139,13 +139,7 @@ public class EnemyShip extends Entity {
 	 */
 	public final void destroy() {
 		this.isDestroyed = true;
-        Random random = new Random();
-        int per = random.nextInt(2);
-        if(per == 0){
-            this.spriteType = SpriteType.Item;
-        }
-        else
-            this.spriteType = SpriteType.Explosion;
+		this.spriteType = SpriteType.Explosion;
 	}
 
 	/**
