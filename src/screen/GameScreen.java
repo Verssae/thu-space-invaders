@@ -36,6 +36,10 @@ public class GameScreen extends Screen {
 	 */
 	private static final int LIFE_SCORE = 100;
 	/**
+	 * Movement speed of the item.
+	 */
+	private static final int BULLET_SPEED = 3;
+	/**
 	 * Minimum time between bonus ship's appearances.
 	 */
 	private static final int BONUS_SHIP_INTERVAL = 20000;
@@ -328,8 +332,7 @@ public class GameScreen extends Screen {
 		Set<Item> recyclable = new HashSet<Item>();
 		for (Item item : this.items) {
 			item.update();
-			if (item.getPositionY() < SEPARATION_LINE_HEIGHT
-					|| item.getPositionY() > this.height)
+			if (item.getPositionY() > this.height)
 				recyclable.add(item);
 		}
 		this.items.removeAll(recyclable);
@@ -382,28 +385,26 @@ public class GameScreen extends Screen {
 	private void manageCollisionsItem() {
 		Set<Item> recyclable = new HashSet<Item>(); //ItemPool
 		for (Item item : this.items) {
-			if (item.getSpeed() > 0) {
-				if (checkCollision(item, this.ship) && !this.levelFinished) {
-					recyclable.add(item);
-					Random random = new Random();
-        			int per = random.nextInt(3);
+			if (checkCollision(item, this.ship) && !this.levelFinished) {
+				recyclable.add(item);
+				Random random = new Random();
+				int per = random.nextInt(3);
 
-					if (per == 1) {
-						if (this.lives < 3) {
-							this.lives++;
-							this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
-						}
+				if (per == 1) {
+					if (this.lives < 3) {
+						this.lives++;
+						this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
 					}
-					if (per == 2) {
-						int shootingSpeed = (int) (ship_.getSHOOTING_INTERVAL() * 1.3);
-						ship_.setSHOOTING_INTERVAL(shootingSpeed);
-						this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
-					}
-					if (per == 0) {
-						int shipSpeed = (int) (ship_.getSPEED() + 1);
-						ship_.setSPEED(shipSpeed);
-						this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
-					}
+				}
+				if (per == 2) {
+					int shootingSpeed = (int) (ship_.getSHOOTING_INTERVAL() * 1.3);
+					ship_.setSHOOTING_INTERVAL(shootingSpeed);
+					this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
+				}
+				if (per == 0) {
+					int shipSpeed = (int) (ship_.getSPEED() + 1);
+					ship_.setSPEED(shipSpeed);
+					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
 				}
 			}
 			this.items.removeAll(recyclable);
