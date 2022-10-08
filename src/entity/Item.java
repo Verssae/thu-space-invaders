@@ -36,11 +36,10 @@ public class Item extends Entity {
 	}
 
 	/**
-	 * Sets correct sprite for the item, based on speed.
+	 * Sets correct sprite for the item.
 	 */
 	public final void setSprite() {
-		if (speed > 0)
-			this.spriteType = SpriteType.Item;
+		this.spriteType = SpriteType.Item;
 	}
 
 	/**
