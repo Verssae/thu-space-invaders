@@ -28,6 +28,19 @@ public class SettingScreen extends Screen {
      * Get screen size
      */
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    /**
+     * MasterSound change settings.
+     */
+    private static int MasterSoundchange;
+    /**
+     * MusicSound change settings.
+     */
+    private static int MusicSoundchange;
+    /**
+     * EffectSound change settings.
+     */
+    private static int EffectSoundchange;
+
 
 
     /**
@@ -168,33 +181,84 @@ public class SettingScreen extends Screen {
      * Shifts the focus to the next change in the settings option.
      */
     private void nextScreenMenuChange() {
-        int num_changes = 3;
-
-        if (this.returnCode == 400020 || this.returnCode == 400030 || this.returnCode == 400040)
-            num_changes = 5;
-
-        if (this.Screenchange == num_changes)
-            this.Screenchange = 1;
-        else if (this.Screenchange == 1)
-            this.Screenchange = 2;
-        else
-            this.Screenchange++;
+        if (this.returnCode == 400010) {
+            int screenoption_changes = 3;
+            if (this.Screenchange == screenoption_changes)
+                this.Screenchange = 1;
+            else if (this.Screenchange == 1)
+                this.Screenchange = 2;
+            else
+                this.Screenchange++;
+        }
+        if (this.returnCode == 400020) {
+            int MasterSoundoption_change = 5;
+            if(this.MasterSoundchange == MasterSoundoption_change)
+                this.MasterSoundchange = 1;
+            else if (this.MasterSoundchange == 1)
+                this.MasterSoundchange = 2;
+            else
+                this.MasterSoundchange++;
+        }
+        if (this.returnCode == 400030) {
+            int MasterSoundoption_change = 5;
+            if(this.MusicSoundchange == MasterSoundoption_change)
+                this.MusicSoundchange = 1;
+            else if (this.MusicSoundchange == 1)
+                this.MusicSoundchange = 2;
+            else
+                this.MusicSoundchange++;
+        }
+        if (this.returnCode == 400040) {
+            int MasterSoundoption_change = 5;
+            if(this.EffectSoundchange == MasterSoundoption_change)
+                this.EffectSoundchange = 1;
+            else if (this.EffectSoundchange == 1)
+                this.EffectSoundchange = 2;
+            else
+                this.EffectSoundchange++;
+        }
     }
 
     /**
      * Shifts the focus to the previous change in the settings option.
      */
     private void previousScreenMenuChange() {
-        int num_changes = 3;
-        if (this.returnCode == 40020 || this.returnCode == 40030 || this.returnCode == 40040)
-            num_changes = 5;
-
-        if (this.Screenchange == 1)
-            this.Screenchange = num_changes;
-        else if (this.Screenchange == 2)
-            this.Screenchange = 1;
-        else
-            this.Screenchange--;
+        if (this.returnCode == 400010) {
+            int screenoption_change = 3;
+            if (this.Screenchange == 1)
+                this.Screenchange = screenoption_change;
+            else if (this.Screenchange == 2)
+                this.Screenchange = 1;
+            else
+                this.Screenchange--;
+        }
+        if (this.returnCode == 400020) {
+            int MaterSoundoption_change = 5;
+            if (this.MasterSoundchange == 1)
+                this.MasterSoundchange = MaterSoundoption_change;
+            else if (this.MasterSoundchange == 2)
+                this.MasterSoundchange = 1;
+            else
+                this.MasterSoundchange--;
+        }
+        if (this.returnCode == 400030) {
+            int MusicSoundoption_change = 5;
+            if (this.MusicSoundchange == 1)
+                this.MusicSoundchange = MusicSoundoption_change;
+            else if (this.MusicSoundchange == 2)
+                this.MusicSoundchange = 1;
+            else
+                this.MusicSoundchange--;
+        }
+        if (this.returnCode == 400040) {
+            int EffectSoundoption_change = 5;
+            if (this.EffectSoundchange == 1)
+                this.EffectSoundchange = EffectSoundoption_change;
+            else if (this.EffectSoundchange == 2)
+                this.EffectSoundchange = 1;
+            else
+                this.EffectSoundchange--;
+        }
     }
 
 
@@ -204,7 +268,7 @@ public class SettingScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
         drawManager.drawSettingsMenu(this);
-        drawManager.drawSettingOption(this, this.returnCode, Screenchange);
+        drawManager.drawSettingOption(this, this.returnCode, Screenchange, MasterSoundchange, MusicSoundchange, EffectSoundchange);
         drawManager.drawSettingItems(this, this.returnCode);
         drawManager.completeDrawing(this);
     }
