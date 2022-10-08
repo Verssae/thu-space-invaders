@@ -426,19 +426,19 @@ public final class DrawManager {
 	}
 
 	// 스크린 설정
-	public void drawSettingOption(final Screen screen, final int option, final int screenchange, final int MasterSoundchange, final int MusicSoundchange, final int EffectSoundchange) {
+	public void drawSettingOption(final Screen screen, final int option, final int screenchange) {
 		String defaultScreenmessage = "Three mod";
 		String defaultMasterSoundmessage = "Five mod";
 		String defaultMusicSoundmessage = "Five mod";
 		String defaultEffectSoundmessage = "Five mod";
-		String screenSizeOption1 = "Standard";
+		String screenSizeOption1 = " Standard";
 		String screenSizeOption2 = "Wide  Mode";
 		String screenSizeOption3 = "Full Mode";
 		String SoundOption1 = "25%";
 		String SoundOption2 = "50%";
 		String SoundOption3 = "75%";
 		String SoundOption4 = "100%";
-		String SoundOption5 = "0%";
+		String SoundOption5 = "Mute";
 
 		// 스크롤로 대체 예정이니까 Sound 담당하는 사람이 지우고 사용하면 됩니다.
 
@@ -466,23 +466,23 @@ public final class DrawManager {
 
 		// Master sound, Music sound, Effect sound
 		if (option == 400020) {
-			if (MasterSoundchange == 1) {
+			if (screenchange == 1) {
 				backBufferGraphics.setColor(Color.white);
 				defaultMasterSoundmessage = SoundOption1;
 			}
-			if (MasterSoundchange == 2) {
+			if (screenchange == 2) {
 				backBufferGraphics.setColor(Color.white);
 				defaultMasterSoundmessage = SoundOption2;
 			}
-			if (MasterSoundchange == 3) {
+			if (screenchange == 3) {
 				backBufferGraphics.setColor(Color.white);
 				defaultMasterSoundmessage = SoundOption3;
 			}
-			if (MasterSoundchange == 4) {
+			if (screenchange == 4) {
 				backBufferGraphics.setColor(Color.white);
 				defaultMasterSoundmessage = SoundOption4;
 			}
-			if (MasterSoundchange == 5) {
+			if (screenchange == 5) {
 				backBufferGraphics.setColor(Color.white);
 				defaultMasterSoundmessage = SoundOption5;
 			}
@@ -494,23 +494,23 @@ public final class DrawManager {
 
 			// 추후 수정
 		if (option == 400030) {
-			if (MusicSoundchange == 1) {
+			if (screenchange == 1) {
 				backBufferGraphics.setColor(Color.white);
 				defaultMusicSoundmessage = SoundOption1;
 			}
-			if (MusicSoundchange == 2) {
+			if (screenchange == 2) {
 				backBufferGraphics.setColor(Color.white);
 				defaultMusicSoundmessage = SoundOption2;
 			}
-			if (MusicSoundchange == 3) {
+			if (screenchange == 3) {
 				backBufferGraphics.setColor(Color.white);
 				defaultMusicSoundmessage = SoundOption3;
 			}
-			if (MusicSoundchange == 4) {
+			if (screenchange == 4) {
 				backBufferGraphics.setColor(Color.white);
 				defaultMusicSoundmessage= SoundOption4;
 			}
-			if (MusicSoundchange == 5) {
+			if (screenchange == 5) {
 				backBufferGraphics.setColor(Color.white);
 				defaultMusicSoundmessage = SoundOption5;
 			}
@@ -521,23 +521,23 @@ public final class DrawManager {
 
 		// 추후 수정
 		if (option == 400040) {
-			if (EffectSoundchange == 1) {
+			if (screenchange == 1) {
 				backBufferGraphics.setColor(Color.white);
 				defaultEffectSoundmessage = SoundOption1;
 			}
-			if (EffectSoundchange == 2) {
+			if (screenchange == 2) {
 				backBufferGraphics.setColor(Color.white);
 				defaultEffectSoundmessage = SoundOption2;
 			}
-			if (EffectSoundchange == 3) {
+			if (screenchange == 3) {
 				backBufferGraphics.setColor(Color.white);
 				defaultEffectSoundmessage = SoundOption3;
 			}
-			if (EffectSoundchange == 4) {
+			if (screenchange == 4) {
 				backBufferGraphics.setColor(Color.white);
 				defaultEffectSoundmessage = SoundOption4;
 			}
-			if (EffectSoundchange == 5) {
+			if (screenchange == 5) {
 				backBufferGraphics.setColor(Color.white);
 				defaultEffectSoundmessage = SoundOption5;
 			}
