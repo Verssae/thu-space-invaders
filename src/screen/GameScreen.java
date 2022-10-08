@@ -172,6 +172,7 @@ public class GameScreen extends Screen {
 				.getCooldown(BONUS_SHIP_EXPLOSION);
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
+		this.items = new HashSet<Item>();
 
 		// Special input delay / countdown.
 		this.gameStartTime = System.currentTimeMillis();
@@ -249,6 +250,8 @@ public class GameScreen extends Screen {
 
 		manageCollisions();
 		cleanBullets();
+		manageCollisionsItem();
+		cleanItems();
 		draw();
 
 		if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
@@ -283,7 +286,7 @@ public class GameScreen extends Screen {
 
 		for (Item item : this.items)
 			drawManager.drawEntity(item, item.getPositionX(),
-					item.getPositionY());			
+					item.getPositionY());
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
