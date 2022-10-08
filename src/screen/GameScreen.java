@@ -3,10 +3,8 @@ import java.util.Random;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
-import engine.Cooldown;
-import engine.Core;
-import engine.GameSettings;
-import engine.GameState;
+
+import engine.*;
 import entity.Bullet;
 import entity.BulletPool;
 import entity.EnemyShip;
@@ -38,7 +36,7 @@ public class GameScreen extends Screen {
 	/**
 	 * Movement speed of the item.
 	 */
-	private static final int BULLET_SPEED = 3;
+	private static final int ITEM_SPEED = 3;
 	/**
 	 * Minimum time between bonus ship's appearances.
 	 */
@@ -123,10 +121,6 @@ public class GameScreen extends Screen {
 	 * Checks if a bonus life is received.
 	 */
 	private boolean bonusLife;
-	/**
-	 * ship
-	 */	
-	private Ship ship_;
 	/**
 	 * Set of all items dropped by on screen enemyships.
 	 */
@@ -360,6 +354,12 @@ public class GameScreen extends Screen {
 							&& checkCollision(bullet, enemyShip)) {
 						this.score += enemyShip.getPointValue();
 						this.shipsDestroyed++;
+						Random random = new Random();
+						int per = random.nextInt(2);
+						if(per == 0){
+							items.add(ItemPool.getItem(enemyShip.getPositionX() + enemyShip.getWidth() / 2,
+									enemyShip.getPositionY(), ITEM_SPEED));
+						}
 						this.enemyShipFormation.destroy(enemyShip);
 						recyclable.add(bullet);
 					}
@@ -397,13 +397,13 @@ public class GameScreen extends Screen {
 					}
 				}
 				if (per == 2) {
-					int shootingSpeed = (int) (ship_.getSHOOTING_INTERVAL() * 1.3);
-					ship_.setSHOOTING_INTERVAL(shootingSpeed);
+					int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 1.3);
+					ship.setSHOOTING_INTERVAL(shootingSpeed);
 					this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
 				}
 				if (per == 0) {
-					int shipSpeed = (int) (ship_.getSPEED() + 1);
-					ship_.setSPEED(shipSpeed);
+					int shipSpeed = (int) (ship.getSPEED() + 1);
+					ship.setSPEED(shipSpeed);
 					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
 				}
 			}
