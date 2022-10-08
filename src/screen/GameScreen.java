@@ -1,5 +1,5 @@
 package screen;
-
+import java.util.Random;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
@@ -281,6 +281,10 @@ public class GameScreen extends Screen {
 			drawManager.drawEntity(bullet, bullet.getPositionX(),
 					bullet.getPositionY());
 
+		for (Item item : this.items)
+			drawManager.drawEntity(item, item.getPositionX(),
+					item.getPositionY());			
+
 		// Interface.
 		drawManager.drawScore(this, this.score);
 		drawManager.drawLives(this, this.lives);
@@ -378,20 +382,21 @@ public class GameScreen extends Screen {
 			if (item.getSpeed() > 0) {
 				if (checkCollision(item, this.ship) && !this.levelFinished) {
 					recyclable.add(item);
+					Random random = new Random();
+        			int per = random.nextInt(3);
 
-
-					if (true) {
+					if (per == 1) {
 						if (this.lives < 3) {
 							this.lives++;
 							this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
 						}
 					}
-					if (true) {
+					if (per == 2) {
 						int shootingSpeed = (int) (ship_.getSHOOTING_INTERVAL() * 1.3);
 						ship_.setSHOOTING_INTERVAL(shootingSpeed);
 						this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
 					}
-					if (true) {
+					if (per == 0) {
 						int shipSpeed = (int) (ship_.getSPEED() + 1);
 						ship_.setSPEED(shipSpeed);
 						this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
