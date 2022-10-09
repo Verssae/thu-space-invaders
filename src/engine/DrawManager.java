@@ -12,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 
 import screen.Screen;
 import screen.ShopScreen;
@@ -50,6 +51,9 @@ public final class DrawManager {
 	/** Big sized font properties. */
 	private static FontMetrics fontBigMetrics;
 
+	private static Font fontSmall;
+
+	
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
 
@@ -111,6 +115,7 @@ public final class DrawManager {
 			// Font loading.
 			fontRegular = fileManager.loadFont(14f);
 			fontBig = fileManager.loadFont(24f);
+			fontSmall = fileManager.loadFont(12f);
 			logger.info("Finished loading the fonts.");
 
 		} catch (IOException e) {
@@ -614,6 +619,21 @@ public final class DrawManager {
 				backBufferGraphics.drawRect(getshopgridcoordx(i), getshopgridcoordy(j), 50, 50);
 			}
 		}
+
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.drawRect(270, 99, 140, 370);
+
+		ArrayList<String> info = new ArrayList<String>();
+		info.add(0, "HP : 500");
+		info.add(1, "DAMAGE : 100");
+		info.add(2, "SPEED : 50");
+
+		for (int i = 0; i < 3; i++) {
+			backBufferGraphics.setColor((Color.WHITE));
+			backBufferGraphics.setFont(fontSmall);
+			backBufferGraphics.drawString((String) info.get(i), 285, i * 25 + 124);
+		}
+
 		//draw items
 		
 		//draw item info
