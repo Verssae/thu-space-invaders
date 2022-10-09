@@ -74,6 +74,16 @@ public final class Core {
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
 
+	/** Test only !!
+	 * You can add item max 15
+	 * If you have fewer than 15 items to add, refer to DrawManager's drawshop method */
+	private static final Item Test1 =
+			new Item(1004, "testtest", 0);
+	private static final Item Test2 =
+			new Item(10042, "testtest2", 1);
+	private static final Item Test3 =
+			new Item(10043, "testtest3", 2);
+
 
 	/**
 	 * Test implementation.
@@ -105,9 +115,14 @@ public final class Core {
 		int width = frame.getWidth();
 		int height = frame.getHeight();
 
-		Inventory.inventory=new ArrayList<Inventory.InventoryEntry>();
-		//test only
-		Inventory.inventory.add(new Inventory.InventoryEntry(new Item("testtest"), 1));
+		/** Test only !!
+		 * You can add item max 15
+		 * If you have fewer than 15 items to add, refer to DrawManager's drawshop method */
+		Inventory.inventory=new ArrayList<Item>();
+		Item.itemregistry = new ArrayList<Item>();
+		Item.itemregistry.add(Test1);
+		Item.itemregistry.add(Test2);
+		Item.itemregistry.add(Test3);
 
 		gameSettings = new ArrayList<GameSettings>();
 		gameSettings.add(SETTINGS_LEVEL_1);
@@ -122,7 +137,7 @@ public final class Core {
 
 		int returnCode = 1;
 		do {
-			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
+			gameState = new GameState(1, 0, MAX_LIVES, 0, 0, Coin.balance);
 
 			switch (returnCode) {
 			case 1:
@@ -155,7 +170,8 @@ public final class Core {
 							gameState.getScore(),
 							gameState.getLivesRemaining(),
 							gameState.getBulletsShot(),
-							gameState.getShipsDestroyed());
+							gameState.getShipsDestroyed(),
+							gameState.getCoin());
 
 				} while (gameState.getLivesRemaining() > 0
 						&& gameState.getLevel() <= NUM_LEVELS);

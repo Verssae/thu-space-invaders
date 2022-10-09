@@ -248,7 +248,14 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		String scoreString = String.format("%04d", score);
-		backBufferGraphics.drawString(scoreString, screen.getWidth() - 60, 25);
+		backBufferGraphics.drawString("Score:" + scoreString, screen.getWidth() - 100, 25);
+	}
+
+	public void drawCoin(final Screen screen, final int coin) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String coinString = String.format("%04d", coin);
+		backBufferGraphics.drawString("Coin:" + coinString, screen.getWidth() - 250, 25);
 	}
 
 	/**
@@ -605,7 +612,9 @@ public final class DrawManager {
 		if(state==shopstates.SHOP_RET) backBufferGraphics.setColor(Color.GREEN);
 		backBufferGraphics.drawString("RETURN", 10, 40);
 		backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredBigString(screen, "ShOp", 40);
+		drawCenteredBigString(screen, "Shop", 40);
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.drawString(String.valueOf(Coin.balance), 370, 40);
 		backBufferGraphics.drawLine(0, 60, backBuffer.getWidth(), 60);
 		for ( int i = 0; i < 3; i++) {
 			for (int j = 0; j < 5; j++) {
@@ -619,7 +628,6 @@ public final class DrawManager {
 				backBufferGraphics.drawRect(getshopgridcoordx(i), getshopgridcoordy(j), 50, 50);
 			}
 		}
-
 		backBufferGraphics.setColor(Color.WHITE);
 		backBufferGraphics.drawRect(270, 99, 140, 370);
 
@@ -644,32 +652,70 @@ public final class DrawManager {
 		//var tempship=new Ship(0, 0);
 		//drawEntity(tempship, x, y);
 		//backBufferGraphics.drawRect(x, y, 100, 100);
-		for (Inventory.InventoryEntry entry : Inventory.inventory) {
 
-			backBufferGraphics.drawString(entry.item.name, x, y);
-			
+		for (int i = 0; i < Inventory.inventory.size(); i++) {
+			backBufferGraphics.drawString(Item.itemregistry.get(i).name, x, y);
 		}
 	
 	}
 
+	public void drawApplyMenu(Screen screen, String item_name, int location) {
+		if (ShopScreen.checkItem((ShopScreen.selecteditem()))) {
+			int winw = backBuffer.getWidth() * 8 / 10;
+			int winh = 400;
+			int winxbase = (backBuffer.getWidth() - winw) / 2;
+			int winybase = (backBuffer.getHeight() - winh) / 2;
+			backBufferGraphics.setColor(Color.GRAY);
+			backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
+			backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
+			drawCenteredBigString(screen, item_name, winxbase+40);
+			backBufferGraphics.setColor(Color.WHITE);
+			backBufferGraphics.drawString("Apply?", winxbase + 125, winybase + 240);
+			backBufferGraphics.drawString("YES", winxbase + 70, winybase + 270);
+			backBufferGraphics.drawString("NO", winxbase + winw - 110, winybase + 270);
+			if (location == 0) {
+				backBufferGraphics.setColor(Color.GREEN);
+				backBufferGraphics.drawString("YES", winxbase+70, winybase+270);
+			}
+			else if (location == 1) {
+				backBufferGraphics.setColor(Color.GREEN);
+				backBufferGraphics.drawString("NO", winxbase+winw-110, winybase+270);
+			}
+
+		}
+	}
 	//like MessageBox
 	public enum shopmodaltype
 	{
 		SM_YESNO, SM_OK
 	}
-	public void drawshopmodal(Screen screen, String title, String text, shopmodaltype mode, int modaloption)
-	{
-		int winw=backBuffer.getWidth()*8/10;
+
+	public void drawshopmodal(Screen screen, String item_name, String item_price, shopmodaltype mode, int modaloption) {
+		int winw= backBuffer.getWidth()*8/10;
 		int winh=400;
 		int winxbase=(backBuffer.getWidth()-winw)/2;
 		int winybase=(backBuffer.getHeight()-winh)/2;
-		backBufferGraphics.setColor(Color.CYAN);
+		backBufferGraphics.setColor(Color.GRAY);
 		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
 		backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
 		backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredBigString(screen, title, winxbase+40);
-		drawCenteredBigString(screen, text, winxbase+150);
-		backBufferGraphics.drawString("YES", winxbase+50, winybase+270);
-		backBufferGraphics.drawString("NO", winxbase+winw-150, winybase+270);
+		drawCenteredBigString(screen, item_name, winxbase+40);
+		drawCenteredBigString(screen, item_price, winxbase+150);
+		backBufferGraphics.drawString("YES", winxbase+70, winybase+270);
+		backBufferGraphics.drawString("NO", winxbase+winw-110, winybase+270);
+		if (modaloption == 0) {
+			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.drawString("YES", winxbase+70, winybase+270);
+		}
+		else if (modaloption == 1) {
+			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.drawString("NO", winxbase+winw-110, winybase+270);
+		}
 	}
+
 }
+
+
+
+
+

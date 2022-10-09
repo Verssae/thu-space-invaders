@@ -4,10 +4,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-import engine.Cooldown;
-import engine.Core;
-import engine.GameSettings;
-import engine.GameState;
+import engine.*;
 import entity.Bullet;
 import entity.BulletPool;
 import entity.EnemyShip;
@@ -58,6 +55,8 @@ public class GameScreen extends Screen {
 	private Set<Bullet> bullets;
 	/** Current score. */
 	private int score;
+	/** Current coin. */
+	private int coin;
 	/** Player lives left. */
 	private int lives;
 	/** Total bullets shot by the player. */
@@ -97,6 +96,7 @@ public class GameScreen extends Screen {
 		this.level = gameState.getLevel();
 		this.score = gameState.getScore();
 		this.lives = gameState.getLivesRemaining();
+		this.coin = gameState.getCoin();
 		if (this.bonusLife)
 			this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
@@ -233,6 +233,7 @@ public class GameScreen extends Screen {
 		drawManager.drawScore(this, this.score);
 		drawManager.drawLives(this, this.lives);
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
+		drawManager.drawCoin(this, this.coin);
 
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
@@ -288,6 +289,8 @@ public class GameScreen extends Screen {
 						this.score += enemyShip.getPointValue();
 						this.shipsDestroyed++;
 						this.enemyShipFormation.destroy(enemyShip);
+						this.coin += enemyShip.getPointValue() / 10;
+						Coin.balance += enemyShip.getPointValue() / 10;
 						recyclable.add(bullet);
 					}
 				if (this.enemyShipSpecial != null
@@ -297,6 +300,8 @@ public class GameScreen extends Screen {
 					this.shipsDestroyed++;
 					this.enemyShipSpecial.destroy();
 					this.enemyShipSpecialExplosionCooldown.reset();
+					this.coin += this.enemyShipSpecial.getPointValue() / 10;
+					Coin.balance += this.enemyShipSpecial.getPointValue() / 10;
 					recyclable.add(bullet);
 				}
 			}
@@ -336,6 +341,6 @@ public class GameScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.lives,
-				this.bulletsShot, this.shipsDestroyed);
+				this.bulletsShot, this.shipsDestroyed, this.coin);
 	}
 }
