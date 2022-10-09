@@ -390,18 +390,18 @@ public class GameScreen extends Screen {
 				Random random = new Random();
 				int per = random.nextInt(3);
 
-				if (per == 1) {
+				if (per == 0) {
 					if (this.lives < 3) {
 						this.lives++;
 						this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
 					}
 				}
-				if (per == 2) {
-					int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 1.3);
+				if (per == 1) {
+					int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 0.7);
 					ship.setSHOOTING_INTERVAL(shootingSpeed);
 					this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
 				}
-				if (per == 0) {
+				if (per == 2) {
 					int shipSpeed = (int) (ship.getSPEED() + 1);
 					ship.setSPEED(shipSpeed);
 					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
