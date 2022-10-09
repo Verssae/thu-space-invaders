@@ -25,15 +25,27 @@
 
  <details> 
   <summary><b>메인 화면 버튼 생성</b></summary>
-　🏁 Setting 버튼 생성 및 기타 버튼 생성(타 팀의 개발 내용에 따라 상이)
+🏁 Setting 버튼 생성 및 기타 버튼 생성(타 팀의 개발 내용에 따라 상이)<br>
+<br>
+🏁 With Team 1 about Sound<br>
+효과음, 배경음을 따로 구분해달라고 요청한 뒤, 전달 받은 후의 Volume 부분을 Master, Background Music, Effect로 나눴음.<br>
+<br>
+🏁 With Team 2 about Button<br>
+Setting Screen에서 HUD Setting Screen으로 연결되는 버튼을 만들기로 함.<br>
+<br>
+🏁 With Team 5 about Button<br>
+카카오톡으로 요청받은 Store Button 생성 컨펌 후 Pull request 관련 협의 -> 완료<br>
+
 </details>
 
 <details><summary><b>환경 설정 창 및 기능 생성</b></summary>
-  <b>⚫ 화면 사이즈 조절</b><br>
-  　　  🏁 화면 사이즈 (창모드 / 전체화면) 전환 기능<br>
-  　　  🏁 화면 창 모드 전환 단축키<br>
-  <b>⚫ 볼륨 조절</b><br>
-   　　  🏁 효과음 볼륨 크기 설정 사이드바 생성<br>
-  　　  🏁 배경음 볼륨 크기 설정 사이드바 생성<br>
-  　　  🏁 마스터 볼륨 크기 설정 사이드바 생성
+<b>⚫ 화면 사이즈 조절</b> => STANDARD, WIDE, FULL SIZE 선택할 수 있도록 구현<br>
+🏁 화면 사이즈 (창모드 / 전체화면) 전환 기능<br>
+🏁 화면 창 모드 전환 단축키<br>
+<br>
+<b>⚫ 볼륨 조절</b> => 25 - 50 - 75 - 100 - Mute 로 설정할 수 있도록 구현<br>
+🏁 마스터 볼륨 크기 설정 버튼 생성<br>
+🏁 효과음 볼륨 크기 설정 버튼 생성<br>
+🏁 배경음 볼륨 크기 설정 버튼 생성
 </details>
+  
