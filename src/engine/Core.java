@@ -13,8 +13,9 @@ import screen.HighScoreScreen;
 import screen.ShopScreen;
 import screen.ScoreScreen;
 import screen.Screen;
-import screen.ShopScreen;
 import screen.TitleScreen;
+
+import javax.sound.sampled.Clip;
 
 /**
  * Implements core game logic.
@@ -73,16 +74,22 @@ public final class Core {
 	private static Handler fileHandler;
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
+	/** Bgm player */
+	private static Clip clip;
 
 	/** Test only !!
 	 * You can add item max 15
-	 * If you have fewer than 15 items to add, refer to DrawManager's drawshop method */
+	 * If you have fewer than 15 items to add, refer to DrawManager's drawshop method
+	 * Ship skin itemid is start 1000 ~
+	 * Bgm itemid is start 2000 ~ */
 	private static final Item Test1 =
-			new Item(1004, "testtest", 0);
+			new Item(1000, "Dummy-data-ship", 0);
 	private static final Item Test2 =
-			new Item(10042, "testtest2", 1);
+			new Item(1001, "Dummy-data-ship2", 0);
 	private static final Item Test3 =
-			new Item(10043, "testtest3", 2);
+			new Item(2000, "Dummy-data-bgm", 0);
+	private static final Item Test4 =
+			new Item(2001, "Dummy-data-bgm2", 0);
 
 
 	/**
@@ -123,6 +130,7 @@ public final class Core {
 		Item.itemregistry.add(Test1);
 		Item.itemregistry.add(Test2);
 		Item.itemregistry.add(Test3);
+		Item.itemregistry.add(Test4);
 
 		gameSettings = new ArrayList<GameSettings>();
 		gameSettings.add(SETTINGS_LEVEL_1);
@@ -152,6 +160,8 @@ public final class Core {
 				// Game & score.
 				do {
 					// One extra live every few levels.
+					if (ShopScreen.getApply_bgm() != 0)
+						PlayBgm.play();
 					boolean bonusLife = gameState.getLevel()
 							% EXTRA_LIFE_FRECUENCY == 0
 							&& gameState.getLivesRemaining() < MAX_LIVES;
@@ -163,6 +173,10 @@ public final class Core {
 							+ " game screen at " + FPS + " fps.");
 					frame.setScreen(currentScreen);
 					LOGGER.info("Closing game screen.");
+					if (ShopScreen.getApply_bgm() != 0) {
+						clip = PlayBgm.getClip();
+						PlayBgm.BgmStop(clip);
+					}
 
 					gameState = ((GameScreen) currentScreen).getGameState();
 
@@ -197,6 +211,10 @@ public final class Core {
 			case 4:
 				currentScreen = new ShopScreen(width, height, FPS, 1);
 				returnCode=frame.setScreen(currentScreen);
+				LOGGER.info("Closing shop screen.");
+				if (ShopScreen.getApply_ship() == 1) {
+
+				}
 				break;
 			default:
 				break;

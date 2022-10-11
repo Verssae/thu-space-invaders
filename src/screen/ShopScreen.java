@@ -58,6 +58,8 @@ public class ShopScreen extends Screen {
 	shopstates state;
 	static int invrow = 0;
 	static int invcol = 0;
+	static int apply_ship = 0;
+	static int apply_bgm = 0;
 
 	shopmodaltype modaltype;
 	int modaloption = 0;
@@ -183,12 +185,48 @@ public class ShopScreen extends Screen {
 					}
 					else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
 						if (location == 0) {
-							/** Implement the application of the item */
+							/** Implement the application of the item
+							 * If you make multiple ship skins, change the number of apply_ship by type
+							 * example apply_ship of ship1 is 1, apply_ship of ship2 is 2...
+							 * update DrawManager's ship spriteType */
+							if (selecteditem().itemid == 1000) {
+								apply_ship = 1;
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+							else if (selecteditem().itemid == 1001) {
+								apply_ship = 2;
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+							else if (selecteditem().itemid == 2000) {
+								apply_bgm = 1;
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+							else if (selecteditem().itemid == 2001) {
+								apply_bgm = 2;
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+							this.selectionCooldown.reset();
 
 						}
 						else if (location == 1) {
-							this.state = shopstates.SHOP_INVEN;
-							this.selectionCooldown.reset();
+							if (apply_ship != 0) {
+								apply_ship = 0;
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+							else if (apply_bgm != 0) {
+								apply_bgm = 0;
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+							else {
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
 						}
 					}
 				}
@@ -214,25 +252,46 @@ public class ShopScreen extends Screen {
 		drawManager.drawshop(this, invrow, invcol, this.state);
 		if (this.state == shopstates.SHOP_MODAL) {
 			if (invrow == 0 || invrow == 1 || invrow == 2) {
-				drawManager.drawshopmodal(this, String.valueOf(Item.itemregistry.get(invrow).name), String.valueOf(Item.itemregistry.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
+				drawManager.drawshopmodal(this, Item.itemregistry.get(invrow).name, String.valueOf(Item.itemregistry.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
 			}
-			/** Generalization becomes difficult when crossing the first row.
-			if (invcol == 1 && invrow == 0 || invrow == 1 || invrow == 2) {
-				drawManager.drawshopmodal(this, String.valueOf(Item.itemregistry.get(invcol + invrow + 2).name), String.valueOf(Item.itemregistry.get(invcol + invrow + 2).price), shopmodaltype.SM_YESNO, modaloption);
+			if (invcol == 1) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawshopmodal(this, Item.itemregistry.get(invrow + 3).name, String.valueOf(Item.itemregistry.get(invcol + invrow + 2).price), shopmodaltype.SM_YESNO, modaloption);
 			}
-			if (invcol == 2 && invrow == 0 || invrow == 1 || invrow == 2) {
-				drawManager.drawshopmodal(this, String.valueOf(Item.itemregistry.get(invrow).name), String.valueOf(Item.itemregistry.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
+			if (invcol == 2) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawshopmodal(this, Item.itemregistry.get(invrow + 6).name, String.valueOf(Item.itemregistry.get(invcol + invrow + 2).price), shopmodaltype.SM_YESNO, modaloption);
 			}
-			if (invcol == 3 && invrow == 0 || invrow == 1 || invrow == 2) {
-				drawManager.drawshopmodal(this, String.valueOf(Item.itemregistry.get(invrow).name), String.valueOf(Item.itemregistry.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
+			if (invcol == 3) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawshopmodal(this, Item.itemregistry.get(invrow + 9).name, String.valueOf(Item.itemregistry.get(invcol + invrow + 2).price), shopmodaltype.SM_YESNO, modaloption);
 			}
-			if (invcol == 4 && invrow == 0 || invrow == 1 || invrow == 2) {
-				drawManager.drawshopmodal(this, String.valueOf(Item.itemregistry.get(invrow).name), String.valueOf(Item.itemregistry.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
-			} */
+			if (invcol == 4) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawshopmodal(this, Item.itemregistry.get(invrow + 12).name, String.valueOf(Item.itemregistry.get(invcol + invrow + 2).price), shopmodaltype.SM_YESNO, modaloption);
+			}
 		}
 
 		else if (this.state == shopstates.SHOP_APPLY) {
-			drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow).name, location);
+			if (invrow == 0 || invrow == 1 || invrow == 2) {
+				drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow).name, location);
+			}
+			if (invcol == 1) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 3).name, location);
+			}
+			if (invcol == 2) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 6).name, location);
+			}
+			if (invcol == 3) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 9).name, location);
+			}
+			if (invcol == 4) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 12).name, location);
+			}
 		}
 
 		drawManager.completeDrawing(this);
@@ -250,6 +309,24 @@ public class ShopScreen extends Screen {
 
 	public static engine.Item selecteditem()
 	{
+		if (invcol == 1) {
+			return Item.itemregistry.get(invrow + 3);
+		}
+		if (invcol == 2) {
+			return Item.itemregistry.get(invrow + 6);
+		}
+		if (invcol == 3) {
+			return Item.itemregistry.get(invrow + 9);
+		}
+		if (invcol == 4) {
+			return Item.itemregistry.get(invrow + 12);
+		}
 		return Item.itemregistry.get(invrow);
+	}
+	public static int getApply_ship() {
+		return apply_ship;
+	}
+	public static int getApply_bgm() {
+		return apply_bgm;
 	}
 }

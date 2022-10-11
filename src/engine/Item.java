@@ -4,7 +4,10 @@ import screen.ShopScreen;
 
 import java.util.ArrayList;
 
+
 public class Item {
+    /** FileManager instance. */
+    private static FileManager fileManager;
 
     public static ArrayList<Item> itemregistry;
     /** Item ID, must be associated manually! (to use with use)
@@ -25,6 +28,13 @@ public class Item {
     public void use() {
         switch(itemid)
         {
+            case 1000:
+                /** Apply ship skin */
+                fileManager = Core.getFileManager();
+            case 2000:
+                /** Apply Bgm */
+
+
             default:
             //You should not be here!!
         }

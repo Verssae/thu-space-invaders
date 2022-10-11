@@ -6,7 +6,8 @@ import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.awt.Dimension;
+import java.awt.image.ImageObserver;
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,6 +20,9 @@ import screen.ShopScreen;
 import screen.ShopScreen.shopstates;
 import entity.Entity;
 import entity.Ship;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 /**
  * Manages screen drawing.
@@ -53,6 +57,9 @@ public final class DrawManager {
 
 	private static Font fontSmall;
 
+	/** Item icon and Image observer*/
+	BufferedImage Dummy_icon;
+	ImageObserver observer;
 	
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
@@ -82,7 +89,7 @@ public final class DrawManager {
 		/** Bonus ship. */
 		EnemyShipSpecial,
 		/** Destroyed enemy ship. */
-		Explosion
+		Explosion;
 	};
 
 	/**
@@ -95,7 +102,6 @@ public final class DrawManager {
 
 		try {
 			spriteMap = new LinkedHashMap<SpriteType, boolean[][]>();
-
 			spriteMap.put(SpriteType.Ship, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipDestroyed, new boolean[13][8]);
 			spriteMap.put(SpriteType.Bullet, new boolean[3][5]);
@@ -111,12 +117,14 @@ public final class DrawManager {
 
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
+			logger.info(String.valueOf(ShopScreen.getApply_ship()));
 
 			// Font loading.
 			fontRegular = fileManager.loadFont(14f);
 			fontBig = fileManager.loadFont(24f);
 			fontSmall = fileManager.loadFont(12f);
 			logger.info("Finished loading the fonts.");
+
 
 		} catch (IOException e) {
 			logger.warning("Loading failed.");
@@ -668,8 +676,14 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.GRAY);
 			backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
 			backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
-			drawCenteredBigString(screen, item_name, winxbase+40);
 			backBufferGraphics.setColor(Color.WHITE);
+			drawCenteredBigString(screen, item_name, winxbase+40);
+			try {
+				Dummy_icon = ImageIO.read(new File("C:\\Users\\ssss3\\Desktop\\My_Cafe_01_B_Peroroacc_01.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			backBufferGraphics.drawImage(Dummy_icon, winxbase + 115, winxbase + 80, 100, 130, observer);
 			backBufferGraphics.drawString("Apply?", winxbase + 125, winybase + 240);
 			backBufferGraphics.drawString("YES", winxbase + 70, winybase + 270);
 			backBufferGraphics.drawString("NO", winxbase + winw - 110, winybase + 270);
@@ -690,7 +704,7 @@ public final class DrawManager {
 		SM_YESNO, SM_OK
 	}
 
-	public void drawshopmodal(Screen screen, String item_name, String item_price, shopmodaltype mode, int modaloption) {
+	public void drawshopmodal (Screen screen, String item_name, String item_price, shopmodaltype mode, int modaloption) {
 		int winw= backBuffer.getWidth()*8/10;
 		int winh=400;
 		int winxbase=(backBuffer.getWidth()-winw)/2;
@@ -700,16 +714,24 @@ public final class DrawManager {
 		backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
 		backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredBigString(screen, item_name, winxbase+40);
-		drawCenteredBigString(screen, item_price, winxbase+150);
-		backBufferGraphics.drawString("YES", winxbase+70, winybase+270);
-		backBufferGraphics.drawString("NO", winxbase+winw-110, winybase+270);
+		try {
+			Dummy_icon = ImageIO.read(new File("C:\\Users\\ssss3\\Desktop\\My_Cafe_01_B_Peroroacc_01.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		backBufferGraphics.drawImage(Dummy_icon, winxbase + 125, winxbase + 125, 80, 120, observer);
+		backBufferGraphics.drawString("Price:", winxbase + 125, winxbase + 100);
+		drawCenteredBigString(screen, item_price, winxbase+125);
+		backBufferGraphics.drawString("Purchase?", winxbase + 100, winybase + 260);
+		backBufferGraphics.drawString("YES", winxbase+70, winybase+290);
+		backBufferGraphics.drawString("NO", winxbase+winw-110, winybase+290);
 		if (modaloption == 0) {
 			backBufferGraphics.setColor(Color.GREEN);
-			backBufferGraphics.drawString("YES", winxbase+70, winybase+270);
+			backBufferGraphics.drawString("YES", winxbase+70, winybase+290);
 		}
 		else if (modaloption == 1) {
 			backBufferGraphics.setColor(Color.GREEN);
-			backBufferGraphics.drawString("NO", winxbase+winw-110, winybase+270);
+			backBufferGraphics.drawString("NO", winxbase+winw-110, winybase+290);
 		}
 	}
 
