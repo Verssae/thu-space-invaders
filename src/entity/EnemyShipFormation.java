@@ -95,6 +95,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	/** Number of not destroyed ships. */
 	private int shipCount;
 
+
 	/** Directions the formation can move. */
 	private enum Direction {
 		/** Movement to the right side of the screen. */
@@ -277,13 +278,16 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					if (!isAtBottom) {
 						int randomPlace = (int) (Math.random() * column.size() - 1);
 						movementY = 1;
-						if(randomPlace < enemyShips.size()) {
-							if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+						if(Math.random()<0.70){
+							if(randomPlace < enemyShips.size()) {
+								if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+									movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
+								}
+							}
+						}else{
+							if(enemyShips.get(enemyShips.size()-1) == column && column.get(column.size()-1) == enemyShip){
 								movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 							}
-						}
-						if(enemyShips.get(enemyShips.size()-1) == column && column.get(column.size()-1) == enemyShip){
-							movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 						}
 					}
 					enemyShip.move(movementX, movementY);
@@ -349,14 +353,22 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
-			if(Math.random()>0.7) {
+			float ShootPattern = (float)(Math.round(Math.random()*10)/10.0);
+			if(ShootPattern<=0.4) { //The Enemy of double Bullet Type
 				bullets.add(BulletPool.getBullet(shooter.getPositionX()
-						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
 				bullets.add(BulletPool.getBullet(shooter.getPositionX()
-						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2));
-			}else{
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,0));
+			}
+			else if(0.4 < ShootPattern && ShootPattern < 0.7) {//shoot double direction
 				bullets.add(BulletPool.getBullet(shooter.getPositionX()
-						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,1));
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,2));
+			}
+			else{
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()//general shoot
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
 			}
 		}
 	}
