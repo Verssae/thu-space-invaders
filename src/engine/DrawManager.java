@@ -679,7 +679,7 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.WHITE);
 			drawCenteredBigString(screen, item_name, winxbase+40);
 			try {
-				Dummy_icon = ImageIO.read(new File("C:\\Users\\ssss3\\Desktop\\My_Cafe_01_B_Peroroacc_01.png"));
+				Dummy_icon = ImageIO.read(new File("icon\\Dummy-data-icon.png\\"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -715,7 +715,7 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredBigString(screen, item_name, winxbase+40);
 		try {
-			Dummy_icon = ImageIO.read(new File("C:\\Users\\ssss3\\Desktop\\My_Cafe_01_B_Peroroacc_01.png"));
+			Dummy_icon = ImageIO.read(new File("icon\\Dummy-data-icon.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
