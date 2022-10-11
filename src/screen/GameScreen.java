@@ -407,9 +407,9 @@ public class GameScreen extends Screen {
 					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
 				}
 			}
-			this.items.removeAll(recyclable);
-			ItemPool.recycle(recyclable);
 		}
+		this.items.removeAll(recyclable);
+		ItemPool.recycle(recyclable);
 	}
 
 		/**
