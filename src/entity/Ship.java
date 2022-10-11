@@ -40,7 +40,7 @@ public class Ship extends Entity {
 
 		this.spriteType = SpriteType.Ship;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
-		this.destructionCooldown = Core.getCooldown(450);
+		this.destructionCooldown = Core.getCooldown(300);
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class Ship extends Entity {
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			bullets.add(BulletPool.getBullet(positionX + this.width / 2,
-					positionY, BULLET_SPEED));
+					positionY, BULLET_SPEED,0));
 			return true;
 		}
 		return false;
