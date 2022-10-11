@@ -23,6 +23,7 @@ public class Inventory {
                 i.quantaty += qty;
                 inp = true;
                 break;
+                
             }
         }
         if (!inp) {

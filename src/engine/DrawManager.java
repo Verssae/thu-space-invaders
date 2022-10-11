@@ -15,6 +15,8 @@ import java.util.logging.Logger;
 import java.util.ArrayList;
 
 import screen.Screen;
+import screen.ShopScreen;
+import screen.ShopScreen.shopstates;
 import entity.Entity;
 import entity.Ship;
 
@@ -594,18 +596,20 @@ public final class DrawManager {
 		//assumed grid size
 	}
 
-	public void drawshop(Screen screen, int curr, int curc)
+	public void drawshop(Screen screen, int curr, int curc, ShopScreen.shopstates state)
 	{
 		int x=0, y=0;
 		//draw top bar
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.drawString("RETURN", 0, 40);
+		if(state==shopstates.SHOP_RET) backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.drawString("RETURN", 10, 40);
+		backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredBigString(screen, "ShOp", 40);
 		backBufferGraphics.drawLine(0, 60, backBuffer.getWidth(), 60);
 		for ( int i = 0; i < 3; i++) {
 			for (int j = 0; j < 5; j++) {
-				if(curr==i&&curc==j)
+				if(curr==i&&curc==j&&state==shopstates.SHOP_INVEN)
 				{
 					backBufferGraphics.setColor(Color.GREEN);
 					backBufferGraphics.drawRect(getshopgridcoordx(i), getshopgridcoordy(j), 50, 50);
@@ -631,9 +635,11 @@ public final class DrawManager {
 		}
 
 		//draw items
-
+		
 		//draw item info
 
+		//subtyping is dangerous, but use this!
+		//((ShopScreen)screen).selecteditem();
 		//draw cursor
 		//var tempship=new Ship(0, 0);
 		//drawEntity(tempship, x, y);
@@ -651,13 +657,19 @@ public final class DrawManager {
 	{
 		SM_YESNO, SM_OK
 	}
-	public void drawshopmodal(Screen screen, String text, shopmodaltype mode)
+	public void drawshopmodal(Screen screen, String title, String text, shopmodaltype mode, int modaloption)
 	{
 		int winw=backBuffer.getWidth()*8/10;
 		int winh=400;
+		int winxbase=(backBuffer.getWidth()-winw)/2;
+		int winybase=(backBuffer.getHeight()-winh)/2;
 		backBufferGraphics.setColor(Color.CYAN);
-		backBufferGraphics.drawRect((backBuffer.getWidth()-winw)/2, (backBuffer.getHeight()-winh)/2, winw, winh);
-		backBufferGraphics.fillRect((backBuffer.getWidth()-winw)/2, (backBuffer.getHeight()-winh)/2, winw, winh);
-		
+		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
+		backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredBigString(screen, title, winxbase+40);
+		drawCenteredBigString(screen, text, winxbase+150);
+		backBufferGraphics.drawString("YES", winxbase+50, winybase+270);
+		backBufferGraphics.drawString("NO", winxbase+winw-150, winybase+270);
 	}
 }
