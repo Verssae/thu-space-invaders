@@ -1,5 +1,6 @@
 package screen;
 import java.util.Random;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
@@ -395,6 +396,10 @@ public class GameScreen extends Screen {
 						this.lives++;
 						this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
 					}
+
+					// 아이템 먹었을 때 색깔 변하는 효과
+					this.ship.setColor(Color.YELLOW); // 임시로 노란색
+
 				}
 				if (per == 1) {
 					int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 0.7);
