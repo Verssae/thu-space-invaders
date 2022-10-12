@@ -57,6 +57,12 @@ public class Entity {
 		return color;
 	}
 
+	// 아이템 먹었을 때 색깔 변할 수 있게 메서드 추가 
+	// Add a method so that the color changes when you eat an item
+	public final void setColor(Color color) {
+		this.color = color;
+	}
+	
 	/**
 	 * Getter for the X axis position of the entity.
 	 * 
