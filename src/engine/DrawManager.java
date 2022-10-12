@@ -727,15 +727,43 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, instructionsString, screen.getHeight() / 5);
 	}
 
-	public void drawHUDSettingMenu(final Screen screen) {
+	public void drawHUDSettingMenu(final Screen screen, final int option) {
 		String HUDString = "HUD Setting";
 		String instructionsString = "Press Space to return";
+		String option1 = "GREEN";
+		String option2 = "RED";
+		String option3 = "BLUE";
+
 
 		backBufferGraphics.setColor(Color.GREEN);
 		drawCenteredBigString(screen, HUDString, screen.getHeight() / 8);
 
 		backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, instructionsString, screen.getHeight() / 5);
+
+
+		if (option == 1)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, option1,
+				screen.getHeight() / 3 * 2);
+
+		if (option == 2)
+			backBufferGraphics.setColor(Color.RED);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, option2, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+
+
+		if (option == 3)
+			backBufferGraphics.setColor(Color.BLUE);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, option3, screen.getHeight() / 3
+				* 2 + fontRegularMetrics.getHeight() * 4);
+
 	}
 
 	public void drawHelpMenu(final Screen screen) {
