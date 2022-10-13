@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.Random;
 
 import screen.Screen;
 import engine.Cooldown;
@@ -94,6 +95,14 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private List<EnemyShip> shooters;
 	/** Number of not destroyed ships. */
 	private int shipCount;
+
+	private int hideEnemyX;
+
+	private int hideEnemyY;
+
+	private boolean isHide;
+
+	private int a = 0, b = 0, cnt = 0;
 
 
 	/** Directions the formation can move. */
@@ -210,6 +219,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		if (movementInterval >= this.movementSpeed) {
 			movementInterval = 0;
 
+			boolean isAtTop = positionY+this.height<screen.getHeight()-BOTTOM_MARGIN;
 			boolean isAtBottom = positionY
 					+ this.height > screen.getHeight() - BOTTOM_MARGIN;
 			boolean isAtRightSide = positionX
@@ -275,25 +285,58 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 			for (List<EnemyShip> column : this.enemyShips)
 				for (EnemyShip enemyShip : column) {
-					if (!isAtBottom) {
-						int randomPlace = (int) (Math.random() * column.size() - 1);
-						movementY = 1;
-						if(Math.random()<0.70){
-							if(randomPlace < enemyShips.size()) {
-								if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+					if(isLast()){
+						if(!isAtTop) {
+							movementY = -20;
+							enemyShip.move(movementX, movementY);
+						}
+						else if(!isAtBottom){
+							movementY = 1;
+							enemyShip.move(movementX,movementY);
+						}
+					}else {
+						if (!isAtBottom) {
+							int randomPlace = (int) (Math.random() * column.size() - 1);
+							movementY = 1;
+							if (Math.random() < 0.70) {
+								if (randomPlace < enemyShips.size()) {
+									if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+										movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
+									}
+								}
+							} else {
+								if (enemyShips.get(enemyShips.size() - 1) == column && column.get(column.size() - 1) == enemyShip) {
 									movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 								}
-							}
-						}else{
-							if(enemyShips.get(enemyShips.size()-1) == column && column.get(column.size()-1) == enemyShip){
-								movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 							}
 						}
 					}
 					enemyShip.move(movementX, movementY);
 					enemyShip.update();
 				}
+				Random random = new Random();
+				random.setSeed(System.currentTimeMillis());
 
+				//처음은 ㄱㅊ but 2번째에 죽으면? a,b 어떻게 설정할겨
+				EnemyShip randEnemy = enemyShips.get(this.a).get(this.b);
+				for (int i = 0; i < 5; i++) {
+					if (enemyShips.get(i).contains(randEnemy))
+						cnt++;
+				}
+				if (cnt != 0) {
+					if (!this.isHide) {
+						this.a = random.nextInt(this.nShipsWide - 1);
+						this.b = random.nextInt(this.nShipsHigh - 1);
+						this.hideEnemyY = a;
+						this.hideEnemyX = b;
+						EnemyShip target = enemyShips.get(this.hideEnemyX).get(this.hideEnemyY);
+						target.changeColor();
+					} else {
+						EnemyShip target = enemyShips.get(this.hideEnemyX).get(this.hideEnemyY);
+						target.changeColor();
+					}
+					this.isHide = !this.isHide;
+				}
 		}
 	}
 

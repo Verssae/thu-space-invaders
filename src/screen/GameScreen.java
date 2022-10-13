@@ -129,7 +129,6 @@ public class GameScreen extends Screen {
 
 	public int enemyLives;
 
-	public  int getenemyLives() {return enemyLives; }
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -462,6 +461,5 @@ public class GameScreen extends Screen {
 			return new GameState(this.level, this.score, this.lives,
 					this.bulletsShot, this.shipsDestroyed);
 		}
-
 }
 
