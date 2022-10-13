@@ -7,6 +7,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Scanner;
 
 import screen.*;
 
@@ -30,29 +31,51 @@ public final class Core {
 	/** Levels between extra life. */
 	private static final int EXTRA_LIFE_FRECUENCY = 3;
 	/** Total number of levels. */
-	private static final int NUM_LEVELS = 7;
+	private static final int NUM_LEVELS = 5;
 	
 	/** Difficulty settings for level 1. */
-	private static final GameSettings SETTINGS_LEVEL_1 =
+	private static final GameSettings SETTINGS_LEVEL_1_E =
 			new GameSettings(5, 4, 60, 2000);
 	/** Difficulty settings for level 2. */
-	private static final GameSettings SETTINGS_LEVEL_2 =
+	private static final GameSettings SETTINGS_LEVEL_2_E =
 			new GameSettings(5, 5, 50, 2500);
 	/** Difficulty settings for level 3. */
-	private static final GameSettings SETTINGS_LEVEL_3 =
+	private static final GameSettings SETTINGS_LEVEL_3_E =
 			new GameSettings(6, 5, 40, 1500);
 	/** Difficulty settings for level 4. */
-	private static final GameSettings SETTINGS_LEVEL_4 =
+	private static final GameSettings SETTINGS_LEVEL_4_E =
 			new GameSettings(6, 6, 30, 1500);
 	/** Difficulty settings for level 5. */
-	private static final GameSettings SETTINGS_LEVEL_5 =
+	private static final GameSettings SETTINGS_LEVEL_5_E =
 			new GameSettings(7, 6, 20, 1000);
-	/** Difficulty settings for level 6. */
-	private static final GameSettings SETTINGS_LEVEL_6 =
-			new GameSettings(7, 7, 10, 1000);
-	/** Difficulty settings for level 7. */
-	private static final GameSettings SETTINGS_LEVEL_7 =
-			new GameSettings(8, 7, 2, 500);
+	private static final GameSettings SETTINGS_LEVEL_1_N =
+			new GameSettings(6, 4, 60, 2000);
+	/** Difficulty settings for level 2. */
+	private static final GameSettings SETTINGS_LEVEL_2_N =
+			new GameSettings(6, 5, 50, 2500);
+	/** Difficulty settings for level 3. */
+	private static final GameSettings SETTINGS_LEVEL_3_N =
+			new GameSettings(7, 5, 40, 1500);
+	/** Difficulty settings for level 4. */
+	private static final GameSettings SETTINGS_LEVEL_4_N =
+			new GameSettings(8, 6, 30, 1500);
+	/** Difficulty settings for level 5. */
+	private static final GameSettings SETTINGS_LEVEL_5_N =
+			new GameSettings(9, 6, 20, 1000);
+	private static final GameSettings SETTINGS_LEVEL_1_H =
+			new GameSettings(6, 5, 60, 2000);
+	/** Difficulty settings for level 2. */
+	private static final GameSettings SETTINGS_LEVEL_2_H =
+			new GameSettings(7, 5, 50, 2500);
+	/** Difficulty settings for level 3. */
+	private static final GameSettings SETTINGS_LEVEL_3_H =
+			new GameSettings(8, 5, 40, 1500);
+	/** Difficulty settings for level 4. */
+	private static final GameSettings SETTINGS_LEVEL_4_H =
+			new GameSettings(9, 6, 30, 1500);
+	/** Difficulty settings for level 5. */
+	private static final GameSettings SETTINGS_LEVEL_5_H =
+			new GameSettings(10, 6, 20, 1000);
 	
 	/** Frame to draw the screen on. */
 	private static Frame frame;
@@ -100,13 +123,21 @@ public final class Core {
 		int height = frame.getHeight();
 
 		gameSettings = new ArrayList<GameSettings>();
-		gameSettings.add(SETTINGS_LEVEL_1);
-		gameSettings.add(SETTINGS_LEVEL_2);
-		gameSettings.add(SETTINGS_LEVEL_3);
-		gameSettings.add(SETTINGS_LEVEL_4);
-		gameSettings.add(SETTINGS_LEVEL_5);
-		gameSettings.add(SETTINGS_LEVEL_6);
-		gameSettings.add(SETTINGS_LEVEL_7);
+		gameSettings.add(SETTINGS_LEVEL_1_E);
+		gameSettings.add(SETTINGS_LEVEL_2_E);
+		gameSettings.add(SETTINGS_LEVEL_3_E);
+		gameSettings.add(SETTINGS_LEVEL_4_E);
+		gameSettings.add(SETTINGS_LEVEL_5_E);
+		gameSettings.add(SETTINGS_LEVEL_1_N);
+		gameSettings.add(SETTINGS_LEVEL_2_N);
+		gameSettings.add(SETTINGS_LEVEL_3_N);
+		gameSettings.add(SETTINGS_LEVEL_4_N);
+		gameSettings.add(SETTINGS_LEVEL_5_N);
+		gameSettings.add(SETTINGS_LEVEL_1_H);
+		gameSettings.add(SETTINGS_LEVEL_2_H);
+		gameSettings.add(SETTINGS_LEVEL_3_H);
+		gameSettings.add(SETTINGS_LEVEL_4_H);
+		gameSettings.add(SETTINGS_LEVEL_5_H);
 		
 		GameState gameState;
 
@@ -124,15 +155,22 @@ public final class Core {
 				LOGGER.info("Closing title screen.");
 				break;
 			case 2:
-				// Game & score.
+				// Game & score
 				do {
 					// One extra live every few levels.
+					Scanner sc = new Scanner(System.in);
+					LOGGER.info("Select your difficulty 1 is easy, 2 is normal, 3 is hard");
+					int diff = sc.nextInt();
+					while(diff < 1 || diff > 3){
+						LOGGER.info("Select your difficulty 1 is easy, 2 is normal, 3 is hard");
+						diff = sc.nextInt();
+					}
 					boolean bonusLife = gameState.getLevel()
 							% EXTRA_LIFE_FRECUENCY == 0
 							&& gameState.getLivesRemaining() < MAX_LIVES;
 					
 					currentScreen = new GameScreen(gameState,
-							gameSettings.get(gameState.getLevel() - 1),
+							gameSettings.get((diff - 1) * 5),
 							bonusLife, width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " game screen at " + FPS + " fps.");
@@ -148,7 +186,7 @@ public final class Core {
 							gameState.getShipsDestroyed());
 
 				} while (gameState.getLivesRemaining() > 0
-						&& gameState.getLevel() <= NUM_LEVELS);
+						&& gameState.getLevel()%NUM_LEVELS != 0);
 
 				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 						+ " score screen at " + FPS + " fps, with a score of "
