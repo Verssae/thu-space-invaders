@@ -1,5 +1,7 @@
 package engine;
 
+import screen.ShopScreen;
+
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
@@ -14,8 +16,10 @@ public class Inventory {
         }
     }
 
-    public static ArrayList<InventoryEntry> inventory;
+    public static ArrayList<Item> inventory;
 
+
+    /** There was not enough time to analyze and use this code. I'm sorry.
     void additem(Item itm, int qty) {
         boolean inp = false;
         for (InventoryEntry i : inventory) {
@@ -23,7 +27,7 @@ public class Inventory {
                 i.quantaty += qty;
                 inp = true;
                 break;
-                
+
             }
         }
         if (!inp) {
@@ -33,5 +37,5 @@ public class Inventory {
 
     void reduceitem() {
 
-    }
+    } */
 }

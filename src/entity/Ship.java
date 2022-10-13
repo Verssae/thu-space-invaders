@@ -6,6 +6,7 @@ import java.util.Set;
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager.SpriteType;
+import screen.ShopScreen;
 
 /**
  * Implements a ship, to be controlled by the player.
@@ -37,7 +38,6 @@ public class Ship extends Entity {
 	 */
 	public Ship(final int positionX, final int positionY) {
 		super(positionX, positionY, 13 * 2, 8 * 2, Color.GREEN);
-
 		this.spriteType = SpriteType.Ship;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(1000);

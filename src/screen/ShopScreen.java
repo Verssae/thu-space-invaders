@@ -2,10 +2,9 @@ package screen;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
-import engine.Cooldown;
-import engine.Core;
-import engine.Item;
+import engine.*;
 import engine.DrawManager.shopmodaltype;
 
 //notimplementedexception
@@ -18,6 +17,8 @@ public class ShopScreen extends Screen {
 	private Cooldown selectionCooldown;
 
 	private boolean modalp;
+
+
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -43,7 +44,6 @@ public class ShopScreen extends Screen {
 	 */
 	public final int run() {
 		this.state = shopstates.SHOP_INVEN;
-		viewing=new ArrayList<Item>();
 		super.run();
 		return this.returnCode;
 	}
@@ -52,15 +52,18 @@ public class ShopScreen extends Screen {
 	 * Updates the elements on screen and checks for events.
 	 */
 	public enum shopstates {
-		SHOP_INVEN, SHOP_RET, SHOP_MODAL, SHOP_FILTER
+		SHOP_INVEN, SHOP_RET, SHOP_MODAL, SHOP_APPLY
 	}
 
 	shopstates state;
-	int invrow = 0;
-	int invcol = 0;
+	static int invrow = 0;
+	static int invcol = 0;
+	static int apply_ship = 0;
+	static int apply_bgm = 0;
 
 	shopmodaltype modaltype;
-	int modaloption;
+	int modaloption = 0;
+	int location = 0;
 
 	protected final void update() {
 		super.update();
@@ -100,9 +103,14 @@ public class ShopScreen extends Screen {
 						this.selectionCooldown.reset();
 					}
 					else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
-						this.state=shopstates.SHOP_MODAL;
-						//
-						this.selectionCooldown.reset();
+						if (checkItem(selecteditem())) {
+							this.state=shopstates.SHOP_APPLY;
+							this.selectionCooldown.reset();
+						}
+						else {
+							this.state = shopstates.SHOP_MODAL;
+							this.selectionCooldown.reset();
+						}
 					}
 				}
 				break;
@@ -124,24 +132,116 @@ public class ShopScreen extends Screen {
 			if (this.selectionCooldown.checkFinished()
 						&& this.inputDelay.checkFinished()) {
 					if (inputManager.isKeyDown(KeyEvent.VK_LEFT)
-							|| inputManager.isKeyDown(KeyEvent.VK_A)) {
+						|| inputManager.isKeyDown(KeyEvent.VK_A)) {
+						if (modaloption == 1)
+							modaloption--;
+						else
+							modaloption = 0;
 						this.selectionCooldown.reset();
-					} else if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
+					}
+					else if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
 							|| inputManager.isKeyDown(KeyEvent.VK_D)) {
-
+						if (modaloption == 0) {
+							modaloption++;
+						}
+						else
+							modaloption = 1;
 						this.selectionCooldown.reset();
 					}
 					else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
-						//item selection!!
-						this.state=shopstates.SHOP_INVEN;
-						this.selectionCooldown.reset();
+						if (modaloption == 0) {
+							if (!purchase(selecteditem(), 1)) {
+								Inventory.inventory.add(selecteditem());
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+						}
+						else if (modaloption == 1) {
+							this.state = shopstates.SHOP_INVEN;
+							this.selectionCooldown.reset();
+						}
 					}
 				}
 				break;
-			case SHOP_FILTER:
+			case SHOP_APPLY:
+				if (this.selectionCooldown.checkFinished()
+						&& this.inputDelay.checkFinished()) {
+					if (inputManager.isKeyDown(KeyEvent.VK_LEFT)
+							|| inputManager.isKeyDown(KeyEvent.VK_A)) {
+						if (location == 1)
+							location--;
+						else
+							location = 0;
+						this.selectionCooldown.reset();
+					}
+					else if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
+							|| inputManager.isKeyDown(KeyEvent.VK_D)) {
+						if (location == 0) {
+							location++;
+						}
+						else
+							location = 1;
+						this.selectionCooldown.reset();
+					}
+					else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+						if (location == 0) {
+							/** Implement the application of the item
+							 * If you make multiple ship skins, change the number of apply_ship by type
+							 * example apply_ship of ship1 is 1, apply_ship of ship2 is 2...
+							 * update DrawManager's ship spriteType */
+							if (selecteditem().itemid == 1000) {
+								apply_ship = 1;
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+							else if (selecteditem().itemid == 1001) {
+								apply_ship = 2;
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+							else if (selecteditem().itemid == 2000) {
+								apply_bgm = 1;
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+							else if (selecteditem().itemid == 2001) {
+								apply_bgm = 2;
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+							this.selectionCooldown.reset();
+
+						}
+						else if (location == 1) {
+							if (apply_ship != 0) {
+								apply_ship = 0;
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+							else if (apply_bgm != 0) {
+								apply_bgm = 0;
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+							else {
+								this.state = shopstates.SHOP_INVEN;
+								this.selectionCooldown.reset();
+							}
+						}
+					}
+				}
 				break;
 
 		}
+	}
+
+	public static boolean checkItem(engine.Item item)
+	{
+		for (int i = 0; i < Inventory.inventory.size(); i++) {
+			if (item.itemid == Inventory.inventory.get(i).itemid)
+				return true;
+		}
+		return false;
 	}
 
 	/**
@@ -151,7 +251,47 @@ public class ShopScreen extends Screen {
 		drawManager.initDrawing(this);
 		drawManager.drawshop(this, invrow, invcol, this.state);
 		if (this.state == shopstates.SHOP_MODAL) {
-			drawManager.drawshopmodal(this, "HELLO", "BYE",  shopmodaltype.SM_YESNO, modaloption);
+			if (invrow == 0 || invrow == 1 || invrow == 2) {
+				drawManager.drawshopmodal(this, Item.itemregistry.get(invrow).name, String.valueOf(Item.itemregistry.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
+			}
+			if (invcol == 1) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawshopmodal(this, Item.itemregistry.get(invrow + 3).name, String.valueOf(Item.itemregistry.get(invcol + invrow + 2).price), shopmodaltype.SM_YESNO, modaloption);
+			}
+			if (invcol == 2) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawshopmodal(this, Item.itemregistry.get(invrow + 6).name, String.valueOf(Item.itemregistry.get(invcol + invrow + 2).price), shopmodaltype.SM_YESNO, modaloption);
+			}
+			if (invcol == 3) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawshopmodal(this, Item.itemregistry.get(invrow + 9).name, String.valueOf(Item.itemregistry.get(invcol + invrow + 2).price), shopmodaltype.SM_YESNO, modaloption);
+			}
+			if (invcol == 4) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawshopmodal(this, Item.itemregistry.get(invrow + 12).name, String.valueOf(Item.itemregistry.get(invcol + invrow + 2).price), shopmodaltype.SM_YESNO, modaloption);
+			}
+		}
+
+		else if (this.state == shopstates.SHOP_APPLY) {
+			if (invrow == 0 || invrow == 1 || invrow == 2) {
+				drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow).name, location);
+			}
+			if (invcol == 1) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 3).name, location);
+			}
+			if (invcol == 2) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 6).name, location);
+			}
+			if (invcol == 3) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 9).name, location);
+			}
+			if (invcol == 4) {
+				if (invrow == 0 || invrow == 1 || invrow == 2)
+					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 12).name, location);
+			}
 		}
 
 		drawManager.completeDrawing(this);
@@ -161,14 +301,32 @@ public class ShopScreen extends Screen {
 		return (engine.Coin.spend(item.price * qty) == -1) ? true : false;
 	}
 
-	static ArrayList<Item> viewing;
+
 	private void layoutitem()
 	{
 		engine.Item.itemregistry.size();
 	}
 
-	public engine.Item selecteditem()
+	public static engine.Item selecteditem()
 	{
-		return viewing.get(3*invrow+invcol);
+		if (invcol == 1) {
+			return Item.itemregistry.get(invrow + 3);
+		}
+		if (invcol == 2) {
+			return Item.itemregistry.get(invrow + 6);
+		}
+		if (invcol == 3) {
+			return Item.itemregistry.get(invrow + 9);
+		}
+		if (invcol == 4) {
+			return Item.itemregistry.get(invrow + 12);
+		}
+		return Item.itemregistry.get(invrow);
+	}
+	public static int getApply_ship() {
+		return apply_ship;
+	}
+	public static int getApply_bgm() {
+		return apply_bgm;
 	}
 }
