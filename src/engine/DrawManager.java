@@ -15,8 +15,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 
-import screen.Screen;
-import screen.ShopScreen;
+import screen.*;
 import screen.ShopScreen.shopstates;
 import entity.Entity;
 import entity.Ship;
@@ -248,7 +247,7 @@ public final class DrawManager {
 	 */
 	@SuppressWarnings("unused")
 	private void drawBorders(final Screen screen) {
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		backBufferGraphics.drawLine(0, 0, screen.getWidth() - 1, 0);
 		backBufferGraphics.drawLine(0, 0, 0, screen.getHeight() - 1);
 		backBufferGraphics.drawLine(screen.getWidth() - 1, 0,
@@ -326,7 +325,7 @@ public final class DrawManager {
 	 *                  Y coordinate of the line.
 	 */
 	public void drawHorizontalLine(final Screen screen, final int positionY) {
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		backBufferGraphics.drawLine(0, positionY, screen.getWidth(), positionY);
 		backBufferGraphics.drawLine(0, positionY + 1, screen.getWidth(),
 				positionY + 1);
@@ -346,7 +345,7 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, instructionsString,
 				screen.getHeight() / 2);
 
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		drawCenteredBigString(screen, titleString, screen.getHeight() / 3);
 	}
 
@@ -361,7 +360,7 @@ public final class DrawManager {
 		String settingsString = "Settings";
 		String instructionsString = "Press Space to Save Changes";
 
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		drawCenteredBigString(screen, settingsString, screen.getHeight() / 8);
 
 		backBufferGraphics.setColor(Color.GRAY);
@@ -377,7 +376,7 @@ public final class DrawManager {
 
 		// returnCode == 2 : play
 		if (option == 2)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, playString,
@@ -385,7 +384,7 @@ public final class DrawManager {
 
 		// returnCode == 3 : highscores
 		if (option == 3)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
@@ -393,7 +392,7 @@ public final class DrawManager {
 
 		// returnCode == 4 : settings
 		if (option == 4)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, settingString, screen.getHeight() / 3
@@ -401,7 +400,7 @@ public final class DrawManager {
 
 		// returnCode == 5 : store
 		if (option == 5)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, storeString, screen.getHeight() / 3
@@ -409,7 +408,7 @@ public final class DrawManager {
 
 		// returnCode == 0 : exit
 		if (option == 0)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
@@ -428,35 +427,35 @@ public final class DrawManager {
 
 		// returnCode == 400010 : Screen Size
 		if (option == 400010)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawLeftRegular2String(screen, screensizeString, screen.getHeight() / 3);
 
 		// returnCode == 400020 : masterSound
 		if (option == 400020)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawLeftRegular2String(screen, mastersoundString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 2);
 
 		// returnCode == 400030 : musicSound
 		if (option == 400030)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawLeftRegular2String(screen, musicsoundString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
 
 		// returnCode == 400040 : effectSound
 		if (option == 400040)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawLeftRegular2String(screen, effectsoundString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 6);
 
 		// returnCode == 400050 : HUD Options
 		if (option == 400050)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegular2String(screen, hudoptionString,
@@ -464,14 +463,14 @@ public final class DrawManager {
 
 		// returnCode == 400060 : help
 		if (option == 400060)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegular2String(screen, helpString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 11);
 
 		// returnCode == 1 : exit
 		if (option == 1)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegular2String(screen, exitString, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 13);
@@ -653,7 +652,7 @@ public final class DrawManager {
 		String newRecordString = "New Record!";
 		String introduceNameString = "Introduce name:";
 
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		drawCenteredRegularString(screen, newRecordString, screen.getHeight()
 				/ 4 + fontRegularMetrics.getHeight() * 10);
 		backBufferGraphics.setColor(Color.WHITE);
@@ -670,7 +669,7 @@ public final class DrawManager {
 
 		for (int i = 0; i < 3; i++) {
 			if (i == nameCharSelected)
-				backBufferGraphics.setColor(Color.GREEN);
+				backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 			else
 				backBufferGraphics.setColor(Color.WHITE);
 
@@ -704,12 +703,12 @@ public final class DrawManager {
 
 		int height = isNewRecord ? 4 : 2;
 
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		drawCenteredBigString(screen, gameOverString, screen.getHeight()
 				/ height - fontBigMetrics.getHeight() * 2);
 
 		if (acceptsInput)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		else
 			backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, continueOrExitString,
@@ -726,7 +725,7 @@ public final class DrawManager {
 		String highScoreString = "High Scores";
 		String instructionsString = "Press Space to return";
 
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		drawCenteredBigString(screen, highScoreString, screen.getHeight() / 8);
 
 		backBufferGraphics.setColor(Color.GRAY);
@@ -768,22 +767,50 @@ public final class DrawManager {
 		String storeString = "Store";
 		String instructionsString = "Store";
 
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		drawCenteredBigString(screen, storeString, screen.getHeight() / 8);
 
 		backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, instructionsString, screen.getHeight() / 5);
 	}
 
-	public void drawHUDSettingMenu(final Screen screen) {
+	public void drawHUDSettingMenu(final Screen screen, final int option) {
 		String HUDString = "HUD Setting";
 		String instructionsString = "Press Space to return";
+		String option1 = "GREEN";
+		String option2 = "RED";
+		String option3 = "BLUE";
 
-		backBufferGraphics.setColor(Color.GREEN);
+
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		drawCenteredBigString(screen, HUDString, screen.getHeight() / 8);
 
 		backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, instructionsString, screen.getHeight() / 5);
+
+
+		if (option == 1)
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, option1,
+				screen.getHeight() / 3 * 2);
+
+		if (option == 2)
+			backBufferGraphics.setColor(Color.RED);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, option2, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+
+
+		if (option == 3)
+			backBufferGraphics.setColor(Color.BLUE);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, option3, screen.getHeight() / 3
+				* 2 + fontRegularMetrics.getHeight() * 4);
+
 	}
 
 	public void drawHelpMenu(final Screen screen) {
@@ -799,7 +826,7 @@ public final class DrawManager {
 		int i = 0;
 		int j = 0;
 
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		drawCenteredBigString(screen, HelpString, screen.getHeight() / 8);
 
 		backBufferGraphics.setColor(Color.GRAY);
@@ -890,7 +917,7 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		if (number >= 4)
 			if (!bonusLife) {
 				drawCenteredBigString(screen, "Level " + level,
