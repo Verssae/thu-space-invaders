@@ -27,6 +27,10 @@ public class Ship extends Entity {
 	/** Time spent inactive between hits. */
 	private Cooldown destructionCooldown;
 
+
+	private Cooldown itemCooldown;
+
+
 	/**
 	 * Constructor, establishes the ship's properties.
 	 * 
@@ -41,6 +45,7 @@ public class Ship extends Entity {
 		this.spriteType = SpriteType.Ship;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(300);
+		this.itemCooldown = Core.getCooldown(300);
 	}
 
 	/**
@@ -80,10 +85,17 @@ public class Ship extends Entity {
 	 * Updates status of the ship.
 	 */
 	public final void update() {
-		if (!this.destructionCooldown.checkFinished())
+		if (!this.destructionCooldown.checkFinished()) {
 			this.spriteType = SpriteType.ShipDestroyed;
+		}
 		else
-			this.spriteType = SpriteType.Ship;
+			if (!this.itemCooldown.checkFinished()) {
+				this.spriteType = spriteType.ItemGet;
+			}
+			else {
+				this.setColor(Color.green);
+				this.spriteType = SpriteType.Ship;
+			}
 	}
 
 	/**
@@ -102,6 +114,21 @@ public class Ship extends Entity {
 		return !this.destructionCooldown.checkFinished();
 	}
 
+	/**
+	 * Switches the ship to its destroyed state.
+	 */
+	public final void itemGet() {
+		this.itemCooldown.reset();
+	}
+
+	/**
+	 * Checks if the ship is destroyed.
+	 *
+	 * @return True if the ship is currently destroyed.
+	 */
+	public final boolean isItemGet() {
+		return !this.itemCooldown.checkFinished();
+	}
 	/**
 	 * Getter for the ship's speed.
 	 * 
