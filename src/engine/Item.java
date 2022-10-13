@@ -4,6 +4,8 @@ import screen.ShopScreen;
 
 import java.util.ArrayList;
 
+import engine.DrawManager.SpriteType;
+
 
 public class Item {
     /** FileManager instance. */
@@ -18,6 +20,8 @@ public class Item {
     public types type;
     public int itemid;
     public String name;
+    public String description;
+    public SpriteType assocsprite;
     public int price;
     public boolean appliedp;
 
@@ -27,20 +31,5 @@ public class Item {
         name=pName;
         price = pPrice;
     }
-    /** wanted to implement via higher-order function(lambda)
-    but use switch-case for now. */
-    public void use() {
-        switch(itemid)
-        {
-            case 1000:
-                /** Apply ship skin */
-                fileManager = Core.getFileManager();
-            case 2000:
-                /** Apply Bgm */
 
-
-            default:
-            //You should not be here!!
-        }
-    }
 }

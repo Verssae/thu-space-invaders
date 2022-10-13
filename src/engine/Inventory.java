@@ -27,6 +27,7 @@ public class Inventory {
         }
         return 1;
     }
+
     boolean hasitem(Item itm)
     {
         for (Item item : inventory) {
