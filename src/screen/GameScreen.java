@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import engine.*;
+import engine.DrawManager.SpriteType;
 import entity.*;
 
 /**
@@ -69,17 +70,17 @@ public class GameScreen extends Screen {
 	 * Constructor, establishes the properties of the screen.
 	 * 
 	 * @param gameState
-	 *            Current game state.
+	 *                     Current game state.
 	 * @param gameSettings
-	 *            Current game settings.
+	 *                     Current game settings.
 	 * @param bonnusLife
-	 *            Checks if a bonus life is awarded this level.
+	 *                     Checks if a bonus life is awarded this level.
 	 * @param width
-	 *            Screen width.
+	 *                     Screen width.
 	 * @param height
-	 *            Screen height.
+	 *                     Screen height.
 	 * @param fps
-	 *            Frames per second, frame rate at which the game is run.
+	 *                     Frames per second, frame rate at which the game is run.
 	 */
 	public GameScreen(final GameState gameState,
 			final GameSettings gameSettings, final boolean bonusLife,
@@ -106,9 +107,17 @@ public class GameScreen extends Screen {
 
 		enemyShipFormation = new EnemyShipFormation(this.gameSettings);
 		enemyShipFormation.attach(this);
-		/**You can add your Ship to the code below.*/
-		this.ship = new Ship(this.width / 2, this.height - 30);
-
+		/** You can add your Ship to the code below. */
+		switch (Inventory.getcurrentship()) {
+			case 0:
+				this.ship = new Ship(this.width / 2, this.height - 30);
+				break;
+			case 1000:
+				this.ship=new Ship(this.width / 2, this.height - 30, 1);
+				break;
+			default:
+				this.ship = new Ship(this.width / 2, this.height - 30);
+		}
 		// Appears each 10-30 seconds.
 		this.enemyShipSpecialCooldown = Core.getVariableCooldown(
 				BONUS_SHIP_INTERVAL, BONUS_SHIP_VARIANCE);
@@ -155,17 +164,17 @@ public class GameScreen extends Screen {
 						+ this.ship.getWidth() + this.ship.getSpeed() > this.width - 1;
 				boolean isLeftBorder_ship = this.ship.getPositionX()
 						- this.ship.getSpeed() < 1;
-								
-						if (moveRight && !isRightBorder_ship) {
-							this.ship.moveRight();
-						}
-						if (moveLeft && !isLeftBorder_ship) {
-							this.ship.moveLeft();
-						}
-						if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
-							if (this.ship.shoot(this.bullets))
-								this.bulletsShot++;
-					
+
+				if (moveRight && !isRightBorder_ship) {
+					this.ship.moveRight();
+				}
+				if (moveLeft && !isLeftBorder_ship) {
+					this.ship.moveLeft();
+				}
+				if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+					if (this.ship.shoot(this.bullets))
+						this.bulletsShot++;
+
 			}
 
 			if (this.enemyShipSpecial != null) {
@@ -212,8 +221,8 @@ public class GameScreen extends Screen {
 	 */
 	private void draw() {
 		drawManager.initDrawing(this);
-				drawManager.drawEntity(this.ship, this.ship.getPositionX(),
-						this.ship.getPositionY());
+		drawManager.drawEntity(this.ship, this.ship.getPositionX(),
+				this.ship.getPositionY());
 		if (this.enemyShipSpecial != null)
 			drawManager.drawEntity(this.enemyShipSpecial,
 					this.enemyShipSpecial.getPositionX(),
@@ -235,7 +244,8 @@ public class GameScreen extends Screen {
 		if (!this.inputDelay.checkFinished()) {
 			int countdown = (int) ((INPUT_DELAY
 					- (System.currentTimeMillis()
-							- this.gameStartTime)) / 1000);
+							- this.gameStartTime))
+					/ 1000);
 			drawManager.drawCountDown(this, this.level, countdown,
 					this.bonusLife);
 			drawManager.drawHorizontalLine(this, this.height / 2 - this.height
@@ -280,7 +290,7 @@ public class GameScreen extends Screen {
 						}
 					}
 				}
-				
+
 			} else {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
 					if (!enemyShip.isDestroyed()
@@ -312,9 +322,9 @@ public class GameScreen extends Screen {
 	 * Checks if two entities are colliding.
 	 * 
 	 * @param a
-	 *            First entity, the bullet.
+	 *          First entity, the bullet.
 	 * @param b
-	 *            Second entity, the ship.
+	 *          Second entity, the ship.
 	 * @return Result of the collision test.
 	 */
 	private boolean checkCollision(final Entity a, final Entity b) {

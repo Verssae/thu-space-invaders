@@ -191,6 +191,8 @@ public class ShopScreen extends Screen {
 							 * update DrawManager's ship spriteType */
 							if (selecteditem().itemid == 1000) {
 								apply_ship = 1;
+								engine.Inventory.inventory.add(selecteditem());
+								engine.Inventory.inventory.get(0).appliedp=true;
 								this.state = shopstates.SHOP_INVEN;
 								this.selectionCooldown.reset();
 							}

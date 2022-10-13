@@ -89,7 +89,12 @@ public final class DrawManager {
 		/** Bonus ship. */
 		EnemyShipSpecial,
 		/** Destroyed enemy ship. */
-		Explosion;
+		Explosion,
+		/** Custom Ship Image*/
+		ShipCustom,
+		/** Custom Ship Image*/
+		ShipCustomDestroyed;
+
 	};
 
 	/**
@@ -203,6 +208,17 @@ public final class DrawManager {
 	public void drawEntity(final Entity entity, final int positionX,
 			final int positionY) {
 		boolean[][] image = spriteMap.get(entity.getSpriteType());
+		
+		if(entity.getSpriteType()==SpriteType.ShipCustom||entity.getSpriteType()==SpriteType.ShipCustomDestroyed){
+		try {
+			//((Ship)entity).imageid; //hash-map!
+			Dummy_icon = ImageIO.read(new File("icon\\Dummy-data-icon.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		backBufferGraphics.drawImage(Dummy_icon, positionX, positionY-150, 80, 120, observer);
+		return;
+		}
 
 		backBufferGraphics.setColor(entity.getColor());
 		for (int i = 0; i < image.length; i++)

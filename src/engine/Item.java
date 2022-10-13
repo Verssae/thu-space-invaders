@@ -12,6 +12,10 @@ public class Item {
     public static ArrayList<Item> itemregistry;
     /** Item ID, must be associated manually! (to use with use)
     id is given at registeration time(at load, filemanager). */
+    public enum types{
+        ship, bgm
+    }
+    public types type;
     public int itemid;
     public String name;
     public int price;

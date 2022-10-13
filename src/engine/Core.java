@@ -17,6 +17,8 @@ import screen.TitleScreen;
 
 import javax.sound.sampled.Clip;
 
+import engine.Inventory.InventoryEntry;
+
 /**
  * Implements core game logic.
  * 
@@ -113,7 +115,6 @@ public final class Core {
 			LOGGER.setLevel(Level.ALL);
 
 		} catch (Exception e) {
-			// TODO handle exception
 			e.printStackTrace();
 		}
 
@@ -159,9 +160,9 @@ public final class Core {
 			case 2:
 				// Game & score.
 				do {
-					// One extra live every few levels.
 					if (ShopScreen.getApply_bgm() != 0)
 						PlayBgm.play();
+					// One extra live every few levels.
 					boolean bonusLife = gameState.getLevel()
 							% EXTRA_LIFE_FRECUENCY == 0
 							&& gameState.getLivesRemaining() < MAX_LIVES;

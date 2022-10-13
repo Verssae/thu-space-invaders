@@ -5,6 +5,8 @@ import screen.ShopScreen;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
+import engine.Item.types;
+
 public class Inventory {
     public static class InventoryEntry {
         public Item item;
@@ -18,24 +20,23 @@ public class Inventory {
 
     public static ArrayList<Item> inventory;
 
-
-    /** There was not enough time to analyze and use this code. I'm sorry.
-    void additem(Item itm, int qty) {
-        boolean inp = false;
-        for (InventoryEntry i : inventory) {
-            if (i.item.itemid == itm.itemid) {
-                i.quantaty += qty;
-                inp = true;
-                break;
-
-            }
+    public static int getcurrentship()
+    {
+        for (Item item : inventory) {
+            if(item.type==types.ship ||item.appliedp) return item.itemid; 
         }
-        if (!inp) {
-            inventory.add(new InventoryEntry(itm, qty));
-        }
+        return 1;
     }
-
-    void reduceitem() {
-
-    } */
+    boolean hasitem(Item itm)
+    {
+        for (Item item : inventory) {
+            if(item==itm) return true;
+        }
+        return false;
+    }
+    //There was not enough time to analyze and use this code. I'm sorry.
+    void additem(Item itm) {
+        if(hasitem(itm)) return;        
+        inventory.add(itm);
+    }
 }
