@@ -301,6 +301,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		for (int index : emptyColumns) {
 			this.enemyShips.remove(index);
 			logger.info("Removed column " + index);
+
 		}
 
 		int leftMostPoint = 0;
@@ -351,6 +352,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		for (List<EnemyShip> column : this.enemyShips)
 			for (int i = 0; i < column.size(); i++)
 				if (column.get(i).equals(destroyedShip)) {
+					new Sound().explosionsound();
 					column.get(i).destroy();
 					this.logger.info("Destroyed ship in ("
 							+ this.enemyShips.indexOf(column) + "," + i + ")");

@@ -87,6 +87,9 @@ public class Ship extends Entity {
 			this.spriteType = SpriteType.ShipDestroyed;
 		else
 			this.spriteType = SpriteType.Ship;
+
+
+
 	}
 
 	/**
@@ -94,6 +97,8 @@ public class Ship extends Entity {
 	 */
 	public final void destroy() {
 		this.destructionCooldown.reset();
+		//Added sound to destoy player
+		new Sound().explosionsound();
 	}
 
 	/**

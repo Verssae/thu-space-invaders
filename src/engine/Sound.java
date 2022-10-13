@@ -24,8 +24,8 @@ public class Sound {
         }
     }
 
-    public void bulletsound(){
-        try{
+    public void bulletsound() {
+        try {
             String bgm = "ball.wav";
 
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(bgm).getAbsoluteFile());
@@ -36,6 +36,21 @@ public class Sound {
             e.printStackTrace();
         }
     }
+        public void explosionsound(){
+            try{
+                String bgm = "bomb.wav";
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(bgm).getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+    }
+
+
 
     public Sound() {
 
