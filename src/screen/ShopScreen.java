@@ -90,7 +90,7 @@ public class ShopScreen extends Screen {
 					} else if (inputManager.isKeyDown(KeyEvent.VK_UP)
 							|| inputManager.isKeyDown(KeyEvent.VK_W)) {
 						if (invcol == 0)
-							this.state = shopstates.SHOP_RET;
+							invcol = 0;
 						else
 							invcol--;
 						this.selectionCooldown.reset();
