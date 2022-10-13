@@ -59,6 +59,7 @@ public final class DrawManager {
 
 	/** Item icon and Image observer*/
 	BufferedImage Dummy_icon;
+	BufferedImage coin_icon;
 	ImageObserver observer;
 	
 	/** Sprite types mapped to their images. */
@@ -181,7 +182,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws the completed drawing on screen.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 */
@@ -192,7 +193,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws an entity, using the apropiate image.
-	 * 
+	 *
 	 * @param entity
 	 *            Entity to be drawn.
 	 * @param positionX
@@ -214,7 +215,7 @@ public final class DrawManager {
 
 	/**
 	 * For debugging purpouses, draws the canvas borders.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw in.
 	 */
@@ -231,7 +232,7 @@ public final class DrawManager {
 
 	/**
 	 * For debugging purpouses, draws a grid over the canvas.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw in.
 	 */
@@ -246,7 +247,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws current score on screen.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 * @param score
@@ -263,12 +264,18 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		String coinString = String.format("%04d", coin);
-		backBufferGraphics.drawString("Coin:" + coinString, screen.getWidth() - 250, 25);
+		try {
+			coin_icon = ImageIO.read(new File("icon\\coin-icon.png\\"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		backBufferGraphics.drawImage(coin_icon, 190, 8, 22, 22, observer);
+		backBufferGraphics.drawString(coinString, screen.getWidth() - 212, 25);
 	}
 
 	/**
 	 * Draws number of remaining lives on screen.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 * @param lives
@@ -285,7 +292,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws a thick line from side to side of the screen.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 * @param positionY
@@ -300,7 +307,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws game title.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 */
@@ -319,7 +326,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws main menu.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 * @param option
@@ -329,7 +336,7 @@ public final class DrawManager {
 		String playString = "Play";
 		String highScoresString = "High scores";
 		//temporary, UI Team should implement this.
-		String sShop = "shop"; 
+		String sShop = "shop";
 		String sInventory="INveNTorY";
 		String exitString = "exit";
 
@@ -367,7 +374,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws game results.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 * @param score
@@ -407,7 +414,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws interactive characters for name input.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 * @param name
@@ -456,7 +463,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws basic content of game over screen.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 * @param acceptsInput
@@ -486,7 +493,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws high score screen title and instructions.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 */
@@ -504,7 +511,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws high scores.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 * @param highScores
@@ -527,7 +534,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws a centered string on regular font.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 * @param string
@@ -544,7 +551,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws a centered string on big font.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 * @param string
@@ -561,7 +568,7 @@ public final class DrawManager {
 
 	/**
 	 * Countdown to game start.
-	 * 
+	 *
 	 * @param screen
 	 *            Screen to draw on.
 	 * @param level
@@ -601,13 +608,13 @@ public final class DrawManager {
 	public int getshopgridcoordx(int c)
 	{
 		int leftbuf=(backBuffer.getWidth()-(50*5+30*4))/2;
-		return leftbuf+80*c;
+		return leftbuf+100*c;
 		//assumed grid size
 	}
 	public int getshopgridcoordy(int r)
 	{
-		int shopgridbaseheight = backBuffer.getHeight()*20/100;
-		return shopgridbaseheight+80*r;
+		int shopgridbaseheight = backBuffer.getHeight()*20/100+25;
+		return shopgridbaseheight+130*r;
 		//assumed grid size
 	}
 
@@ -622,36 +629,47 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredBigString(screen, "Shop", 40);
 		backBufferGraphics.setColor(Color.WHITE);
+		try {
+			coin_icon = ImageIO.read(new File("icon\\coin-icon.png\\"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		backBufferGraphics.drawImage(coin_icon, 330, 15, 30, 30, observer);
 		backBufferGraphics.drawString(String.valueOf(Coin.balance), 370, 40);
 		backBufferGraphics.drawLine(0, 60, backBuffer.getWidth(), 60);
 		for ( int i = 0; i < 3; i++) {
-			for (int j = 0; j < 5; j++) {
+			for (int j = 0; j < 2; j++) {
 				if(curr==i&&curc==j&&state==shopstates.SHOP_INVEN)
 				{
 					backBufferGraphics.setColor(Color.GREEN);
-					backBufferGraphics.drawRect(getshopgridcoordx(i), getshopgridcoordy(j), 50, 50);
+					backBufferGraphics.drawRect(getshopgridcoordx(i), getshopgridcoordy(j), 70, 70);
 					backBufferGraphics.setColor(Color.WHITE);
 					continue;
 				}
-				backBufferGraphics.drawRect(getshopgridcoordx(i), getshopgridcoordy(j), 50, 50);
+				backBufferGraphics.drawRect(getshopgridcoordx(i), getshopgridcoordy(j), 70, 70);
 			}
 		}
+
+		backBufferGraphics.drawString("SHIP", 31, 110);
+		backBufferGraphics.drawString("BGM", 31, 240);
+
 		backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.drawRect(270, 99, 140, 370);
+		int leftbuf = (backBuffer.getWidth()-(50*5+30*4))/2;
+		backBufferGraphics.drawRect(31, 370, backBuffer.getWidth()-62, backBuffer.getHeight()-415);
 
 		ArrayList<String> info = new ArrayList<String>();
-		info.add(0, "HP : 500");
-		info.add(1, "DAMAGE : 100");
-		info.add(2, "SPEED : 50");
+		info.add(0, "SHIP ABILITY 1");
+		info.add(1, "SHIP ABILITY 2");
+		info.add(2, "SHIP ABILITY 3");
 
 		for (int i = 0; i < 3; i++) {
 			backBufferGraphics.setColor((Color.WHITE));
 			backBufferGraphics.setFont(fontSmall);
-			backBufferGraphics.drawString((String) info.get(i), 285, i * 25 + 124);
+			backBufferGraphics.drawString((String) info.get(i), 45, i * 20 + 396);
 		}
 
 		//draw items
-		
+
 		//draw item info
 
 		//subtyping is dangerous, but use this!
@@ -664,7 +682,7 @@ public final class DrawManager {
 		for (int i = 0; i < Inventory.inventory.size(); i++) {
 			backBufferGraphics.drawString(Item.itemregistry.get(i).name, x, y);
 		}
-	
+
 	}
 
 	public void drawApplyMenu(Screen screen, String item_name, int location) {
