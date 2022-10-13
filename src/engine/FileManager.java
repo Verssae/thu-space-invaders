@@ -36,7 +36,7 @@ public final class FileManager {
 	/** Application logger. */
 	private static Logger logger;
 	/** Max number of high scores. */
-	private static final int MAX_SCORES = 7;
+	private static final int MAX_SCORES = 10;
 
 	/**
 	 * private constructor.
@@ -258,7 +258,13 @@ public final class FileManager {
 					break;
 				bufferedWriter.write(score.getName());
 				bufferedWriter.newLine();
-				bufferedWriter.write(Integer.toString(score.getScore()));
+				bufferedWriter.write(Integer.toString(score.getStage()));
+				bufferedWriter.newLine();
+				bufferedWriter.write(Integer.toString(score.getKilled()));
+				bufferedWriter.newLine();
+				bufferedWriter.write(Integer.toString(score.getBullets()));
+				bufferedWriter.newLine();
+				bufferedWriter.write(Float.toString(score.getAccuracy()));
 				bufferedWriter.newLine();
 				savedCount++;
 			}

@@ -94,6 +94,12 @@ public class Score implements Comparable<Score> {
 	public final int getBullets() { return this.bullets; }
 
 	/**
+	 * Getter for the Accuracy.
+	 *
+	 * @return Accuracy.
+	 */
+	public final float getAccuracy() { return this.accuracy; }
+	/**
 	 * Orders the scores descending by score.
 	 *
 	 * @param score
