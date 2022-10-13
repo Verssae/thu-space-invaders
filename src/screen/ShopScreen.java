@@ -112,9 +112,12 @@ public class ShopScreen extends Screen {
 							this.selectionCooldown.reset();
 						}
 					}
+					else if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE)) {
+						this.isRunning = false;
+					}
 				}
 				break;
-			case SHOP_RET:
+			/* case SHOP_RET:
 				if (this.selectionCooldown.checkFinished()
 						&& this.inputDelay.checkFinished()) {
 					if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
@@ -127,7 +130,7 @@ public class ShopScreen extends Screen {
 				}
 				if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
 					this.isRunning = false;
-				break;
+				break; */
 			case SHOP_MODAL:
 			if (this.selectionCooldown.checkFinished()
 						&& this.inputDelay.checkFinished()) {
