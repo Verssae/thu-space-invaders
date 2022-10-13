@@ -109,7 +109,12 @@ public class HUDSettingScreen extends Screen {
         drawManager.completeDrawing(this);
     }
 
-    public static Color getScreenchange(){
+    /**
+     * Exchange colors according to 'colorchange' parameter
+     * 
+     * @return Color information
+     */
+    public static Color getScreenColor(){
         if(HUDSettingScreen.colorchange == 1){
             return Color.GREEN;
         }
