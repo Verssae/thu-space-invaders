@@ -7,6 +7,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Scanner;
 
 import screen.*;
 
@@ -157,12 +158,19 @@ public final class Core {
 				// Game & score
 				do {
 					// One extra live every few levels.
+					Scanner sc = new Scanner(System.in);
+					LOGGER.info("Select your difficulty 1 is easy, 2 is normal, 3 is hard");
+					int diff = sc.nextInt();
+					while(diff < 1 || diff > 3){
+						LOGGER.info("Select your difficulty 1 is easy, 2 is normal, 3 is hard");
+						diff = sc.nextInt();
+					}
 					boolean bonusLife = gameState.getLevel()
 							% EXTRA_LIFE_FRECUENCY == 0
 							&& gameState.getLivesRemaining() < MAX_LIVES;
 					
 					currentScreen = new GameScreen(gameState,
-							gameSettings.get(gameState.getLevel() - 1),
+							gameSettings.get((diff - 1) * 5),
 							bonusLife, width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " game screen at " + FPS + " fps.");
@@ -178,7 +186,7 @@ public final class Core {
 							gameState.getShipsDestroyed());
 
 				} while (gameState.getLivesRemaining() > 0
-						&& gameState.getLevel() <= NUM_LEVELS);
+						&& gameState.getLevel()%NUM_LEVELS != 0);
 
 				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 						+ " score screen at " + FPS + " fps, with a score of "
