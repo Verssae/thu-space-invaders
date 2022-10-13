@@ -8,8 +8,9 @@ import java.net.URL;
 
 
 public class Sound {
+    //class for adding different sound effects
 
-    public Sound() {
+    public void backroundmusic(){
         try{
             String bgm = "background.wav";
 
@@ -21,6 +22,23 @@ public class Sound {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void bulletsound(){
+        try{
+            String bgm = "ball.wav";
+
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(bgm).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Sound() {
+
     }
 
 
