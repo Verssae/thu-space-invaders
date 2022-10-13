@@ -1,5 +1,6 @@
 package screen;
-
+import java.util.Random;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,55 +17,107 @@ import entity.*;
  */
 public class GameScreen extends Screen {
 
-	/** Milliseconds until the screen accepts user input. */
+	/**
+	 * Milliseconds until the screen accepts user input.
+	 */
 	private static final int INPUT_DELAY = 6000;
-	/** Bonus score for each life remaining at the end of the level. */
+	/**
+	 * Bonus score for each life remaining at the end of the level.
+	 */
 	private static final int LIFE_SCORE = 100;
-	/** Minimum time between bonus ship's appearances. */
+	/**
+	 * Movement speed of the item.
+	 */
+	private static final int ITEM_SPEED = 3;
+	/**
+	 * Minimum time between bonus ship's appearances.
+	 */
 	private static final int BONUS_SHIP_INTERVAL = 20000;
-	/** Maximum variance in the time between bonus ship's appearances. */
+	/**
+	 * Maximum variance in the time between bonus ship's appearances.
+	 */
 	private static final int BONUS_SHIP_VARIANCE = 10000;
-	/** Time until bonus ship explosion disappears. */
+	/**
+	 * Time until bonus ship explosion disappears.
+	 */
 	private static final int BONUS_SHIP_EXPLOSION = 500;
-	/** Time from finishing the level to screen change. */
+	/**
+	 * Time from finishing the level to screen change.
+	 */
 	private static final int SCREEN_CHANGE_INTERVAL = 1500;
-	/** Height of the interface separation line. */
+	/**
+	 * Height of the interface separation line.
+	 */
 	private static final int SEPARATION_LINE_HEIGHT = 40;
 
-	/** Current game difficulty settings. */
+	/**
+	 * Current game difficulty settings.
+	 */
 	private GameSettings gameSettings;
-	/** Current difficulty level number. */
+	/**
+	 * Current difficulty level number.
+	 */
 	private int level;
-	/** Formation of enemy ships. */
+	/**
+	 * Formation of enemy ships.
+	 */
 	private EnemyShipFormation enemyShipFormation;
-	/** Player's ship. */
+	/**
+	 * Player's ship.
+	 */
 	private Ship ship;
-	/** Bonus enemy ship that appears sometimes. */
+	/**
+	 * Bonus enemy ship that appears sometimes.
+	 */
 	private EnemyShip enemyShipSpecial;
-	/** Minimum time between bonus ship appearances. */
+	/**
+	 * Minimum time between bonus ship appearances.
+	 */
 	private Cooldown enemyShipSpecialCooldown;
-	/** Time until bonus ship explosion disappears. */
+	/**
+	 * Time until bonus ship explosion disappears.
+	 */
 	private Cooldown enemyShipSpecialExplosionCooldown;
-	/** Time from finishing the level to screen change. */
+	/**
+	 * Time from finishing the level to screen change.
+	 */
 	private Cooldown screenFinishedCooldown;
-	/** Set of all bullets fired by on screen ships. */
+	/**
+	 * Set of all bullets fired by on screen ships.
+	 */
 	private Set<Bullet> bullets;
+
 	/** Current score. */
 	private int score;
-	/** Current coin. */
+	/** Current coin. *
 	private int coin;
 	/** Player lives left. */
 	private int lives;
-	/** Total bullets shot by the player. */
+	/**
+	 * Total bullets shot by the player.
+	 */
 	private int bulletsShot;
-	/** Total ships destroyed by the player. */
+	/**
+	 * Total ships destroyed by the player.
+	 */
 	private int shipsDestroyed;
-	/** Moment the game starts. */
+	/**
+	 * Moment the game starts.
+	 */
 	private long gameStartTime;
-	/** Checks if the level is finished. */
+	/**
+	 * Checks if the level is finished.
+	 */
 	private boolean levelFinished;
-	/** Checks if a bonus life is received. */
+	/**
+	 * Checks if a bonus life is received.
+	 */
 	private boolean bonusLife;
+	/**
+	 * Set of all items dropped by on screen enemyships.
+	 */
+	private Set<Item> items; 
+
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -83,8 +136,8 @@ public class GameScreen extends Screen {
 	 *                     Frames per second, frame rate at which the game is run.
 	 */
 	public GameScreen(final GameState gameState,
-			final GameSettings gameSettings, final boolean bonusLife,
-			final int width, final int height, final int fps) {
+					  final GameSettings gameSettings, final boolean bonusLife,
+					  final int width, final int height, final int fps) {
 		super(width, height, fps);
 
 		this.gameSettings = gameSettings;
@@ -126,6 +179,7 @@ public class GameScreen extends Screen {
 				.getCooldown(BONUS_SHIP_EXPLOSION);
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
+		this.items = new HashSet<Item>();
 
 		// Special input delay / countdown.
 		this.gameStartTime = System.currentTimeMillis();
@@ -135,7 +189,7 @@ public class GameScreen extends Screen {
 
 	/**
 	 * Starts the action.
-	 * 
+	 *
 	 * @return Next screen code.
 	 */
 	public final int run() {
@@ -203,6 +257,8 @@ public class GameScreen extends Screen {
 
 		manageCollisions();
 		cleanBullets();
+		manageCollisionsItem();
+		cleanItems();
 		draw();
 
 		if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
@@ -233,6 +289,10 @@ public class GameScreen extends Screen {
 		for (Bullet bullet : this.bullets)
 			drawManager.drawEntity(bullet, bullet.getPositionX(),
 					bullet.getPositionY());
+
+		for (Item item : this.items)
+			drawManager.drawEntity(item, item.getPositionX(),
+					item.getPositionY());
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
@@ -272,6 +332,16 @@ public class GameScreen extends Screen {
 		BulletPool.recycle(recyclable);
 	}
 
+	private void cleanItems() {
+		Set<Item> recyclable = new HashSet<Item>();
+		for (Item item : this.items) {
+			item.update();
+			if (item.getPositionY() > this.height)
+				recyclable.add(item);
+		}
+		this.items.removeAll(recyclable);
+		ItemPool.recycle(recyclable);
+	}
 	/**
 	 * Manages collisions between bullets and ships.
 	 */
@@ -297,6 +367,12 @@ public class GameScreen extends Screen {
 							&& checkCollision(bullet, enemyShip)) {
 						this.score += enemyShip.getPointValue();
 						this.shipsDestroyed++;
+						Random random = new Random();
+						int per = random.nextInt(2);
+						if(per == 0){
+							items.add(ItemPool.getItem(enemyShip.getPositionX() + enemyShip.getWidth() / 2,
+									enemyShip.getPositionY(), ITEM_SPEED));
+						}
 						this.enemyShipFormation.destroy(enemyShip);
 						this.coin += enemyShip.getPointValue() / 10;
 						Coin.balance += enemyShip.getPointValue() / 10;
@@ -318,38 +394,76 @@ public class GameScreen extends Screen {
 		BulletPool.recycle(recyclable);
 	}
 
-	/**
-	 * Checks if two entities are colliding.
-	 * 
-	 * @param a
-	 *          First entity, the bullet.
-	 * @param b
-	 *          Second entity, the ship.
-	 * @return Result of the collision test.
-	 */
-	private boolean checkCollision(final Entity a, final Entity b) {
-		// Calculate center point of the entities in both axis.
-		int centerAX = a.getPositionX() + a.getWidth() / 2;
-		int centerAY = a.getPositionY() + a.getHeight() / 2;
-		int centerBX = b.getPositionX() + b.getWidth() / 2;
-		int centerBY = b.getPositionY() + b.getHeight() / 2;
-		// Calculate maximum distance without collision.
-		int maxDistanceX = a.getWidth() / 2 + b.getWidth() / 2;
-		int maxDistanceY = a.getHeight() / 2 + b.getHeight() / 2;
-		// Calculates distance.
-		int distanceX = Math.abs(centerAX - centerBX);
-		int distanceY = Math.abs(centerAY - centerBY);
-
-		return distanceX < maxDistanceX && distanceY < maxDistanceY;
-	}
-
-	/**
-	 * Returns a GameState object representing the status of the game.
-	 * 
-	 * @return Current game state.
-	 */
+		/**
+		 * Returns a GameState object representing the status of the game.
+		 *
+		 * @return Current game state.
+		 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.lives,
 				this.bulletsShot, this.shipsDestroyed, this.coin);
+
+	/**
+	 * Manages collisions between items and ships.
+	 */
+	
+	private void manageCollisionsItem() {
+		Set<Item> recyclable = new HashSet<Item>(); //ItemPool
+		for (Item item : this.items) {
+			if (checkCollision(item, this.ship) && !this.levelFinished) {
+				recyclable.add(item);
+				Random random = new Random();
+				int per = random.nextInt(3);
+
+				if (per == 0) {
+					if (this.lives < 3) {
+						this.lives++;
+						this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
+					}
+
+					// 아이템 먹었을 때 색깔 변하는 효과
+					this.ship.setColor(Color.YELLOW); // 임시로 노란색
+
+				}
+				if (per == 1) {
+					int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 0.7);
+					ship.setSHOOTING_INTERVAL(shootingSpeed);
+					this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
+				}
+				if (per == 2) {
+					int shipSpeed = (int) (ship.getSPEED() + 1);
+					ship.setSPEED(shipSpeed);
+					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
+				}
+			}
+		}
+		this.items.removeAll(recyclable);
+		ItemPool.recycle(recyclable);
 	}
+
+		/**
+		 * Checks if two entities are colliding.
+		 *
+		 * @param a
+		 *            First entity, the bullet or item.
+		 * @param b
+		 *            Second entity, the ship.
+		 * @return Result of the collision test.
+		 */
+		private boolean checkCollision ( final Entity a, final Entity b){
+			// Calculate center point of the entities in both axis.
+			int centerAX = a.getPositionX() + a.getWidth() / 2;
+			int centerAY = a.getPositionY() + a.getHeight() / 2;
+			int centerBX = b.getPositionX() + b.getWidth() / 2;
+			int centerBY = b.getPositionY() + b.getHeight() / 2;
+			// Calculate maximum distance without collision.
+			int maxDistanceX = a.getWidth() / 2 + b.getWidth() / 2;
+			int maxDistanceY = a.getHeight() / 2 + b.getHeight() / 2;
+			// Calculates distance.
+			int distanceX = Math.abs(centerAX - centerBX);
+			int distanceY = Math.abs(centerAY - centerBY);
+
+			return distanceX < maxDistanceX && distanceY < maxDistanceY;
+		}
 }
+

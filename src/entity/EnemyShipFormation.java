@@ -95,6 +95,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	/** Number of not destroyed ships. */
 	private int shipCount;
 
+
 	/** Directions the formation can move. */
 	private enum Direction {
 		/** Movement to the right side of the screen. */
@@ -205,7 +206,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		this.movementSpeed = (int) (Math.pow(remainingProportion, 2)
 				* this.baseSpeed);
 		this.movementSpeed += MINIMUM_SPEED;
-		
 		movementInterval++;
 		if (movementInterval >= this.movementSpeed) {
 			movementInterval = 0;
@@ -228,7 +228,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					}
 			} else if (currentDirection == Direction.LEFT) {
 				if (isAtLeftSide)
-					if (!isAtBottom) {
+					if (!isAtBottom && movementY != 0) {
 						previousDirection = currentDirection;
 						currentDirection = Direction.DOWN;
 						this.logger.info("Formation now moving down 3");
@@ -238,7 +238,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					}
 			} else {
 				if (isAtRightSide)
-					if (!isAtBottom) {
+					if (!isAtBottom && movementY != 0) {
 						previousDirection = currentDirection;
 						currentDirection = Direction.DOWN;
 						this.logger.info("Formation now moving down 5");
@@ -275,9 +275,25 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 			for (List<EnemyShip> column : this.enemyShips)
 				for (EnemyShip enemyShip : column) {
+					if (!isAtBottom) {
+						int randomPlace = (int) (Math.random() * column.size() - 1);
+						movementY = 1;
+						if(Math.random()<0.70){
+							if(randomPlace < enemyShips.size()) {
+								if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+									movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
+								}
+							}
+						}else{
+							if(enemyShips.get(enemyShips.size()-1) == column && column.get(column.size()-1) == enemyShip){
+								movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
+							}
+						}
+					}
 					enemyShip.move(movementX, movementY);
 					enemyShip.update();
 				}
+
 		}
 	}
 
@@ -337,8 +353,37 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
-			bullets.add(BulletPool.getBullet(shooter.getPositionX()
-					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+			float ShootPattern = (float)(Math.round(Math.random()*10)/10.0);
+			if (isLast()) { // The last enemy can get the all ShootPattern.
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,0));
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,1));
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,1));
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,2));
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,2));
+			}
+			else if(ShootPattern<=0.4) { //The Enemy of double Bullet Type
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,0));
+			}
+			else if(0.4 < ShootPattern && ShootPattern < 0.7) {//shoot double direction
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,1));
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,2));
+			}
+			else{
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()//general shoot
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
+			}
 		}
 	}
 
@@ -425,5 +470,14 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 */
 	public final boolean isEmpty() {
 		return this.shipCount <= 0;
+	}
+
+	/**
+	 * Checks if there are any ships remaining.
+	 *
+	 * @return True when last one ships have been leaved.
+	 */
+	public final boolean isLast() {
+		return this.shipCount == 1;
 	}
 }

@@ -17,11 +17,11 @@ import screen.ShopScreen;
 public class Ship extends Entity {
 
 	/** Time between shots. */
-	private static final int SHOOTING_INTERVAL = 750;
+	private int SHOOTING_INTERVAL = 750;
 	/** Speed of the bullets shot by the ship. */
 	private static final int BULLET_SPEED = -6;
 	/** Movement of the ship for each unit of time. */
-	private static final int SPEED = 2;
+	private int SPEED = 2;
 
 	private boolean imagep;
 	public int imageid;
@@ -43,7 +43,7 @@ public class Ship extends Entity {
 		super(positionX, positionY, 13 * 2, 8 * 2, Color.GREEN);
 		this.spriteType = SpriteType.Ship;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
-		this.destructionCooldown = Core.getCooldown(1000);
+		this.destructionCooldown = Core.getCooldown(300);
 	}
 
 	public Ship(final int positionX, final int positionY, int sType) {
@@ -82,7 +82,7 @@ public class Ship extends Entity {
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			bullets.add(BulletPool.getBullet(positionX + this.width / 2,
-					positionY, BULLET_SPEED));
+					positionY, BULLET_SPEED,0));
 			return true;
 		}
 		return false;
@@ -130,4 +130,16 @@ public class Ship extends Entity {
 	public final int getSpeed() {
 		return SPEED;
 	}
+
+	public void setSHOOTING_INTERVAL(int SHOOTING_INTERVAL) {
+		this.SHOOTING_INTERVAL = SHOOTING_INTERVAL;
+	}
+
+	public int getSHOOTING_INTERVAL() {
+		return SHOOTING_INTERVAL;
+	}
+
+	public void setSPEED(int SPEED) {this.SPEED = SPEED; }
+
+	public int getSPEED() {return SPEED; }
 }
