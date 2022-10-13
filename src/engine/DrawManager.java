@@ -223,11 +223,24 @@ public final class DrawManager {
 				|| entity.getSpriteType() == SpriteType.ShipCustomDestroyed) {
 			try {
 				// ((Ship)entity).imageid; //hash-map!
-				Dummy_icon = ImageIO.read(new File("icon\\Dummy-data-icon.png"));
+				switch((((Ship)entity).animctr))
+				{
+					case 1:
+					Dummy_icon = ImageIO.read(new File("icon\\ship2_front.png"));
+					break;
+					case 2:
+					Dummy_icon = ImageIO.read(new File("icon\\ship2_left.png"));
+					break;
+					case 3:
+					Dummy_icon = ImageIO.read(new File("icon\\ship2_right.png"));
+					break;
+					default:
+					Dummy_icon = ImageIO.read(new File("icon\\ship2_front.png"));
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			backBufferGraphics.drawImage(Dummy_icon, positionX, positionY - 150, 80, 120, observer);
+			backBufferGraphics.drawImage(Dummy_icon, positionX, positionY - 40, 40, 40, observer);
 			return;
 		}
 
@@ -781,13 +794,11 @@ public final class DrawManager {
 		String option2 = "RED";
 		String option3 = "BLUE";
 
-
 		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		drawCenteredBigString(screen, HUDString, screen.getHeight() / 8);
 
 		backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, instructionsString, screen.getHeight() / 5);
-
 
 		if (option == 1)
 			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
@@ -802,7 +813,6 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, option2, screen.getHeight()
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
-
 
 		if (option == 3)
 			backBufferGraphics.setColor(Color.BLUE);

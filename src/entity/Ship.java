@@ -22,6 +22,7 @@ public class Ship extends Entity {
 	private static final int BULLET_SPEED = -6;
 	/** Movement of the ship for each unit of time. */
 	private int SPEED = 2;
+	public int animctr = 1;
 
 	private boolean imagep;
 	public int imageid;
@@ -82,7 +83,7 @@ public class Ship extends Entity {
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			bullets.add(BulletPool.getBullet(positionX + this.width / 2,
-					positionY, BULLET_SPEED,0));
+					positionY, BULLET_SPEED, 0));
 			return true;
 		}
 		return false;
@@ -95,7 +96,7 @@ public class Ship extends Entity {
 		if (this.imagep) {
 			if (!this.destructionCooldown.checkFinished())
 				this.spriteType = SpriteType.ShipCustomDestroyed;
-				//use hash map to decide which image to use
+			// use hash map to decide which image to use
 			else
 				this.spriteType = SpriteType.ShipCustom;
 			return;
@@ -139,7 +140,11 @@ public class Ship extends Entity {
 		return SHOOTING_INTERVAL;
 	}
 
-	public void setSPEED(int SPEED) {this.SPEED = SPEED; }
+	public void setSPEED(int SPEED) {
+		this.SPEED = SPEED;
+	}
 
-	public int getSPEED() {return SPEED; }
+	public int getSPEED() {
+		return SPEED;
+	}
 }
