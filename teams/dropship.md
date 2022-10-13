@@ -15,8 +15,8 @@ Requirements : Item System
 <br>
 
 3. 아이템 효과 (Item Effect)
-    1) 공격 속도 : 플레이어의 공격속도가 30%가 증가합니다. 효과는 중첩될 수 있습니다. (Attack Speed : Increases the player's attack speed by 30%. Effects can be stacked.)
+    1) 공격 속도 : 플레이어의 공격속도가 30%가 증가합니다. 효과는 중첩될 수 있습니다. 또한 플레이어가 붉은색으로 변하고 사운드 효과가 있습니다. (Attack Speed : Increases the player's attack speed by 30%. Effects can be stacked. Also, the player turns red and there is a sound effect.)
 
-    2) 생명 포인트 : 플레이어의 생명이 하나 증가합니다. 효과는 중첩될 수 있습니다. (Heart Point : Increases the player's heart point by one. Effects can be stacked.)
+    2) 생명 포인트 : 플레이어의 생명이 하나 증가합니다. 효과는 중첩될 수 있습니다. 또한 플레이어가 초록색으로 변하고 사운드 효과가 있습니다. (Heart Point : Increases the player's heart point by one. Effects can be stacked. Also, the player turns green and there is a sound effect.)
 
-    3) 이동 속도 : 플레이어의 이동속도가 +1 증가합니다. 효과는 중첩될 수 있습니다. (Moving Speed : Increases the player's moving speed by +1. Effects can be stacked.)
+    3) 이동 속도 : 플레이어의 이동속도가 +1 증가합니다. 효과는 중첩될 수 있습니다. 또한 플레이어가 파란색으로 변하고 사운드 효과가 있습니다. (Moving Speed : Increases the player's moving speed by +1. Effects can be stacked. Also, the player turns blue and there is a sound effect.)
