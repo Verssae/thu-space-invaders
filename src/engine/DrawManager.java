@@ -811,7 +811,29 @@ public final class DrawManager {
 			backBufferGraphics.drawString("NO", winxbase+winw-110, winybase+290);
 		}
 	}
-
+	private java.util.ArrayList<String> formatstr(String input)
+	{
+		int linelen=50;
+		int frontdelim=0;
+		int backdelim=0;
+		var x = new ArrayList<String>();
+		while(frontdelim-input.length()<linelen)
+		{
+			if(input.indexOf('\n', frontdelim)<linelen)
+			{
+				backdelim=input.indexOf('\n', 0);
+				x.add(input.substring(frontdelim, backdelim));
+				frontdelim=backdelim+1;
+			}
+			else{
+				backdelim=frontdelim+linelen;
+				x.add(input.substring(frontdelim, backdelim));
+				frontdelim=backdelim+1;
+			}
+		}
+		x.add(input.substring(frontdelim, input.length()));
+		return x;
+	}
 }
 
 
