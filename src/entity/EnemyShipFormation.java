@@ -287,7 +287,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				for (EnemyShip enemyShip : column) {
 					if(isLast()){
 						if(!isAtTop) {
-							movementY = -40;
+							movementY = -20;
 							enemyShip.move(movementX, movementY);
 						}
 						else if(!isAtBottom){
