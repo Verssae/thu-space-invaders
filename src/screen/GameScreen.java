@@ -403,18 +403,20 @@ public class GameScreen extends Screen {
 							this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
 						}
 
-					// 아이템 먹었을 때 색깔 변하는 효과
-					this.ship.setColor(Color.YELLOW); // 임시로 노란색
+						// 아이템 먹었을 때 색깔 변하는 효과
+						this.ship.setColor(Color.PINK); // 임시로 핑크핵
 
 					}
 					if (per == 1) {
-					int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 0.7);
-					ship.setSHOOTING_INTERVAL(shootingSpeed);
+						int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 0.7);
+						ship.setSHOOTING_INTERVAL(shootingSpeed);
 						this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
+						// 아이템 먹었을 때 색깔 변하는 효과
+						this.ship.setColor(Color.RED);
 					}
 					if (per == 2) {
-					int shipSpeed = (int) (ship.getSPEED() + 1);
-					ship.setSPEED(shipSpeed);
+						int shipSpeed = (int) (ship.getSPEED() + 1);
+						ship.setSPEED(shipSpeed);
 						this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
 						// 아이템 먹었을 때 색깔 변하는 효과
 						this.ship.setColor(Color.BLUE);
