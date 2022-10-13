@@ -679,11 +679,39 @@ public final class DrawManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		backBufferGraphics.drawImage(ship_1, 43, 133, 50, 50, observer);
-
+		backBufferGraphics.drawImage(ship_1, getshopgridcoordx(0) + 11, getshopgridcoordy(0) + 9, 50, 50, observer);
+		try {
+			ship_2 = ImageIO.read(new File("icon\\ship_2.png\\"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		backBufferGraphics.drawImage(ship_2, getshopgridcoordx(1) + 11, getshopgridcoordy(0) + 9, 50, 50, observer);
+		try {
+			ship_3 = ImageIO.read(new File("icon\\ship_3.png\\"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		backBufferGraphics.drawImage(ship_3, getshopgridcoordx(2) + 11, getshopgridcoordy(0) + 9, 50, 50, observer);
 		backBufferGraphics.drawImage(coin_icon, 330, 15, 30, 30, observer);
 		backBufferGraphics.drawString("BGM", 31, 240);
-
+		try {
+			bgm_1 = ImageIO.read(new File("icon\\bgm_1.png\\"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		backBufferGraphics.drawImage(bgm_1, getshopgridcoordx(0) + 8, getshopgridcoordy(1) + 11, 50, 50, observer);
+		try {
+			bgm_2 = ImageIO.read(new File("icon\\bgm_2.png\\"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		backBufferGraphics.drawImage(bgm_2, getshopgridcoordx(1) + 8, getshopgridcoordy(1) + 11, 50, 50, observer);
+		try {
+			bgm_3 = ImageIO.read(new File("icon\\bgm_3.png\\"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		backBufferGraphics.drawImage(bgm_3, getshopgridcoordx(2) + 8, getshopgridcoordy(1) + 11, 50, 50, observer);
 		backBufferGraphics.setColor(Color.WHITE);
 		int leftbuf = (backBuffer.getWidth()-(50*5+30*4))/2;
 		backBufferGraphics.drawRect(31, 370, backBuffer.getWidth()-62, backBuffer.getHeight()-415);
