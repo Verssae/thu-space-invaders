@@ -117,20 +117,6 @@ public class ShopScreen extends Screen {
 					}
 				}
 				break;
-			/* case SHOP_RET:
-				if (this.selectionCooldown.checkFinished()
-						&& this.inputDelay.checkFinished()) {
-					if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
-						this.isRunning = false;
-					else if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
-							|| inputManager.isKeyDown(KeyEvent.VK_S)) {
-						this.state = shopstates.SHOP_INVEN;
-						this.selectionCooldown.reset();
-					}
-				}
-				if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
-					this.isRunning = false;
-				break; */
 			case SHOP_MODAL:
 			if (this.selectionCooldown.checkFinished()
 						&& this.inputDelay.checkFinished()) {
