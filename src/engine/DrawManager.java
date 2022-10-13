@@ -791,6 +791,15 @@ public final class DrawManager {
 		x.add(input.substring(frontdelim, input.length()));
 		return x;
 	}
+
+	private void drawmultiline(Screen scr, String input, int x, int y, int maxlines)
+	{
+		int offset=0;
+		for (String istr : formatstr(input)) {
+			drawCenteredRegularString(scr, istr, y+offset);
+			offset+=50;
+		} 
+	}
 }
 
 
