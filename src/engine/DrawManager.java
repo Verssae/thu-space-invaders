@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import screen.Screen;
 import entity.Entity;
 import entity.Ship;
-
+import screen.HUDSettingScreen;
 /**
  * Manages screen drawing.
  * 
@@ -48,6 +48,8 @@ public final class DrawManager {
 	private static Font fontBig;
 	/** Big sized font properties. */
 	private static FontMetrics fontBigMetrics;
+
+	private static Color Colors;
 
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
@@ -87,6 +89,7 @@ public final class DrawManager {
 		fileManager = Core.getFileManager();
 		logger = Core.getLogger();
 		logger.info("Started loading resources.");
+		Colors = screen.HUDSettingScreen.getScreenchange();
 
 		try {
 			spriteMap = new LinkedHashMap<SpriteType, boolean[][]>();
@@ -273,7 +276,7 @@ public final class DrawManager {
 	 *            Y coordinate of the line.
 	 */
 	public void drawHorizontalLine(final Screen screen, final int positionY) {
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(Colors);
 		backBufferGraphics.drawLine(0, positionY, screen.getWidth(), positionY);
 		backBufferGraphics.drawLine(0, positionY + 1, screen.getWidth(),
 				positionY + 1);

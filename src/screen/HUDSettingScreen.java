@@ -1,5 +1,6 @@
 package screen;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import engine.Cooldown;
 import engine.Core;
@@ -13,7 +14,7 @@ public class HUDSettingScreen extends Screen {
     /**
      * Screen change parameter
      */
-    private static int Screenchange;
+    public static int colorchange;
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
 
@@ -32,7 +33,7 @@ public class HUDSettingScreen extends Screen {
      */
     public HUDSettingScreen(final int width, final int height, final int fps) {
         super(width, height, fps);
-        this.Screenchange = 1;
+        this.colorchange = 1;
         this.returnCode = 1;
 
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
@@ -78,25 +79,25 @@ public class HUDSettingScreen extends Screen {
     }
 
     private void nextItem(){
-        if(this.Screenchange == 3)
-            this.Screenchange = 1;
-        else if(this.Screenchange == 1)
-            this.Screenchange = 2;
-        else if(this.Screenchange == 2)
-            this.Screenchange = 3;
+        if(this.colorchange == 3)
+            this.colorchange = 1;
+        else if(this.colorchange == 1)
+            this.colorchange = 2;
+        else if(this.colorchange == 2)
+            this.colorchange = 3;
         else
-            this.Screenchange++;
+            this.colorchange++;
     }
 
     private void previousItem(){
-        if(this.Screenchange == 1)
-            this.Screenchange = 3;
-        else if(this.Screenchange == 3)
-            this.Screenchange = 2;
-        else if(this.Screenchange == 2)
-            this.Screenchange = 1;
+        if(this.colorchange == 1)
+            this.colorchange = 3;
+        else if(this.colorchange == 3)
+            this.colorchange = 2;
+        else if(this.colorchange == 2)
+            this.colorchange = 1;
         else
-            this.Screenchange--;
+            this.colorchange--;
     }
 
     /**
@@ -104,7 +105,22 @@ public class HUDSettingScreen extends Screen {
      */
     private void draw() {
         drawManager.initDrawing(this);
-        drawManager.drawHUDSettingMenu(this, this.Screenchange);
+        drawManager.drawHUDSettingMenu(this, this.colorchange);
         drawManager.completeDrawing(this);
+    }
+
+    public static Color getScreenchange(){
+        if(HUDSettingScreen.colorchange == 1){
+            return Color.GREEN;
+        }
+        else if(HUDSettingScreen.colorchange == 2){
+            return Color.RED;
+        }
+        else if(HUDSettingScreen.colorchange == 3){
+            return Color.BLUE;
+        }
+        else{
+            return Color.GREEN;
+        }
     }
 }
