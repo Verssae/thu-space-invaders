@@ -18,7 +18,6 @@ public class Sound {
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception e) {
             e.printStackTrace();
         }
