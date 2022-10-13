@@ -10,7 +10,7 @@ import engine.DrawManager.SpriteType;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
-public class GameItem extends Entity {
+public class Item extends Entity {
 
 	/**
 	 * Speed of the item, positive or negative depending on direction -
@@ -28,7 +28,7 @@ public class GameItem extends Entity {
 	 *            Speed of the bullet, positive or negative depending on
 	 *            direction - positive is down.
 	 */
-	public GameItem(final int positionX, final int positionY, final int speed) {
+	public Item(final int positionX, final int positionY, final int speed) {
 		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
 
 		this.speed = speed;
@@ -39,7 +39,7 @@ public class GameItem extends Entity {
 	 * Sets correct sprite for the item.
 	 */
 	public final void setSprite() {
-		this.spriteType = SpriteType.GameItem;
+		this.spriteType = SpriteType.Item;
 	}
 
 	/**

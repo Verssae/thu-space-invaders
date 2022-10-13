@@ -117,7 +117,7 @@ public class GameScreen extends Screen {
 	/**
 	 * Set of all items dropped by on screen enemyships.
 	 */
-	private Set<GameItem> items;
+	private Set<entity.Item> items;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -179,7 +179,7 @@ public class GameScreen extends Screen {
 				.getCooldown(BONUS_SHIP_EXPLOSION);
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
-		this.items = new HashSet<GameItem>();
+		this.items = new HashSet<entity.Item>();
 
 		// Special input delay / countdown.
 		this.gameStartTime = System.currentTimeMillis();
@@ -290,7 +290,7 @@ public class GameScreen extends Screen {
 			drawManager.drawEntity(bullet, bullet.getPositionX(),
 					bullet.getPositionY());
 
-		for (GameItem item : this.items)
+		for (entity.Item item : this.items)
 			drawManager.drawEntity(item, item.getPositionX(),
 					item.getPositionY());
 
@@ -333,8 +333,8 @@ public class GameScreen extends Screen {
 	}
 
 	private void cleanItems() {
-		Set<GameItem> recyclable = new HashSet<GameItem>();
-		for (GameItem item : this.items) {
+		Set<entity.Item> recyclable = new HashSet<entity.Item>();
+		for (entity.Item item : this.items) {
 			item.update();
 			if (item.getPositionY() > this.height)
 				recyclable.add(item);
@@ -409,8 +409,8 @@ public class GameScreen extends Screen {
 	 */
 
 	private void manageCollisionsItem() {
-		Set<GameItem> recyclable = new HashSet<GameItem>(); // ItemPool
-		for (GameItem item : this.items) {
+		Set<entity.Item> recyclable = new HashSet<entity.Item>(); // ItemPool
+		for (entity.Item item : this.items) {
 			if (checkCollision(item, this.ship) && !this.levelFinished) {
 				recyclable.add(item);
 				Random random = new Random();
