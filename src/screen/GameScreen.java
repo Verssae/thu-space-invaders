@@ -18,8 +18,6 @@ import entity.ItemPool;
 
 
 
-
-
 /**
  * Implements the game screen, where the action happens.
  * 
@@ -125,7 +123,6 @@ public class GameScreen extends Screen {
 	 */
 	private boolean bonusLife;
 	/**
-	
 	 * Set of all items dropped by on screen enemyships.
 	 */
 	private Set<Item> items; 
@@ -288,7 +285,7 @@ public class GameScreen extends Screen {
 
 		for (Item item : this.items)
 			drawManager.drawEntity(item, item.getPositionX(),
-					item.getPositionY());			
+					item.getPositionY());
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
@@ -386,46 +383,42 @@ public class GameScreen extends Screen {
 	 * Manages collisions between items and ships.
 	 */
 
-
 	private void manageCollisionsItem() {
 		Set<Item> recyclable = new HashSet<Item>(); //ItemPool
 		for (Item item : this.items) {
-			if (item.getSpeed() > 0) {
+			if (checkCollision(item, this.ship) && !this.levelFinished) {
+				recyclable.add(item);
+				Random random = new Random();
+				int per = random.nextInt(3);
 
-				if (checkCollision(item, this.ship) && !this.levelFinished) {
-					recyclable.add(item);
-					Random random = new Random();
-        			int per = random.nextInt(3);
-
-					if (per == 0) {
-						if (this.lives < 3) {
-							this.lives++;
-							this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
-						}
-
-						// 아이템 먹었을 때 색깔 변하는 효과
-						this.ship.setColor(Color.PINK); // 임시로 핑크핵
-
+				if (per == 0) {
+					if (this.lives < 3) {
+						this.lives++;
+						this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
 					}
-					if (per == 1) {
-						int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 0.7);
-						ship.setSHOOTING_INTERVAL(shootingSpeed);
-						this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
-						// 아이템 먹었을 때 색깔 변하는 효과
-						this.ship.setColor(Color.RED);
-					}
-					if (per == 2) {
-						int shipSpeed = (int) (ship.getSPEED() + 1);
-						ship.setSPEED(shipSpeed);
-						this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
-						// 아이템 먹었을 때 색깔 변하는 효과
-						this.ship.setColor(Color.BLUE);
-					}
+					this.ship.itemGet();
+					// 아이템 먹었을 때 색깔 변하는 효과
+					this.ship.setColor(Color.YELLOW); // 임시로 노란색
+
+				}
+				if (per == 1) {
+					this.ship.itemGet();
+					int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 0.7);
+					ship.setSHOOTING_INTERVAL(shootingSpeed);
+					this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
+					this.ship.setColor(Color.RED);
+				}
+				if (per == 2) {
+					this.ship.itemGet();
+					int shipSpeed = (int) (ship.getSPEED() + 1);
+					ship.setSPEED(shipSpeed);
+					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
+					this.ship.setColor(Color.BLUE);
 				}
 			}
-			this.items.removeAll(recyclable);
-			ItemPool.recycle(recyclable); 
 		}
+		this.items.removeAll(recyclable);
+		ItemPool.recycle(recyclable);
 	}
 
 		/**
