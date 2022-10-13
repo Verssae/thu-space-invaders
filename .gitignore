@@ -208,3 +208,8 @@ $RECYCLE.BIN/
 #
 # Cusotmized by Hansae Ju
 log
+log.*
+/bin/
+.classpath
+.project
+scores
