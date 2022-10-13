@@ -219,6 +219,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		if (movementInterval >= this.movementSpeed) {
 			movementInterval = 0;
 
+			boolean isAtTop = positionY+this.height<screen.getHeight()-BOTTOM_MARGIN;
 			boolean isAtBottom = positionY
 					+ this.height > screen.getHeight() - BOTTOM_MARGIN;
 			boolean isAtRightSide = positionX
@@ -284,18 +285,29 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 			for (List<EnemyShip> column : this.enemyShips)
 				for (EnemyShip enemyShip : column) {
-					if (!isAtBottom) {
-						int randomPlace = (int) (Math.random() * column.size() - 1);
-						movementY = 1;
-						if(Math.random()<0.70){
-							if(randomPlace < enemyShips.size()) {
-								if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+					if(isLast()){
+						if(!isAtTop) {
+							movementY = -40;
+							enemyShip.move(movementX, movementY);
+						}
+						else if(!isAtBottom){
+							movementY = 1;
+							enemyShip.move(movementX,movementY);
+						}
+					}else {
+						if (!isAtBottom) {
+							int randomPlace = (int) (Math.random() * column.size() - 1);
+							movementY = 1;
+							if (Math.random() < 0.70) {
+								if (randomPlace < enemyShips.size()) {
+									if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+										movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
+									}
+								}
+							} else {
+								if (enemyShips.get(enemyShips.size() - 1) == column && column.get(column.size() - 1) == enemyShip) {
 									movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 								}
-							}
-						}else{
-							if(enemyShips.get(enemyShips.size()-1) == column && column.get(column.size()-1) == enemyShip){
-								movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 							}
 						}
 					}
