@@ -396,10 +396,23 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	public final void destroy(final EnemyShip destroyedShip) {
 		for (List<EnemyShip> column : this.enemyShips)
 			for (int i = 0; i < column.size(); i++)
-				if (column.get(i).equals(destroyedShip)) {
-					column.get(i).destroy();
-					this.logger.info("Destroyed ship in ("
-							+ this.enemyShips.indexOf(column) + "," + i + ")");
+				if(i == 0){
+					if(shipCount <= this.nShipsWide) {
+						if (column.get(i).equals(destroyedShip)) {
+							column.get(i).destroy();
+							this.logger.info("Destroyed ship in ("
+									+ this.enemyShips.indexOf(column) + "," + i + ")");
+							this.shipCount--;
+						}
+					}
+				}
+				else{
+					if (column.get(i).equals(destroyedShip)) {
+						column.get(i).destroy();
+						this.logger.info("Destroyed ship in ("
+								+ this.enemyShips.indexOf(column) + "," + i + ")");
+						this.shipCount--;
+					}
 				}
 
 		// Updates the list of ships that can shoot the player.
@@ -425,7 +438,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			}
 		}
 
-		this.shipCount--;
+
 	}
 
 	/**
