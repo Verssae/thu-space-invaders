@@ -12,7 +12,7 @@ import java.util.Set;
 public final class ItemPool {
 
     /** Set of already created items. */
-    private static Set<Item> pool = new HashSet<Item>();
+    private static Set<GameItem> pool = new HashSet<GameItem>();
 
     /**
      * Constructor, not called.
@@ -34,9 +34,9 @@ public final class ItemPool {
      *            on direction - positive is down.
      * @return Requested item.
      */
-    public static Item getItem(final int positionX,
+    public static GameItem getItem(final int positionX,
                                final int positionY, final int speed) {
-        Item item;
+        GameItem item;
         if (!pool.isEmpty()) {
             item = pool.iterator().next();
             pool.remove(item);
@@ -45,7 +45,7 @@ public final class ItemPool {
             item.setSpeed(speed);
             item.setSprite();
         } else {
-            item = new Item(positionX, positionY, speed);
+            item = new GameItem(positionX, positionY, speed);
             item.setPositionX(positionX - item.getWidth() / 2);
         }
         return item;
@@ -57,7 +57,7 @@ public final class ItemPool {
      * @param item
      *            Items to recycle.
      */
-    public static void recycle(final Set<Item> item) {
+    public static void recycle(final Set<GameItem> item) {
         pool.addAll(item);
     }
 }
