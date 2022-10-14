@@ -129,11 +129,6 @@ public class Entity {
 	}
 
 	public final void changeColor() {
-		if (this.color == Color.BLACK) {
-			setColor(Color.WHITE);
-		}
-		else {
-			setColor(Color.BLACK);
-		}
+		if (this.color == Color.WHITE) setColor(Color.BLACK);
 	}
 }

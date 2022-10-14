@@ -97,8 +97,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	/** Number of not destroyed ships. */
 	private int shipCount;
 
-	private Color color;
-
 	private int hideEnemyX;
 
 	private int hideEnemyY;
@@ -317,15 +315,21 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					enemyShip.move(movementX, movementY);
 					enemyShip.update();
 				}
-			//적들 색 바꾸기, 다만 색이 바로 돌아오지 않음.. 랜덤하게 설정해서 다시 뽑히지 않는 이상 검은색.
-			for (List<EnemyShip> column : this.enemyShips){
-					int randomPlace = (int) (Math.random() * column.size() - 1);
-					if(randomPlace<enemyShips.size())
-						enemyShips.get(randomPlace).get(randomPlace).changeColor();
+			/*흰색으로 적 색상 원상복귀, 인덱스 오류 존재. 랜덤한 행렬 설정해줘서 그럼. 해당 행렬에 값이 있으면 진행해야하는데, 없어도 진행
+			* 있는지 없는지 확인하고 randomPlace_c,r 바꿔주면 됨.*/
+			for (List<EnemyShip> column : this.enemyShips)
+				for (EnemyShip enemyShip : column) {
+					if(enemyShip.getColor()==Color.BLACK)
+						enemyShip.setColor(Color.white);
 				}
-				Random random = new Random();
+					int randomPlace_c = (int) (Math.random() * enemyShips.size() - 1);
+					int randomPlace_r = (int) (Math.random() * enemyShips.get(randomPlace_c).size() - 1);
+					if (randomPlace_c < enemyShips.size() && randomPlace_r < enemyShips.get(randomPlace_c).size())
+						enemyShips.get(randomPlace_c).get(randomPlace_r).changeColor();
+
+				/*Random random = new Random();
 				random.setSeed(System.currentTimeMillis());
-/*
+
 				//처음은 ㄱㅊ but 2번째에 죽으면? a,b 어떻게 설정할겨
 				EnemyShip randEnemy = enemyShips.get(this.a).get(this.b);
 				for (int i = 0; i < 5; i++) {
