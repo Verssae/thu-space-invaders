@@ -39,5 +39,11 @@ public class Item {
         name=pName;
         price = pPrice;
     }
-
+    public static Item getItembyID(int itemid)
+    {
+        for (Item ite : itemregistry_ship) {
+            if(ite.itemid==itemid) return ite;
+        }
+        return null;
+    }
 }

@@ -18,6 +18,27 @@ public class Inventory {
         }
     }
 
+    public String dumpinven()
+    {
+        String ret=new String();
+        for (Item item : inventory_ship) {
+            ret+=Integer.toString(item.itemid)+" "+Boolean.toString(item.appliedp)+" ";
+        }
+        return ret;
+    }
+
+    public static void parseinven(String input)
+    {
+        var tok=new java.util.StringTokenizer(input, " ");
+        while(tok.hasMoreTokens())
+        {
+            int itemid=Integer.parseInt(tok.nextToken());
+            Boolean appp=Boolean.parseBoolean(tok.nextToken());
+            inventory_ship.add(Item.getItembyID(itemid));
+            inventory_ship.get(inventory_ship.size()).appliedp=appp;
+        }
+    }
+
     public static ArrayList<Item> inventory_ship;
     public static ArrayList<Item> inventory_bgm;
 
