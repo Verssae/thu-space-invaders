@@ -268,20 +268,22 @@ public final class FileManager {
 
 			logger.info("Saving user high scores.");
 
-			// Saves 7 or less scores.
+			// Saves 10 or less scores.
 			int savedCount = 0;
 			for (Score score : highScores) {
 				if (savedCount >= MAX_SCORES)
 					break;
-				bufferedWriter.write(score.getName());
+				bufferedWriter.write(score.getName());	// name
 				bufferedWriter.newLine();
-				bufferedWriter.write(Integer.toString(score.getStage()));
+				bufferedWriter.write(Integer.toString(score.getScore()));	// score
 				bufferedWriter.newLine();
-				bufferedWriter.write(Integer.toString(score.getKilled()));
+				bufferedWriter.write(Integer.toString(score.getStage()));	// stage
 				bufferedWriter.newLine();
-				bufferedWriter.write(Integer.toString(score.getBullets()));
+				bufferedWriter.write(Integer.toString(score.getKilled()));	// killed
 				bufferedWriter.newLine();
-				bufferedWriter.write(Float.toString(score.getAccuracy()));
+				bufferedWriter.write(Integer.toString(score.getBullets()));	// bullets
+				bufferedWriter.newLine();
+				bufferedWriter.write(Float.toString(score.getAccuracy()));	// accuracy
 				bufferedWriter.newLine();
 				savedCount++;
 			}
