@@ -149,12 +149,21 @@ public final class FileManager {
 			Score highScore = null;
 			String name = reader.readLine();
 			String score = reader.readLine();
+			String stage = reader.readLine();
+			String killed = reader.readLine();
+			String bullets = reader.readLine();
+			String accuracy = reader.readLine();
 
-			while ((name != null) && (score != null)) {
-				highScore = new Score(name, Integer.parseInt(score));
+			while ((name != null) && (score != null) && (stage != null) && (killed != null) && (bullets != null) && (accuracy != null)) {
+				highScore = new Score(name, Integer.parseInt(score), Integer.parseInt(stage), Integer.parseInt(killed), Integer.parseInt(bullets), Float.parseFloat(accuracy));
 				highScores.add(highScore);
 				name = reader.readLine();
 				score = reader.readLine();
+				stage = reader.readLine();
+				killed = reader.readLine();
+				bullets = reader.readLine();
+				accuracy = reader.readLine();
+
 			}
 		} finally {
 			if (inputStream != null)
@@ -197,12 +206,20 @@ public final class FileManager {
 			Score highScore = null;
 			String name = bufferedReader.readLine();
 			String score = bufferedReader.readLine();
+			String stage = bufferedReader.readLine();
+			String killed = bufferedReader.readLine();
+			String bullets = bufferedReader.readLine();
+			String accuracy = bufferedReader.readLine();
 
-			while ((name != null) && (score != null)) {
-				highScore = new Score(name, Integer.parseInt(score));
+			while ((name != null) && (score != null) && (stage != null) && (killed != null) && (bullets != null) && (accuracy != null)) {
+				highScore = new Score(name, Integer.parseInt(score), Integer.parseInt(stage), Integer.parseInt(killed), Integer.parseInt(bullets), Float.parseFloat(accuracy));
 				highScores.add(highScore);
 				name = bufferedReader.readLine();
 				score = bufferedReader.readLine();
+				stage = bufferedReader.readLine();
+				killed = bufferedReader.readLine();
+				bullets = bufferedReader.readLine();
+				accuracy = bufferedReader.readLine();
 			}
 
 		} catch (FileNotFoundException e) {
