@@ -130,10 +130,10 @@ public class Entity {
 
 	public final void changeColor() {
 		if (this.color == Color.BLACK) {
-			this.color = Color.WHITE;
+			setColor(Color.WHITE);
 		}
 		else {
-			this.color = Color.BLACK;
+			setColor(Color.BLACK);
 		}
 	}
 }

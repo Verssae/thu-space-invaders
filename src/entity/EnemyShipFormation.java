@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -95,6 +96,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private List<EnemyShip> shooters;
 	/** Number of not destroyed ships. */
 	private int shipCount;
+
+	private Color color;
 
 	private int hideEnemyX;
 
@@ -314,9 +317,15 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					enemyShip.move(movementX, movementY);
 					enemyShip.update();
 				}
+			//적들 색 바꾸기, 다만 색이 바로 돌아오지 않음.. 랜덤하게 설정해서 다시 뽑히지 않는 이상 검은색.
+			for (List<EnemyShip> column : this.enemyShips){
+					int randomPlace = (int) (Math.random() * column.size() - 1);
+					if(randomPlace<enemyShips.size())
+						enemyShips.get(randomPlace).get(randomPlace).changeColor();
+				}
 				Random random = new Random();
 				random.setSeed(System.currentTimeMillis());
-
+/*
 				//처음은 ㄱㅊ but 2번째에 죽으면? a,b 어떻게 설정할겨
 				EnemyShip randEnemy = enemyShips.get(this.a).get(this.b);
 				for (int i = 0; i < 5; i++) {
@@ -336,7 +345,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 						target.changeColor();
 					}
 					this.isHide = !this.isHide;
-				}
+				}*/
 		}
 	}
 
