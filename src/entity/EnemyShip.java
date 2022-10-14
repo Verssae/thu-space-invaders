@@ -30,6 +30,8 @@ public class EnemyShip extends Entity {
 	private boolean isDestroyed;
 	/** Values of the ship, in points, when destroyed. */
 	private int pointValue;
+	/** lives of the enemyship. */
+	public int enemyLives;
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -40,6 +42,9 @@ public class EnemyShip extends Entity {
 	 *            Initial position of the ship in the Y axis.
 	 * @param spriteType
 	 *            Sprite type, image corresponding to the ship.
+	 *
+	 *  enemy has a 30percent chance of two lives.
+	 *
 	 */
 	public EnemyShip(final int positionX, final int positionY,
 			final SpriteType spriteType) {
@@ -48,6 +53,9 @@ public class EnemyShip extends Entity {
 		this.spriteType = spriteType;
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
+		float livesRate = (float)(Math.round(Math.random()*10)/10.0);
+		if (livesRate <= 0.3) 	this.enemyLives = 2;
+		else	this.enemyLives = 1;
 
 		switch (this.spriteType) {
 		case EnemyShipA1:
@@ -89,6 +97,10 @@ public class EnemyShip extends Entity {
 		return this.pointValue;
 	}
 
+	/** Setter enemyLives. */
+	public void setenemyLives(int life) { this.enemyLives = life;}
+	/** Getter enemyLives. */
+	public int getEnemyLives() {return enemyLives;}
 	/**
 	 * Moves the ship the specified distance.
 	 * 
