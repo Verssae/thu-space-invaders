@@ -1,11 +1,16 @@
 package screen;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
 import engine.*;
 import engine.DrawManager.shopmodaltype;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 //notimplementedexception
 public class ShopScreen extends Screen {
@@ -15,7 +20,8 @@ public class ShopScreen extends Screen {
 
 	/** Time between changes in user selection. */
 	private Cooldown selectionCooldown;
-
+	/** Buffer Graphics. */
+	private static Graphics backBufferGraphics;
 	private boolean modalp;
 
 
@@ -52,18 +58,29 @@ public class ShopScreen extends Screen {
 	 * Updates the elements on screen and checks for events.
 	 */
 	public enum shopstates {
-		SHOP_INVEN, SHOP_RET, SHOP_MODAL, SHOP_APPLY
+		SHOP_INVEN, SHOP_RET, SHOP_MODAL, SHOP_APPLY, SHOP_CHECK
 	}
 
 	shopstates state;
 	static int invrow = 0;
 	static int invcol = 0;
-	static int apply_ship = 0;
 	static int apply_bgm = 0;
 
 	shopmodaltype modaltype;
 	int modaloption = 0;
 	int location = 0;
+	int checkoption = 0;
+	int default_ship = 0;
+	int default_bgm = 0;
+	Image selectIcon;
+	{
+		try {
+			selectIcon = ImageIO.read(new File("icon\\Select-icon.png\\"));
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
 
 	protected final void update() {
 		super.update();
@@ -103,8 +120,64 @@ public class ShopScreen extends Screen {
 						this.selectionCooldown.reset();
 					}
 					else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
-						if (checkItem(selecteditem())) {
-							this.state=shopstates.SHOP_APPLY;
+						if (Inventory.hasitem(selecteditem())) {
+							if (selecteditem().itemid == 1000) {
+								default_ship = 0;
+								if (Inventory.inventory_ship.size() == 2) {
+									Inventory.inventory_ship.get(0).appliedp = true;
+									Inventory.inventory_ship.get(1).appliedp = false;
+								}
+								else if (Inventory.inventory_ship.size() == 3) {
+									Inventory.inventory_ship.get(0).appliedp = true;
+									Inventory.inventory_ship.get(1).appliedp = false;
+									Inventory.inventory_ship.get(2).appliedp = false;
+								}
+								else if (Inventory.inventory_ship.size() == 1) {
+									Inventory.inventory_ship.get(0).appliedp = true;
+								}
+								this.selectionCooldown.reset();
+							}
+							else if (selecteditem().itemid == 1001) {
+								default_ship = 1;
+								if (Inventory.inventory_ship.size() == 2) {
+									Inventory.inventory_ship.get(0).appliedp = false;
+									Inventory.inventory_ship.get(1).appliedp = true;
+								}
+								else if (Inventory.inventory_ship.size() == 3) {
+									Inventory.inventory_ship.get(0).appliedp = false;
+									Inventory.inventory_ship.get(1).appliedp = false;
+									Inventory.inventory_ship.get(2).appliedp = true;
+								}
+								this.selectionCooldown.reset();
+							}
+							else if (selecteditem().itemid == 1002) {
+								default_ship = 2;
+								if (Inventory.inventory_ship.size() == 2) {
+									Inventory.inventory_ship.get(0).appliedp = false;
+									Inventory.inventory_ship.get(1).appliedp = true;
+								}
+								else if (Inventory.inventory_ship.size() == 3) {
+									Inventory.inventory_ship.get(0).appliedp = false;
+									Inventory.inventory_ship.get(1).appliedp = false;
+									Inventory.inventory_ship.get(2).appliedp = true;
+								}
+								this.selectionCooldown.reset();
+							}
+							else if (selecteditem().itemid == 2000) {
+								default_bgm = 0;
+								apply_bgm = 0;
+								this.selectionCooldown.reset();
+							}
+							else if (selecteditem().itemid == 2001) {
+								apply_bgm = 1;
+								default_bgm = 1;
+								this.selectionCooldown.reset();
+							}
+							else if (selecteditem().itemid == 2002) {
+								apply_bgm = 2;
+								default_bgm = 2;
+								this.selectionCooldown.reset();
+							}
 							this.selectionCooldown.reset();
 						}
 						else {
@@ -140,18 +213,64 @@ public class ShopScreen extends Screen {
 					else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
 						if (modaloption == 0) {
 							if (!purchase(selecteditem(), 1)) {
-								Inventory.inventory.add(selecteditem());
-								this.state = shopstates.SHOP_INVEN;
+								checkoption = 1;
+								this.state = shopstates.SHOP_CHECK;
+								if (selecteditem().itemid == 1001) {
+									default_ship = 1;
+									engine.Inventory.inventory_ship.add(selecteditem());
+									if (Inventory.inventory_ship.size() == 2) {
+										Inventory.inventory_ship.get(0).appliedp = false;
+										Inventory.inventory_ship.get(1).appliedp = true;
+									}
+									else if (Inventory.inventory_ship.size() == 3) {
+										Inventory.inventory_ship.get(0).appliedp = false;
+										Inventory.inventory_ship.get(1).appliedp = false;
+										Inventory.inventory_ship.get(2).appliedp = true;
+									}
+									this.selectionCooldown.reset();
+								}
+								else if (selecteditem().itemid == 1002) {
+									default_ship = 2;
+									engine.Inventory.inventory_ship.add(selecteditem());
+									if (Inventory.inventory_ship.size() == 2) {
+										Inventory.inventory_ship.get(0).appliedp = false;
+										Inventory.inventory_ship.get(1).appliedp = true;
+									}
+									else if (Inventory.inventory_ship.size() == 3) {
+										Inventory.inventory_ship.get(0).appliedp = false;
+										Inventory.inventory_ship.get(1).appliedp = false;
+										Inventory.inventory_ship.get(2).appliedp = true;
+									}
+									this.selectionCooldown.reset();
+								}
+								else if (selecteditem().itemid == 2001) {
+									apply_bgm = 1;
+									default_bgm = 1;
+									this.selectionCooldown.reset();
+								}
+								else if (selecteditem().itemid == 2002) {
+									apply_bgm = 2;
+									default_bgm = 2;
+									this.selectionCooldown.reset();
+								}
 								this.selectionCooldown.reset();
 							}
+							else {
+								checkoption = 0;
+								this.state = shopstates.SHOP_CHECK;
+								this.selectionCooldown.reset();
+							}
+
 						}
 						else if (modaloption == 1) {
 							this.state = shopstates.SHOP_INVEN;
 							this.selectionCooldown.reset();
 						}
+
 					}
 				}
 				break;
+			/**
 			case SHOP_APPLY:
 				if (this.selectionCooldown.checkFinished()
 						&& this.inputDelay.checkFinished()) {
@@ -174,10 +293,6 @@ public class ShopScreen extends Screen {
 					}
 					else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
 						if (location == 0) {
-							/** Implement the application of the item
-							 * If you make multiple ship skins, change the number of apply_ship by type
-							 * example apply_ship of ship1 is 1, apply_ship of ship2 is 2...
-							 * update DrawManager's ship spriteType */
 							if (selecteditem().itemid == 1000) {
 								apply_ship = 1;
 								engine.Inventory.inventory.add(selecteditem());
@@ -221,19 +336,21 @@ public class ShopScreen extends Screen {
 						}
 					}
 				}
-				break;
+				break;*/
+			case SHOP_CHECK:
+				if (this.selectionCooldown.checkFinished()
+						&& this.inputDelay.checkFinished()) {
+					if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+						this.state = shopstates.SHOP_INVEN;
+						this.selectionCooldown.reset();
+					}
+
+				}
+
 
 		}
 	}
 
-	public static boolean checkItem(engine.Item item)
-	{
-		for (int i = 0; i < Inventory.inventory.size(); i++) {
-			if (item.itemid == Inventory.inventory.get(i).itemid)
-				return true;
-		}
-		return false;
-	}
 
 	/**
 	 * Draws the elements associated with the screen.
@@ -243,26 +360,14 @@ public class ShopScreen extends Screen {
 		drawManager.drawshop(this, invrow, invcol, this.state);
 		if (this.state == shopstates.SHOP_MODAL) {
 			if (invrow == 0 || invrow == 1 || invrow == 2) {
-				drawManager.drawshopmodal(this, Item.itemregistry.get(invrow).name, String.valueOf(Item.itemregistry.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
+				drawManager.drawshopmodal(this, Item.itemregistry_ship.get(invrow).name, String.valueOf(Item.itemregistry_ship.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
 			}
 			if (invcol == 1) {
 				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawshopmodal(this, Item.itemregistry.get(invrow + 3).name, String.valueOf(Item.itemregistry.get(invcol + invrow + 2).price), shopmodaltype.SM_YESNO, modaloption);
-			}
-			if (invcol == 2) {
-				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawshopmodal(this, Item.itemregistry.get(invrow + 6).name, String.valueOf(Item.itemregistry.get(invcol + invrow + 2).price), shopmodaltype.SM_YESNO, modaloption);
-			}
-			if (invcol == 3) {
-				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawshopmodal(this, Item.itemregistry.get(invrow + 9).name, String.valueOf(Item.itemregistry.get(invcol + invrow + 2).price), shopmodaltype.SM_YESNO, modaloption);
-			}
-			if (invcol == 4) {
-				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawshopmodal(this, Item.itemregistry.get(invrow + 12).name, String.valueOf(Item.itemregistry.get(invcol + invrow + 2).price), shopmodaltype.SM_YESNO, modaloption);
+					drawManager.drawshopmodal(this, Item.itemregistry_bgm.get(invrow).name, String.valueOf(Item.itemregistry_bgm.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
 			}
 		}
-
+		/**
 		else if (this.state == shopstates.SHOP_APPLY) {
 			if (invrow == 0 || invrow == 1 || invrow == 2) {
 				drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow).name, location);
@@ -283,7 +388,53 @@ public class ShopScreen extends Screen {
 				if (invrow == 0 || invrow == 1 || invrow == 2)
 					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 12).name, location);
 			}
+		}*/
+		else if (this.state == shopstates.SHOP_CHECK) {
+			if (checkoption == 1) {
+				drawManager.drawShopCheck(this, "Purchase success!");
+			}
+			else if (checkoption == 0) {
+				drawManager.drawShopCheck(this, "Not enough coin!");
+			}
 		}
+
+		else if (default_ship == 0 && default_bgm == 0) {
+			drawManager.drawSelectIcon_ship(this,57, 197, selectIcon);
+			drawManager.drawSelectIcon_bgm(this, 57, 327, selectIcon);
+		}
+		else if (default_ship == 1 && default_bgm == 0) {
+			drawManager.drawSelectIcon_ship(this, 157, 197, selectIcon);
+			drawManager.drawSelectIcon_bgm(this, 57, 327, selectIcon);
+		}
+		else if (default_ship == 2 && default_bgm == 0) {
+			drawManager.drawSelectIcon_ship(this, 257, 197, selectIcon);
+			drawManager.drawSelectIcon_bgm(this, 57, 327, selectIcon);
+		}
+		else if (default_ship == 0 && default_bgm == 1) {
+			drawManager.drawSelectIcon_ship(this, 57, 197, selectIcon);
+			drawManager.drawSelectIcon_bgm(this, 157, 327, selectIcon);
+		}
+		else if (default_ship == 1 && default_bgm == 1) {
+			drawManager.drawSelectIcon_ship(this, 157, 197, selectIcon);
+			drawManager.drawSelectIcon_bgm(this, 157, 327, selectIcon);
+		}
+		else if (default_ship == 2 && default_bgm == 1) {
+			drawManager.drawSelectIcon_ship(this, 257, 197, selectIcon);
+			drawManager.drawSelectIcon_bgm(this, 157, 327, selectIcon);
+		}
+		else if (default_ship == 0 && default_bgm == 2) {
+			drawManager.drawSelectIcon_ship(this, 57, 197, selectIcon);
+			drawManager.drawSelectIcon_bgm(this, 257, 327, selectIcon);
+		}
+		else if (default_ship == 1 && default_bgm == 2) {
+			drawManager.drawSelectIcon_ship(this, 157, 197, selectIcon);
+			drawManager.drawSelectIcon_bgm(this, 257, 327, selectIcon);
+		}
+		else if (default_ship == 2 && default_bgm == 2) {
+			drawManager.drawSelectIcon_ship(this, 257, 197, selectIcon);
+			drawManager.drawSelectIcon_bgm(this, 257, 327, selectIcon);
+		}
+
 
 		drawManager.completeDrawing(this);
 	}
@@ -292,30 +443,18 @@ public class ShopScreen extends Screen {
 		return (engine.Coin.spend(item.price * qty) == -1) ? true : false;
 	}
 
-
+	/**
 	private void layoutitem()
 	{
 		engine.Item.itemregistry.size();
-	}
+	}*/
 
 	public static engine.Item selecteditem()
 	{
 		if (invcol == 1) {
-			return Item.itemregistry.get(invrow + 3);
+			return Item.itemregistry_bgm.get(invrow);
 		}
-		if (invcol == 2) {
-			return Item.itemregistry.get(invrow + 6);
-		}
-		if (invcol == 3) {
-			return Item.itemregistry.get(invrow + 9);
-		}
-		if (invcol == 4) {
-			return Item.itemregistry.get(invrow + 12);
-		}
-		return Item.itemregistry.get(invrow);
-	}
-	public static int getApply_ship() {
-		return apply_ship;
+		return Item.itemregistry_ship.get(invrow);
 	}
 	public static int getApply_bgm() {
 		return apply_bgm;

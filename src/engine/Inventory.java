@@ -18,26 +18,30 @@ public class Inventory {
         }
     }
 
-    public static ArrayList<Item> inventory;
+    public static ArrayList<Item> inventory_ship;
+    public static ArrayList<Item> inventory_bgm;
 
     public static int getcurrentship()
     {
-        for (Item item : inventory) {
-            if(item.type==types.ship ||item.appliedp) return item.itemid; 
+        for (Item item : inventory_ship) {
+            if(item.appliedp) return item.itemid;
         }
         return 1;
     }
 
-    boolean hasitem(Item itm)
+    public static boolean hasitem(Item itm)
     {
-        for (Item item : inventory) {
+        for (Item item : inventory_ship) {
+            if(item==itm) return true;
+        }
+        for (Item item : inventory_bgm) {
             if(item==itm) return true;
         }
         return false;
     }
-    //There was not enough time to analyze and use this code. I'm sorry.
+    /**
     void additem(Item itm) {
         if(hasitem(itm)) return;        
         inventory.add(itm);
-    }
+    }*/
 }

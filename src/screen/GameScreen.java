@@ -157,19 +157,13 @@ public class GameScreen extends Screen {
 	 */
 	public final void initialize() {
 		super.initialize();
-
 		enemyShipFormation = new EnemyShipFormation(this.gameSettings);
 		enemyShipFormation.attach(this);
 		/** You can add your Ship to the code below. */
 		switch (Inventory.getcurrentship()) {
-			case 0:
-				this.ship = new Ship(this.width / 2, this.height - 30);
-				break;
-			case 1000:
-				this.ship = new Ship(this.width / 2, this.height - 30, 1);
-				break;
-			default:
-				this.ship = new Ship(this.width / 2, this.height - 30);
+			case 1000 -> this.ship = new Ship(this.width / 2, this.height - 30, 1);
+			case 1001 -> this.ship = new Ship(this.width / 2, this.height - 30, 2);
+			case 1002 -> this.ship = new Ship(this.width / 2, this.height - 30, 3);
 		}
 		// Appears each 10-30 seconds.
 		this.enemyShipSpecialCooldown = Core.getVariableCooldown(
@@ -283,8 +277,7 @@ public class GameScreen extends Screen {
 	 */
 	private void draw() {
 		drawManager.initDrawing(this);
-		drawManager.drawEntity(this.ship, this.ship.getPositionX(),
-				this.ship.getPositionY());
+		drawManager.drawEntity(this.ship, this.ship.getPositionX(), this.ship.getPositionY());
 		if (this.enemyShipSpecial != null)
 			drawManager.drawEntity(this.enemyShipSpecial,
 					this.enemyShipSpecial.getPositionX(),

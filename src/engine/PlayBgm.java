@@ -27,10 +27,16 @@ public class PlayBgm {
     static DataLine.Info info2;
     static Clip clip2;
 
+    static File bgm3;
+    static AudioInputStream stream3;
+    static AudioFormat format3;
+    static DataLine.Info info3;
+    static Clip clip3;
+
     public static void play() {
 
         switch (ShopScreen.getApply_bgm()) {
-            case 1:
+            case 0:
                 bgm = new File("Bgm\\Dummy-data-bgm.wav");
 
                 try {
@@ -46,7 +52,7 @@ public class PlayBgm {
                     System.out.println("err : " + e);
                 }
                 break;
-            case 2:
+            case 1:
                 bgm2 = new File("Bgm\\Dummy-data-bgm2.wav");
                 try {
 
@@ -56,6 +62,20 @@ public class PlayBgm {
                     clip2 = (Clip) AudioSystem.getLine(info2);
                     clip2.open(stream2);
                     clip2.start();
+
+                }  catch(Exception e){
+                    System.out.println("err : " + e);
+                }
+                break;
+            case 2:
+                bgm3 = new File("Bgm\\Dummy-data-bgm3.wav");
+                try {
+                    stream3 = AudioSystem.getAudioInputStream(bgm3);
+                    format3 = stream3.getFormat();
+                    info3 = new DataLine.Info(Clip.class, format3);
+                    clip3 = (Clip) AudioSystem.getLine(info3);
+                    clip3.open(stream3);
+                    clip3.start();
 
                 }  catch(Exception e){
                     System.out.println("err : " + e);
@@ -72,12 +92,16 @@ public class PlayBgm {
     }
 
     public static Clip getClip() {
-        if (ShopScreen.getApply_bgm() == 1) {
+        if (ShopScreen.getApply_bgm() == 0) {
             return clip;
         }
-        else if (ShopScreen.getApply_bgm() == 2) {
+        else if (ShopScreen.getApply_bgm() == 1) {
             return clip2;
         }
+        else if (ShopScreen.getApply_bgm() == 2) {
+            return clip3;
+        }
+
         return clip_hollow;
     }
 }

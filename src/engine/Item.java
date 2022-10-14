@@ -11,7 +11,8 @@ public class Item {
     /** FileManager instance. */
     private static FileManager fileManager;
 
-    public static ArrayList<Item> itemregistry;
+    public static ArrayList<Item> itemregistry_ship;
+    public static ArrayList<Item> itemregistry_bgm;
     /** Item ID, must be associated manually! (to use with use)
     id is given at registeration time(at load, filemanager). */
     public enum types{
@@ -25,6 +26,13 @@ public class Item {
     public int price;
     public boolean appliedp;
 
+    public Item(int pitemid, String pName, int pPrice,boolean applied)
+    {
+        itemid = pitemid;
+        name=pName;
+        price = pPrice;
+        appliedp = applied;
+    }
     public Item(int pitemid, String pName, int pPrice)
     {
         itemid = pitemid;

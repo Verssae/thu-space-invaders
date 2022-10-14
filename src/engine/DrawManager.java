@@ -1,10 +1,6 @@
 package engine;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -60,6 +56,7 @@ public final class DrawManager {
 
 	/** Item icon and Image observer */
 	BufferedImage Dummy_icon;
+	BufferedImage Dummy_data_icon;
 	BufferedImage coin_icon;
 	BufferedImage ship_1;
 	BufferedImage ship_2;
@@ -131,7 +128,6 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Item, new boolean[9][8]);
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
-			logger.info(String.valueOf(ShopScreen.getApply_ship()));
 
 			// Font loading.
 			fontRegular = fileManager.loadFont(14f);
@@ -221,24 +217,47 @@ public final class DrawManager {
 
 		if (entity.getSpriteType() == SpriteType.ShipCustom
 				|| entity.getSpriteType() == SpriteType.ShipCustomDestroyed) {
-			try {
-				// ((Ship)entity).imageid; //hash-map!
-				switch((((Ship)entity).animctr))
-				{
-					case 1:
-					Dummy_icon = ImageIO.read(new File("icon\\ship2_front.png"));
-					break;
-					case 2:
-					Dummy_icon = ImageIO.read(new File("icon\\ship2_left.png"));
-					break;
-					case 3:
-					Dummy_icon = ImageIO.read(new File("icon\\ship2_right.png"));
-					break;
-					default:
-					Dummy_icon = ImageIO.read(new File("icon\\ship2_front.png"));
+			switch (((Ship) entity).imageid) {
+				case 1:
+					try {
+						// ((Ship)entity).imageid; //hash-map!
+						switch (((Ship) entity).animctr) {
+							case 1 -> Dummy_icon = ImageIO.read(new File("icon\\Default_ship_front.png"));
+							case 2 -> Dummy_icon = ImageIO.read(new File("icon\\Default_ship_left.png"));
+							case 3 -> Dummy_icon = ImageIO.read(new File("icon\\Default_ship_right.png"));
+							default -> Dummy_icon = ImageIO.read(new File("icon\\Default_ship_front.png"));
+						}
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
+					break;
+				case 2:
+					try {
+						// ((Ship)entity).imageid; //hash-map!
+						switch (((Ship) entity).animctr) {
+							case 1 -> Dummy_icon = ImageIO.read(new File("icon\\ship2_front.png"));
+							case 2 -> Dummy_icon = ImageIO.read(new File("icon\\ship2_left.png"));
+							case 3 -> Dummy_icon = ImageIO.read(new File("icon\\ship2_right.png"));
+							default -> Dummy_icon = ImageIO.read(new File("icon\\ship2_front.png"));
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+				case 3:
+					try {
+						// ((Ship)entity).imageid; //hash-map!
+						switch ((((Ship) entity).animctr)) {
+							case 1 -> Dummy_icon = ImageIO.read(new File("icon\\ship3_front.png"));
+							case 2 -> Dummy_icon = ImageIO.read(new File("icon\\ship3_left.png"));
+							case 3 -> Dummy_icon = ImageIO.read(new File("icon\\ship3_right.png"));
+							default -> Dummy_icon = ImageIO.read(new File("icon\\ship3_front.png"));
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+
 			}
 			backBufferGraphics.drawImage(Dummy_icon, positionX, positionY - 40, 40, 40, observer);
 			return;
@@ -991,7 +1010,7 @@ public final class DrawManager {
 			}
 		}
 
-		backBufferGraphics.drawString("SHIP", 31, 110);
+		backBufferGraphics.drawString("SHIP", 31, 120);
 		try {
 			ship_1 = ImageIO.read(new File("icon\\ship_1.png\\"));
 		} catch (IOException e) {
@@ -1011,7 +1030,7 @@ public final class DrawManager {
 		}
 		backBufferGraphics.drawImage(ship_3, getshopgridcoordx(2) + 11, getshopgridcoordy(0) + 9, 50, 50, observer);
 		backBufferGraphics.drawImage(coin_icon, 330, 15, 30, 30, observer);
-		backBufferGraphics.drawString("BGM", 31, 240);
+		backBufferGraphics.drawString("BGM", 31, 250);
 		try {
 			bgm_1 = ImageIO.read(new File("icon\\bgm_1.png\\"));
 		} catch (IOException e) {
@@ -1044,24 +1063,13 @@ public final class DrawManager {
 			backBufferGraphics.setFont(fontSmall);
 			backBufferGraphics.drawString((String) info.get(i), 45, i * 20 + 396);
 		}
-
-		// draw items
-
-		// draw item info
-
-		// subtyping is dangerous, but use this!
-		// ((ShopScreen)screen).selecteditem();
-		// draw cursor
-		// var tempship=new Ship(0, 0);
-		// drawEntity(tempship, x, y);
-		// backBufferGraphics.drawRect(x, y, 100, 100);
-
+		/**
 		for (int i = 0; i < Inventory.inventory.size(); i++) {
 			backBufferGraphics.drawString(Item.itemregistry.get(i).name, x, y);
-		}
+		}*/
 
 	}
-
+	/**
 	public void drawApplyMenu(Screen screen, String item_name, int location) {
 		if (ShopScreen.checkItem((ShopScreen.selecteditem()))) {
 			int winw = backBuffer.getWidth() * 8 / 10;
@@ -1091,7 +1099,7 @@ public final class DrawManager {
 			}
 
 		}
-	}
+	}*/
 
 	// like MessageBox
 	public enum shopmodaltype {
@@ -1109,11 +1117,11 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredBigString(screen, item_name, winxbase + 40);
 		try {
-			Dummy_icon = ImageIO.read(new File("icon\\Dummy-data-icon.png"));
+			Dummy_data_icon = ImageIO.read(new File("icon\\Dummy-data-icon.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		backBufferGraphics.drawImage(Dummy_icon, winxbase + 125, winxbase + 125, 80, 120, observer);
+		backBufferGraphics.drawImage(Dummy_data_icon, winxbase + 125, winxbase + 125, 80, 120, observer);
 		backBufferGraphics.drawString("Price:", winxbase + 125, winxbase + 100);
 		drawCenteredBigString(screen, item_price, winxbase + 125);
 		backBufferGraphics.drawString("Purchase?", winxbase + 100, winybase + 260);
@@ -1126,6 +1134,28 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.GREEN);
 			backBufferGraphics.drawString("NO", winxbase + winw - 110, winybase + 290);
 		}
+	}
+	public void drawShopCheck(Screen screen, String text) {
+		int winw=backBuffer.getWidth()*8/10;
+		int winh=backBuffer.getHeight()*4/10;
+		int winxbase=(backBuffer.getWidth()-winw)/2;
+		int winybase=(backBuffer.getHeight()-winh)/2;
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
+		backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
+		backBufferGraphics.setColor((Color.WHITE));
+		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
+		backBufferGraphics.drawRect(winxbase+5, winybase+5, winw-10, winh-10);
+		drawCenteredBigString(screen, text, winybase+100) ;
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredRegularString(screen, "OK", winybase+150); ;
+	}
+
+	public void drawSelectIcon_ship(Screen screen, int x, int y, Image image) {
+		backBufferGraphics.drawImage(image, x, y, observer);
+	}
+	public void drawSelectIcon_bgm(Screen screen, int x, int y, Image image) {
+		backBufferGraphics.drawImage(image, x, y, observer);
 	}
 
 	private java.util.ArrayList<String> formatstr(String input) {
