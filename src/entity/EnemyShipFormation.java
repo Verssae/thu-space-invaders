@@ -315,41 +315,17 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					enemyShip.move(movementX, movementY);
 					enemyShip.update();
 				}
-			/*흰색으로 적 색상 원상복귀, 인덱스 오류 존재. 랜덤한 행렬 설정해줘서 그럼. 해당 행렬에 값이 있으면 진행해야하는데, 없어도 진행
-			* 있는지 없는지 확인하고 randomPlace_c,r 바꿔주면 됨.*/
-			for (List<EnemyShip> column : this.enemyShips)
-				for (EnemyShip enemyShip : column) {
-					if(enemyShip.getColor()==Color.BLACK)
-						enemyShip.setColor(Color.white);
-				}
-					int randomPlace_c = (int) (Math.random() * enemyShips.size() - 1);
-					int randomPlace_r = (int) (Math.random() * enemyShips.get(randomPlace_c).size() - 1);
-					if (randomPlace_c < enemyShips.size() && randomPlace_r < enemyShips.get(randomPlace_c).size())
-						enemyShips.get(randomPlace_c).get(randomPlace_r).changeColor();
-
-				/*Random random = new Random();
-				random.setSeed(System.currentTimeMillis());
-
-				//처음은 ㄱㅊ but 2번째에 죽으면? a,b 어떻게 설정할겨
-				EnemyShip randEnemy = enemyShips.get(this.a).get(this.b);
-				for (int i = 0; i < 5; i++) {
-					if (enemyShips.get(i).contains(randEnemy))
-						cnt++;
-				}
-				if (cnt != 0) {
-					if (!this.isHide) {
-						this.a = random.nextInt(this.nShipsWide - 1);
-						this.b = random.nextInt(this.nShipsHigh - 1);
-						this.hideEnemyY = a;
-						this.hideEnemyX = b;
-						EnemyShip target = enemyShips.get(this.hideEnemyX).get(this.hideEnemyY);
-						target.changeColor();
-					} else {
-						EnemyShip target = enemyShips.get(this.hideEnemyX).get(this.hideEnemyY);
-						target.changeColor();
+			//마지막줄 남으면 더이상 색 변화 x
+			for (List<EnemyShip> column : this.enemyShips) {
+				for (EnemyShip enemyShip : column)
+					enemyShip.setColor(Color.white);
+			}
+					int randomPlace_r = (int) (Math.random() * enemyShips.size() - 1);
+					int randomPlace_c = (int) (Math.random() * enemyShips.get(randomPlace_r).size() - 1);
+					if(this.shipCount>nShipsWide) {
+						if (enemyShips.get(randomPlace_r).get(randomPlace_c) != null)
+							enemyShips.get(randomPlace_r).get(randomPlace_c).changeColor();
 					}
-					this.isHide = !this.isHide;
-				}*/
 		}
 	}
 
