@@ -56,7 +56,7 @@ public class EnemyShip extends Entity {
 		float livesRate = (float)(Math.round(Math.random()*10)/10.0);
 		if (livesRate <= 0.3) {
 			this.enemyLives = 2;
-			setColor_G();
+			changeColor_G(enemyLives);
 		}
 		else	this.enemyLives = 1;
 

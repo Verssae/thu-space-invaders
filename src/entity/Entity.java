@@ -133,7 +133,7 @@ public class Entity {
 	}
 
 	
-	public final void changeColor_G() {
-		if (this.color == Color.WHITE) setColor(Color.GRAY);
+	public final void changeColor_G(int enemyLives) {
+		if (this.color == Color.WHITE && enemyLives == 2) setColor(Color.GRAY);
 	}
 }

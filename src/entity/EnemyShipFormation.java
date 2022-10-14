@@ -320,12 +320,17 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				for (EnemyShip enemyShip : column)
 					enemyShip.setColor(Color.white);
 			}
-					int randomPlace_r = (int) (Math.random() * enemyShips.size() - 1);
-					int randomPlace_c = (int) (Math.random() * enemyShips.get(randomPlace_r).size() - 1);
-					if(this.shipCount>nShipsWide) {
-						if (enemyShips.get(randomPlace_r).get(randomPlace_c) != null)
-							enemyShips.get(randomPlace_r).get(randomPlace_c).changeColor();
-					}
+			int randomPlace_r = (int) (Math.random() * enemyShips.size() - 1);
+			int randomPlace_c = (int) (Math.random() * enemyShips.get(randomPlace_r).size() - 1);
+			if(this.shipCount>nShipsWide) {
+				if (enemyShips.get(randomPlace_r).get(randomPlace_c) != null)
+					enemyShips.get(randomPlace_r).get(randomPlace_c).changeColor();
+			}
+			//목숨 여러개인 적 색상 변화
+			for (List<EnemyShip> column : this.enemyShips) {
+				for (EnemyShip enemyShip : column)
+					 enemyShip.changeColor_G(enemyShip.getEnemyLives());
+			}
 		}
 	}
 
