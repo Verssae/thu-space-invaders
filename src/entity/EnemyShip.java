@@ -54,7 +54,10 @@ public class EnemyShip extends Entity {
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
 		float livesRate = (float)(Math.round(Math.random()*10)/10.0);
-		if (livesRate <= 0.3) 	this.enemyLives = 2;
+		if (livesRate <= 0.3) {
+			this.enemyLives = 2;
+			setColor_G();
+		}
 		else	this.enemyLives = 1;
 
 		switch (this.spriteType) {
