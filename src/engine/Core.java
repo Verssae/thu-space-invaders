@@ -378,6 +378,6 @@ public final class Core {
 		HEIGHT = height;
 	}
 
-	public int getdiff(final int diff){return diff;}
+	public static int getdiff(){return diff;}
 
 }

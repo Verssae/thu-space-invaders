@@ -31,7 +31,7 @@ public class BulletN extends Entity {
      *            direction - positive is down.
      */
     public BulletN(final int positionX, final int positionY, final int speed, int shotPattern) {
-        super(positionX, positionY, 4 * 3, 6 * 3, Color.WHITE);
+        super(positionX, positionY, 5 * 2, 5 * 3, Color.WHITE);
 
         this.speed = speed;
         this.shooting_pattern = shotPattern;
@@ -45,7 +45,7 @@ public class BulletN extends Entity {
         if (speed < 0)
             this.spriteType = SpriteType.Bullet;
         else
-            this.spriteType = SpriteType.EnemyBullet;
+            this.spriteType = SpriteType.EnemyBulletN;
     }
 
     /**

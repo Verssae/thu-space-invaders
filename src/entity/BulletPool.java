@@ -60,14 +60,14 @@ public final class BulletPool {
 		if (!poolN.isEmpty()) {
 			bulletN = poolN.iterator().next();
 			poolN.remove(bulletN);
-			bulletN.setPositionX(positionX - bulletN.getWidth() / 2);
+			bulletN.setPositionX(positionX - 1);
 			bulletN.setPositionY(positionY);
 			bulletN.setSpeed(speed);
 			bulletN.setSprite();
 			bulletN.setMovingPattern(movingPattern);
 		} else {
 			bulletN = new BulletN(positionX, positionY, speed, movingPattern);
-			bulletN.setPositionX(positionX - bulletN.getWidth() / 2);
+			bulletN.setPositionX(positionX - 1);
 		}
 		return bulletN;
 	}
@@ -78,14 +78,14 @@ public final class BulletPool {
 		if (!poolH.isEmpty()) {
 			bulletH = poolH.iterator().next();
 			poolH.remove(bulletH);
-			bulletH.setPositionX(positionX - bulletH.getWidth() / 2);
+			bulletH.setPositionX(positionX - 1);
 			bulletH.setPositionY(positionY);
 			bulletH.setSpeed(speed);
 			bulletH.setSprite();
 			bulletH.setMovingPattern(movingPattern);
 		} else {
 			bulletH = new BulletH(positionX, positionY, speed, movingPattern);
-			bulletH.setPositionX(positionX - bulletH.getWidth() / 2);
+			bulletH.setPositionX(positionX - 1);
 		}
 		return bulletH;
 	}
