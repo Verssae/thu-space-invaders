@@ -20,6 +20,11 @@ import screen.*;
 public final class Core {
 
 	/**
+	 * difficulty of game
+	 */
+	public static int diff;
+
+	/**
 	 * Width of current screen.
 	 */
 	private static int WIDTH = 448;
@@ -193,7 +198,7 @@ public final class Core {
 					// Game & score
 					Scanner sc = new Scanner(System.in);
 					LOGGER.info("Select your difficulty 1 is easy, 2 is normal, 3 is hard");
-					int diff = sc.nextInt();
+					diff = sc.nextInt();
 					while (diff < 1 || diff > 3) {
 						LOGGER.info("Select your difficulty 1 is easy, 2 is normal, 3 is hard");
 						diff = sc.nextInt();
@@ -372,4 +377,7 @@ public final class Core {
 		WIDTH = width;
 		HEIGHT = height;
 	}
+
+	public int getdiff(final int diff){return diff;}
+
 }

@@ -14,6 +14,8 @@ import engine.DrawManager;
 import engine.DrawManager.SpriteType;
 import engine.GameSettings;
 
+import static engine.Core.diff;
+
 /**
  * Groups enemy ships into a formation that moves together.
  * 
@@ -354,7 +356,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			float ShootPattern = (float)(Math.round(Math.random()*10)/10.0);
-			if(ShootPattern<=0.4) { //The Enemy of double Bullet Type
+			if(ShootPattern<=0.4) {//The Enemy of double Bullet Type
 				bullets.add(BulletPool.getBullet(shooter.getPositionX()
 						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
 				bullets.add(BulletPool.getBullet(shooter.getPositionX()
@@ -368,6 +370,60 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			}
 			else{
 				bullets.add(BulletPool.getBullet(shooter.getPositionX()//general shoot
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
+			}
+		}
+	}
+
+	public final void shootN(final Set<BulletN> bulletsN) {
+		// For now, only ships in the bottom row are able to shoot.
+		int index = (int) (Math.random() * this.shooters.size());
+		EnemyShip shooter = this.shooters.get(index);
+
+		if (this.shootingCooldown.checkFinished()) {
+			this.shootingCooldown.reset();
+			float ShootPattern = (float)(Math.round(Math.random()*10)/10.0);
+			if(ShootPattern<=0.4) {//The Enemy of double Bullet Type
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,0));
+			}
+			else if(0.4 < ShootPattern && ShootPattern < 0.7) {//shoot double direction
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,1));
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,2));
+			}
+			else{
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()//general shoot
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
+			}
+		}
+	}
+
+	public final void shootH(final Set<BulletH> bullets) {
+		// For now, only ships in the bottom row are able to shoot.
+		int index = (int) (Math.random() * this.shooters.size());
+		EnemyShip shooter = this.shooters.get(index);
+
+		if (this.shootingCooldown.checkFinished()) {
+			this.shootingCooldown.reset();
+			float ShootPattern = (float)(Math.round(Math.random()*10)/10.0);
+			if(ShootPattern<=0.4) {//The Enemy of double Bullet Type
+				bullets.add(BulletPool.getBulletH(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
+				bullets.add(BulletPool.getBulletH(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,0));
+			}
+			else if(0.4 < ShootPattern && ShootPattern < 0.7) {//shoot double direction
+				bullets.add(BulletPool.getBulletH(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,1));
+				bullets.add(BulletPool.getBulletH(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,2));
+			}
+			else{
+				bullets.add(BulletPool.getBulletH(shooter.getPositionX()//general shoot
 						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
 			}
 		}

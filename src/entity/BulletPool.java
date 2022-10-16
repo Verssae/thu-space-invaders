@@ -97,7 +97,7 @@ public final class BulletPool {
 	 * @param bullet
 	 *            Bullets to recycle.
 	 */
-	public static void recycle(final Set<Bullet> bullet) {
-		pool.addAll(bullet);
-	}
+	public static void recycle(final Set<Bullet> bullet) {pool.addAll(bullet);}
+	public static void recycleN(final Set<BulletN> bulletN) {poolN.addAll(bulletN);}
+	public static void recycleH(final Set<BulletH> bulletH) {poolH.addAll(bulletH);}
 }

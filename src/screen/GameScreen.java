@@ -7,6 +7,8 @@ import java.util.Set;
 
 import engine.*;
 import entity.Bullet;
+import entity.BulletN;
+import entity.BulletH;
 import entity.BulletPool;
 import entity.EnemyShip;
 import entity.EnemyShipFormation;
@@ -15,7 +17,7 @@ import entity.Ship;
 import entity.Item;
 import entity.ItemPool;
 
-
+import static engine.Core.diff;
 
 
 /**
@@ -96,6 +98,11 @@ public class GameScreen extends Screen {
 	 */
 	private Set<Bullet> bullets;
 
+	private Set<BulletN> bulletsN;
+
+	private Set<BulletH> bulletsH;
+
+
 	/** Current score. */
 	private int score;
 	/**
@@ -171,6 +178,8 @@ public class GameScreen extends Screen {
 				.getCooldown(BONUS_SHIP_EXPLOSION);
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
+		this.bulletsN = new HashSet<BulletN>();
+		this.bulletsH = new HashSet<BulletH>();
 		this.items = new HashSet<Item>();
 
 		// Special input delay / countdown.
@@ -244,11 +253,27 @@ public class GameScreen extends Screen {
 
 			this.ship.update();
 			this.enemyShipFormation.update();
-			this.enemyShipFormation.shoot(this.bullets);
+
+			switch (diff){
+				case 1:
+					this.enemyShipFormation.shoot(this.bullets);
+					break;
+
+				case 2:
+					this.enemyShipFormation.shootN(this.bulletsN);
+					break;
+
+				case 3:
+					this.enemyShipFormation.shootH(this.bulletsH);
+					break;
+			}
+
 		}
 
 		manageCollisions();
 		cleanBullets();
+		cleanBulletsN();
+		cleanBulletsH();
 		manageCollisionsItem();
 		cleanItems();
 		draw();
@@ -282,6 +307,14 @@ public class GameScreen extends Screen {
 		for (Bullet bullet : this.bullets)
 			drawManager.drawEntity(bullet, bullet.getPositionX(),
 					bullet.getPositionY());
+
+		for (BulletN bulletN : this.bulletsN)
+			drawManager.drawEntity(bulletN, bulletN.getPositionX(),
+					bulletN.getPositionY());
+
+		for (BulletH bulletH : this.bulletsH)
+			drawManager.drawEntity(bulletH, bulletH.getPositionX(),
+					bulletH.getPositionY());
 
 		for (Item item : this.items)
 			drawManager.drawEntity(item, item.getPositionX(),
@@ -321,6 +354,30 @@ public class GameScreen extends Screen {
 		}
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycle(recyclable);
+	}
+
+	private void cleanBulletsN() {
+		Set<BulletN> recyclable = new HashSet<BulletN>();
+		for (BulletN bulletN : this.bulletsN) {
+			bulletN.update();
+			if (bulletN.getPositionY() < SEPARATION_LINE_HEIGHT
+					|| bulletN.getPositionY() > this.height)
+				recyclable.add(bulletN);
+		}
+		this.bulletsN.removeAll(recyclable);
+		BulletPool.recycleN(recyclable);
+	}
+
+	private void cleanBulletsH() {
+		Set<BulletH> recyclable = new HashSet<BulletH>();
+		for (BulletH bulletH : this.bulletsH) {
+			bulletH.update();
+			if (bulletH.getPositionY() < SEPARATION_LINE_HEIGHT
+					|| bulletH.getPositionY() > this.height)
+				recyclable.add(bulletH);
+		}
+		this.bulletsH.removeAll(recyclable);
+		BulletPool.recycleH(recyclable);
 	}
 
 	private void cleanItems() {
