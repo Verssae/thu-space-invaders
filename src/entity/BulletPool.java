@@ -13,6 +13,8 @@ public final class BulletPool {
 
 	/** Set of already created bullets. */
 	private static Set<Bullet> pool = new HashSet<Bullet>();
+	private static Set<BulletN> poolN = new HashSet<BulletN>();
+	private static Set<BulletH> poolH = new HashSet<BulletH>();
 
 	/**
 	 * Constructor, not called.
@@ -51,6 +53,43 @@ public final class BulletPool {
 		}
 		return bullet;
 	}
+
+	public static BulletN getBulletN(final int positionX,
+								   final int positionY, int speed, int movingPattern) {
+		BulletN bulletN;
+		if (!poolN.isEmpty()) {
+			bulletN = poolN.iterator().next();
+			poolN.remove(bulletN);
+			bulletN.setPositionX(positionX - bulletN.getWidth() / 2);
+			bulletN.setPositionY(positionY);
+			bulletN.setSpeed(speed);
+			bulletN.setSprite();
+			bulletN.setMovingPattern(movingPattern);
+		} else {
+			bulletN = new BulletN(positionX, positionY, speed, movingPattern);
+			bulletN.setPositionX(positionX - bulletN.getWidth() / 2);
+		}
+		return bulletN;
+	}
+
+	public static BulletH getBulletH(final int positionX,
+									 final int positionY, int speed, int movingPattern) {
+		BulletH bulletH;
+		if (!poolH.isEmpty()) {
+			bulletH = poolH.iterator().next();
+			poolH.remove(bulletH);
+			bulletH.setPositionX(positionX - bulletH.getWidth() / 2);
+			bulletH.setPositionY(positionY);
+			bulletH.setSpeed(speed);
+			bulletH.setSprite();
+			bulletH.setMovingPattern(movingPattern);
+		} else {
+			bulletH = new BulletH(positionX, positionY, speed, movingPattern);
+			bulletH.setPositionX(positionX - bulletH.getWidth() / 2);
+		}
+		return bulletH;
+	}
+
 
 	/**
 	 * Adds one or more bullets to the list of available ones.

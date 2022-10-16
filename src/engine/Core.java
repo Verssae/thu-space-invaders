@@ -2,6 +2,7 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -18,62 +19,119 @@ import screen.*;
  */
 public final class Core {
 
-	/** Width of current screen. */
+	/**
+	 * Width of current screen.
+	 */
 	private static int WIDTH = 448;
-	/** Height of current screen. */
+	/**
+	 * Height of current screen.
+	 */
 	private static int HEIGHT = 520;
-	/** Max fps of current screen. */
+	/**
+	 * Max fps of current screen.
+	 */
 	private static final int FPS = 60;
 
-	/** Max lives. */
+	/**
+	 * Max lives.
+	 */
 	private static final int MAX_LIVES = 3;
-	/** Levels between extra life. */
+	/**
+	 * Levels between extra life.
+	 */
 	private static final int EXTRA_LIFE_FRECUENCY = 3;
-	/** Total number of levels. */
-	private static final int NUM_LEVELS = 7;
-	
-	/** Difficulty settings for level 1. */
-	private static final GameSettings SETTINGS_LEVEL_1 =
-			new GameSettings(5, 4, 60, 2000);
-	/** Difficulty settings for level 2. */
-	private static final GameSettings SETTINGS_LEVEL_2 =
-			new GameSettings(5, 5, 50, 2500);
-	/** Difficulty settings for level 3. */
-	private static final GameSettings SETTINGS_LEVEL_3 =
-			new GameSettings(6, 5, 40, 1500);
-	/** Difficulty settings for level 4. */
-	private static final GameSettings SETTINGS_LEVEL_4 =
-			new GameSettings(6, 6, 30, 1500);
-	/** Difficulty settings for level 5. */
-	private static final GameSettings SETTINGS_LEVEL_5 =
-			new GameSettings(7, 6, 20, 1000);
-	/** Difficulty settings for level 6. */
-	private static final GameSettings SETTINGS_LEVEL_6 =
-			new GameSettings(7, 7, 10, 1000);
-	/** Difficulty settings for level 7. */
-	private static final GameSettings SETTINGS_LEVEL_7 =
-			new GameSettings(8, 7, 2, 500);
-	
-	/** Frame to draw the screen on. */
+	/**
+	 * Total number of levels.
+	 */
+	private static final int NUM_LEVELS = 5;
+
+	/**
+	 * Difficulty settings for level 1.
+	 */
+	private static final GameSettings SETTINGS_LEVEL_1_E = new GameSettings(5, 4, 58, 2000);
+	/**
+	 * Difficulty settings for level 2.
+	 */
+	private static final GameSettings SETTINGS_LEVEL_2_E = new GameSettings(5, 5, 54, 1900);
+	/**
+	 * Difficulty settings for level 3.
+	 */
+	private static final GameSettings SETTINGS_LEVEL_3_E = new GameSettings(6, 5, 50, 1800);
+	/**
+	 * Difficulty settings for level 4.
+	 */
+	private static final GameSettings SETTINGS_LEVEL_4_E = new GameSettings(6, 6, 46, 1700);
+	/**
+	 * Difficulty settings for level 5.
+	 */
+	private static final GameSettings SETTINGS_LEVEL_5_E = new GameSettings(7, 6, 42, 1600);
+	// NORMAL
+	private static final GameSettings SETTINGS_LEVEL_1_N = new GameSettings(6, 4, 38, 1500);
+	/**
+	 * Difficulty settings for level 2.
+	 */
+	private static final GameSettings SETTINGS_LEVEL_2_N = new GameSettings(6, 5, 34, 1400);
+	/**
+	 * Difficulty settings for level 3.
+	 */
+	private static final GameSettings SETTINGS_LEVEL_3_N = new GameSettings(7, 5, 30, 1300);
+	/**
+	 * Difficulty settings for level 4.
+	 */
+	private static final GameSettings SETTINGS_LEVEL_4_N = new GameSettings(8, 6, 26, 1200);
+	/**
+	 * Difficulty settings for level 5.
+	 */
+	private static final GameSettings SETTINGS_LEVEL_5_N = new GameSettings(9, 6, 22, 1100);
+	// HARD
+	private static final GameSettings SETTINGS_LEVEL_1_H = new GameSettings(6, 5, 18, 1000);
+	/**
+	 * Difficulty settings for level 2.
+	 */
+	private static final GameSettings SETTINGS_LEVEL_2_H = new GameSettings(7, 5, 14, 900);
+	/**
+	 * Difficulty settings for level 3.
+	 */
+	private static final GameSettings SETTINGS_LEVEL_3_H = new GameSettings(8, 5, 9, 800);
+	/**
+	 * Difficulty settings for level 4.
+	 */
+	private static final GameSettings SETTINGS_LEVEL_4_H = new GameSettings(9, 6, 5, 700);
+	/**
+	 * Difficulty settings for level 5.
+	 */
+	private static final GameSettings SETTINGS_LEVEL_5_H = new GameSettings(10, 6, 1, 600);
+
+	/**
+	 * Frame to draw the screen on.
+	 */
 	private static Frame frame;
-	/** Screen currently shown. */
+	/**
+	 * Screen currently shown.
+	 */
 	private static Screen currentScreen;
-	/** Difficulty settings list. */
+	/**
+	 * Difficulty settings list.
+	 */
 	private static List<GameSettings> gameSettings;
-	/** Application logger. */
+	/**
+	 * Application logger.
+	 */
 	private static final Logger LOGGER = Logger.getLogger(Core.class
 			.getSimpleName());
-	/** Logger handler for printing to disk. */
+	/**
+	 * Logger handler for printing to disk.
+	 */
 	private static Handler fileHandler;
-	/** Logger handler for printing to console. */
+	/**
+	 * Logger handler for printing to console.
+	 */
 	private static ConsoleHandler consoleHandler;
-
 
 	/**
 	 * Test implementation.
-	 * 
-	 * @param args
-	 *            Program args, ignored.
+	 *
+	 * @param args Program args, ignored.
 	 */
 	public static void main(final String[] args) {
 		try {
@@ -100,14 +158,22 @@ public final class Core {
 		int height = frame.getHeight();
 
 		gameSettings = new ArrayList<GameSettings>();
-		gameSettings.add(SETTINGS_LEVEL_1);
-		gameSettings.add(SETTINGS_LEVEL_2);
-		gameSettings.add(SETTINGS_LEVEL_3);
-		gameSettings.add(SETTINGS_LEVEL_4);
-		gameSettings.add(SETTINGS_LEVEL_5);
-		gameSettings.add(SETTINGS_LEVEL_6);
-		gameSettings.add(SETTINGS_LEVEL_7);
-		
+		gameSettings.add(SETTINGS_LEVEL_1_E);
+		gameSettings.add(SETTINGS_LEVEL_2_E);
+		gameSettings.add(SETTINGS_LEVEL_3_E);
+		gameSettings.add(SETTINGS_LEVEL_4_E);
+		gameSettings.add(SETTINGS_LEVEL_5_E);
+		gameSettings.add(SETTINGS_LEVEL_1_N);
+		gameSettings.add(SETTINGS_LEVEL_2_N);
+		gameSettings.add(SETTINGS_LEVEL_3_N);
+		gameSettings.add(SETTINGS_LEVEL_4_N);
+		gameSettings.add(SETTINGS_LEVEL_5_N);
+		gameSettings.add(SETTINGS_LEVEL_1_H);
+		gameSettings.add(SETTINGS_LEVEL_2_H);
+		gameSettings.add(SETTINGS_LEVEL_3_H);
+		gameSettings.add(SETTINGS_LEVEL_4_H);
+		gameSettings.add(SETTINGS_LEVEL_5_H);
+
 		GameState gameState;
 
 		int returnCode = 1;
@@ -115,84 +181,91 @@ public final class Core {
 			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
 
 			switch (returnCode) {
-			case 1:
-				// Main menu.
-				currentScreen = new TitleScreen(width, height, FPS);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " title screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing title screen.");
-				break;
-			case 2:
-				// Game & score.
-				do {
-					// One extra live every few levels.
-					boolean bonusLife = gameState.getLevel()
-							% EXTRA_LIFE_FRECUENCY == 0
-							&& gameState.getLivesRemaining() < MAX_LIVES;
-					
-					currentScreen = new GameScreen(gameState,
-							gameSettings.get(gameState.getLevel() - 1),
-							bonusLife, width, height, FPS);
+				case 1:
+					// Main menu.
+					currentScreen = new TitleScreen(width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-							+ " game screen at " + FPS + " fps.");
-					frame.setScreen(currentScreen);
-					LOGGER.info("Closing game screen.");
+							+ " title screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing title screen.");
+					break;
+				case 2:
+					// Game & score
+					Scanner sc = new Scanner(System.in);
+					LOGGER.info("Select your difficulty 1 is easy, 2 is normal, 3 is hard");
+					int diff = sc.nextInt();
+					while (diff < 1 || diff > 3) {
+						LOGGER.info("Select your difficulty 1 is easy, 2 is normal, 3 is hard");
+						diff = sc.nextInt();
+					}
+					do {
+						// One extra live every few levels.
+						boolean bonusLife = gameState.getLevel()
+								% EXTRA_LIFE_FRECUENCY == 0
+								&& gameState.getLivesRemaining() < MAX_LIVES;
 
-					gameState = ((GameScreen) currentScreen).getGameState();
+						currentScreen = new GameScreen(gameState,
+								gameSettings.get(gameState.getLevel() - 1 + (diff - 1) * 5),
+								bonusLife, width, height, FPS);
+						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+								+ " game screen at " + FPS + " fps.");
+						frame.setScreen(currentScreen);
+						LOGGER.info("Closing game screen.");
 
-					gameState = new GameState(gameState.getLevel() + 1,
-							gameState.getScore(),
-							gameState.getLivesRemaining(),
-							gameState.getBulletsShot(),
-							gameState.getShipsDestroyed());
+						gameState = ((GameScreen) currentScreen).getGameState();
 
-				} while (gameState.getLivesRemaining() > 0
-						&& gameState.getLevel() <= NUM_LEVELS);
+						gameState = new GameState(gameState.getLevel() + (diff - 1) * 5 + 1,
+								gameState.getScore(),
+								gameState.getLivesRemaining(),
+								gameState.getBulletsShot(),
+								gameState.getShipsDestroyed());
 
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " score screen at " + FPS + " fps, with a score of "
-						+ gameState.getScore() + ", "
-						+ gameState.getLivesRemaining() + " lives remaining, "
-						+ gameState.getBulletsShot() + " bullets shot and "
-						+ gameState.getShipsDestroyed() + " ships destroyed.");
-				currentScreen = new ScoreScreen(width, height, FPS, gameState);
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing score screen.");
-				break;
-			case 3:
-				// High scores.
-				currentScreen = new HighScoreScreen(width, height, FPS);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " high score screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing high score screen.");
-				break;
-			case 4:
-				//Setting.
-				currentScreen = new SettingScreen(width, height, FPS);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " setting screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing setting screen.");
-				break;
-			case 5:
-				//Store.
-				currentScreen = new StoreScreen(width, height, FPS);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " store screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing store screen.");
-				break;
+					} while (gameState.getLivesRemaining() > 0
+							&& gameState.getLevel() % NUM_LEVELS != 0);
 
-			case 400050:
-				//HUDSettingScreen.
-				currentScreen = new HUDSettingScreen(width, height, FPS);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " HUDSetting screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing HUDSetting screen.");
-				break;
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " score screen at " + FPS + " fps, with a score of "
+							+ gameState.getScore() + ", "
+							+ gameState.getLivesRemaining() + " lives remaining, "
+							+ gameState.getBulletsShot() + " bullets shot and "
+							+ gameState.getShipsDestroyed() + " ships destroyed.");
+					currentScreen = new ScoreScreen(width, height, FPS, gameState);
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing score screen.");
+					break;
+				case 3:
+					// High scores.
+					currentScreen = new HighScoreScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " high score screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing high score screen.");
+					break;
+				case 4:
+					// Setting.
+					currentScreen = new SettingScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " setting screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing setting screen.");
+					break;
+				case 5:
+					// Store.
+					currentScreen = new StoreScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " store screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing store screen.");
+					break;
+
+				case 400050:
+					// HUDSettingScreen.
+					currentScreen = new HUDSettingScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " HUDSetting screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing HUDSetting screen.");
+					break;
 
 				case 400010:
 					// Main menu.
@@ -210,18 +283,17 @@ public final class Core {
 					LOGGER.info("Closing title screen.");
 					break;
 
-			case 400060:
-				//HelpScreen.
-				currentScreen = new HelpScreen(width, height, FPS);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " Help screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing Help screen.");
-				break;
+				case 400060:
+					// HelpScreen.
+					currentScreen = new HelpScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " Help screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing Help screen.");
+					break;
 
-
-			default:
-				break;
+				default:
+					break;
 			}
 
 		} while (returnCode != 0);
@@ -240,7 +312,7 @@ public final class Core {
 
 	/**
 	 * Controls access to the logger.
-	 * 
+	 *
 	 * @return Application logger.
 	 */
 	public static Logger getLogger() {
@@ -249,7 +321,7 @@ public final class Core {
 
 	/**
 	 * Controls access to the drawing manager.
-	 * 
+	 *
 	 * @return Application draw manager.
 	 */
 	public static DrawManager getDrawManager() {
@@ -258,7 +330,7 @@ public final class Core {
 
 	/**
 	 * Controls access to the input manager.
-	 * 
+	 *
 	 * @return Application input manager.
 	 */
 	public static InputManager getInputManager() {
@@ -267,7 +339,7 @@ public final class Core {
 
 	/**
 	 * Controls access to the file manager.
-	 * 
+	 *
 	 * @return Application file manager.
 	 */
 	public static FileManager getFileManager() {
@@ -276,9 +348,8 @@ public final class Core {
 
 	/**
 	 * Controls creation of new cooldowns.
-	 * 
-	 * @param milliseconds
-	 *            Duration of the cooldown.
+	 *
+	 * @param milliseconds Duration of the cooldown.
 	 * @return A new cooldown.
 	 */
 	public static Cooldown getCooldown(final int milliseconds) {
@@ -287,17 +358,16 @@ public final class Core {
 
 	/**
 	 * Controls creation of new cooldowns with variance.
-	 * 
-	 * @param milliseconds
-	 *            Duration of the cooldown.
-	 * @param variance
-	 *            Variation in the cooldown duration.
+	 *
+	 * @param milliseconds Duration of the cooldown.
+	 * @param variance     Variation in the cooldown duration.
 	 * @return A new cooldown with variance.
 	 */
 	public static Cooldown getVariableCooldown(final int milliseconds,
-			final int variance) {
+											   final int variance) {
 		return new Cooldown(milliseconds, variance);
 	}
+
 	public static void setSize(int width, int height) {
 		WIDTH = width;
 		HEIGHT = height;
