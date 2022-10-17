@@ -101,7 +101,7 @@ public class GameScreen extends Screen {
 	/**
 	 * Player lives left.
 	 */
-	private int lives;
+	public int lives;
 	/**
 	 * Total bullets shot by the player.
 	 */

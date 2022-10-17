@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import screen.Screen;
+import screen.GameScreen;
 import entity.Entity;
 import entity.Ship;
 
@@ -151,6 +152,7 @@ public final class DrawManager {
 	 * @param screen
 	 *            Screen to draw in.
 	 */
+	Color[] bg_colors = {Color.LIGHT_GRAY, Color.GRAY, Color.DARK_GRAY};
 	public void initDrawing(final Screen screen) {
 		backBuffer = new BufferedImage(screen.getWidth(), screen.getHeight(),
 				BufferedImage.TYPE_INT_RGB);
@@ -158,7 +160,13 @@ public final class DrawManager {
 		graphics = frame.getGraphics();
 		backBufferGraphics = backBuffer.getGraphics();
 
-		backBufferGraphics.setColor(Color.BLACK);
+		if(GameScreen.lives > 0 && GameScreen.lives <= 3){
+			backBufferGraphics.setColor(bg_colors[3 - GameScreen.lives]);
+		}
+		else{
+			backBufferGraphics.setColor(Color.BLACK);
+		}
+
 		backBufferGraphics
 				.fillRect(0, 0, screen.getWidth(), screen.getHeight());
 
