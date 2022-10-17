@@ -67,7 +67,7 @@ public class ScoreScreen extends Screen {
 
 		this.score = gameState.getScore();
 		this.stage = gameState.getLevel();
-		this.accuracy = Math.round(gameState.getShipsDestroyed()/gameState.getBulletsShot()*100);
+		this.accuracy = Math.round((float)gameState.getShipsDestroyed()/gameState.getBulletsShot()*100);
 		this.livesRemaining = gameState.getLivesRemaining();
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();

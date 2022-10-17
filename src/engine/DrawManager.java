@@ -506,8 +506,8 @@ public final class DrawManager {
 		String accuracyString ="";
 		String stageString = "";
 		for (Score score : highScores) {
-			scoreString = String.format("%s    %04d    %04d           %04d           %04d            %d   ", score.getName(),
-					score.getScore(),score.getKilled(),score.getBullets(),score.getStage(),
+			scoreString = String.format("%s    %04d    %04d           %04d           %02.02f            %d   ", score.getName(),
+					score.getScore(),score.getKilled(),score.getBullets(),score.getAccuracy(),
 					score.getStage()); //need change 5th variables and score.getStage()
 			drawCenteredRegularString(screen, scoreString, screen.getHeight()
 					/ 4 + fontRegularMetrics.getHeight() * (i + 1) * 2);
