@@ -99,6 +99,7 @@ public class Score implements Comparable<Score> {
 	 * @return Accuracy.
 	 */
 	public final float getAccuracy() { return this.accuracy; }
+
 	/**
 	 * Orders the scores descending by score.
 	 *
@@ -106,12 +107,14 @@ public class Score implements Comparable<Score> {
 	 *            Score to compare the current one with.
 	 * @return Comparison between the two scores. Positive if the current one is
 	 *         smaller, positive if its bigger, zero if its the same.
+	 *         정렬 1순위 : 점수(Score), 2순위 : 정확도(Accuracy)
 	 */
 	@Override
 	public final int compareTo(final Score score) {
-		int comparison = this.score < score.getScore() ? 1 : this.score > score
-				.getScore() ? -1 : 0;
-		return comparison;
+		int comparison_accuracy = this.accuracy < score.getAccuracy() ? 1 : this.accuracy > score.getAccuracy() ? -1 : 0;
+		int comparison_score = this.score < score.getScore() ? 1 : this.score > score.getScore() ? -1 : comparison_accuracy;
+
+		return comparison_score;
 	}
 
 }
