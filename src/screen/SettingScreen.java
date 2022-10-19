@@ -337,9 +337,11 @@ public class SettingScreen extends Screen {
      */
     private void draw() {
         drawManager.initDrawing(this);
+
         drawManager.drawSettingsMenu(this);
         drawManager.drawSettingOption(this, this.returnCode, Screenchange, MasterSoundchange, MusicSoundchange, EffectSoundchange);
         drawManager.drawSettingItems(this, this.returnCode);
         drawManager.completeDrawing(this);
     }
+
 }
