@@ -765,6 +765,29 @@ public final class DrawManager {
 				screen.getHeight() / 5);
 	}
 
+
+	public void drawHighScores_submenu(final Screen screen){
+		String name = "Name";
+		String score = "Score";
+		String killed = "Killed";
+		String bullet = "Bullets";
+		String accuracy = "Accuracy";
+		String stage = "Stage";
+
+		backBufferGraphics.setColor(Color.gray);
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.fillRect(0,105,450,35);
+
+		backBufferGraphics.setColor(Color.red);
+		backBufferGraphics.drawString (name, 13,105 + 24);
+		backBufferGraphics.drawString (score,63,129);
+		backBufferGraphics.drawString (killed,128,129);
+		backBufferGraphics.drawString (bullet,203,129);
+		backBufferGraphics.drawString (accuracy,290,129);
+		backBufferGraphics.drawString (stage,388,129);
+
+	}
+
 	/**
 	 * Draws high scores.
 	 *
@@ -777,11 +800,16 @@ public final class DrawManager {
 			final List<Score> highScores) {
 		backBufferGraphics.setColor(Color.WHITE);
 		int i = 0;
+		String nameString ="";
 		String scoreString = "";
-
+		String killedString = "";
+		String bulletString ="";
+		String accuracyString ="";
+		String stageString = "";
 		for (Score score : highScores) {
-			scoreString = String.format("%s        %04d", score.getName(),
-					score.getScore());
+			scoreString = String.format("%s    %04d    %04d           %04d           %02.02f            %d   ", score.getName(),
+					score.getScore(),score.getKilled(),score.getBullets(),score.getAccuracy(),
+					score.getStage()); //need change 5th variables and score.getStage()
 			drawCenteredRegularString(screen, scoreString, screen.getHeight()
 					/ 4 + fontRegularMetrics.getHeight() * (i + 1) * 2);
 			i++;
