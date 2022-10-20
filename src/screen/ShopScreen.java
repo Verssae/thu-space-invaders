@@ -11,6 +11,7 @@ import engine.*;
 import engine.DrawManager.shopmodaltype;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import javax.swing.tree.DefaultTreeSelectionModel;
 
 //notimplementedexception
 public class ShopScreen extends Screen {
@@ -50,6 +51,8 @@ public class ShopScreen extends Screen {
 	 */
 	public final int run() {
 		this.state = shopstates.SHOP_INVEN;
+		default_ship=engine.Inventory.getcurrentship()-1000;
+		default_bgm=apply_bgm;
 		super.run();
 		return this.returnCode;
 	}
@@ -367,11 +370,11 @@ public class ShopScreen extends Screen {
 		drawManager.drawshop(this, invrow, invcol, this.state);
 		if (this.state == shopstates.SHOP_MODAL) {
 			if (invrow == 0 || invrow == 1 || invrow == 2) {
-				drawManager.drawshopmodal(this, Item.itemregistry_ship.get(invrow).name, String.valueOf(Item.itemregistry_ship.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
+				drawManager.drawShopModal(this, Item.itemregistry_ship.get(invrow).name, String.valueOf(Item.itemregistry_ship.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
 			}
 			if (invcol == 1) {
 				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawshopmodal(this, Item.itemregistry_bgm.get(invrow).name, String.valueOf(Item.itemregistry_bgm.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
+					drawManager.drawShopModal(this, Item.itemregistry_bgm.get(invrow).name, String.valueOf(Item.itemregistry_bgm.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
 			}
 		}
 		/**
