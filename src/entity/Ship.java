@@ -66,7 +66,7 @@ public class Ship extends Entity {
 	}
 
 	/**
-	 * Moves the ship speed uni ts right, or until the right screen border is
+	 * Moves the ship speed units right, or until the right screen border is
 	 * reached.
 	 */
 	public final void moveRight() {
