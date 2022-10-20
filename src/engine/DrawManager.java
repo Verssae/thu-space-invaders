@@ -11,13 +11,12 @@ import java.util.Map;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 
-<<<<<<< HEAD
+
 import screen.Screen;
 import screen.GameScreen;
-=======
+
 import screen.*;
 import screen.ShopScreen.shopstates;
->>>>>>> 3800bdc7166b28e7a2e1a37ff87afe50b611d716
 import entity.Entity;
 import entity.Ship;
 
