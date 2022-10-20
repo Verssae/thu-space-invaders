@@ -22,7 +22,7 @@ public class Ship extends Entity {
 	private static final int BULLET_SPEED = -6;
 
 	/** Movement of the ship for each unit of time. */
-	private int SPEED = 2;
+	private int SPEED;
 	public int animctr = 1;
 
 	private boolean imagep;
@@ -33,7 +33,6 @@ public class Ship extends Entity {
 	/** Time spent inactive between hits. */
 	private Cooldown destructionCooldown;
 	/** Movement of the ship for each unit of time. */
-	private int SPEED;
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -43,9 +42,12 @@ public class Ship extends Entity {
 	 * @param positionY
 	 *                  Initial position of the ship in the Y axis.
 	 */
-	public Ship(final int positionX, final int positionY) {
+
+	public Ship(final int positionX, final int positionY, int sType) {
 		super(positionX, positionY, 13 * 2, 8 * 2, Color.GREEN);
-		this.spriteType = SpriteType.Ship;
+		imagep = true;
+		this.spriteType = SpriteType.ShipCustom;
+		this.imageid = sType;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(300);
 		switch (Core.getDiff()) {
@@ -59,15 +61,6 @@ public class Ship extends Entity {
 				this.SPEED = 10;
 				break;
 		}
-	}
-
-	public Ship(final int positionX, final int positionY, int sType) {
-		super(positionX, positionY, 13 * 2, 8 * 2, Color.GREEN);
-		imagep = true;
-		this.spriteType = SpriteType.ShipCustom;
-		this.imageid = sType;
-		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
-		this.destructionCooldown = Core.getCooldown(1000);
 	}
 
 	/**

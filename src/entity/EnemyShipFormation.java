@@ -387,6 +387,100 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		}
 	}
 
+	public final void shootN(final Set<BulletN> bulletsN) {
+		// For now, only ships in the bottom row are able to shoot.
+		int index = (int) (Math.random() * this.shooters.size());
+		EnemyShip shooter = this.shooters.get(index);
+		if (isLast()) { // The last enemy can get the all ShootPattern.
+			bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
+			bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,0));
+			bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,1));
+			bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,1));
+			bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,2));
+			bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,2));
+		}
+		else if (this.shootingCooldown.checkFinished()) {
+			this.shootingCooldown.reset();
+			float ShootPattern = (float)(Math.round(Math.random()*10)/10.0);
+			if (isLast()) { // The last enemy can get the all ShootPattern.
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,0));
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,1));
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,1));
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,2));
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,2));
+			}
+			else if(ShootPattern<=0.4) {//The Enemy of double Bullet Type
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(),BULLET_SPEED,0));
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(),BULLET_SPEED* 2,0));
+			}
+			else if(0.4 < ShootPattern && ShootPattern < 0.7) {//shoot double direction
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(),BULLET_SPEED,1));
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(),BULLET_SPEED,2));
+			}
+			else{
+				bulletsN.add(BulletPool.getBulletN(shooter.getPositionX()//general shoot
+						+ shooter.width / 2, shooter.getPositionY(),BULLET_SPEED,0));
+			}
+		}
+	}
+
+	public final void shootH(final Set<BulletH> bulletsH) {
+		// For now, only ships in the bottom row are able to shoot.
+		int index = (int) (Math.random() * this.shooters.size());
+		EnemyShip shooter = this.shooters.get(index);
+		if (isLast()) { // The last enemy can get the all ShootPattern.
+			bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
+					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
+			bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
+					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,0));
+			bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
+					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,1));
+			bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
+					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,1));
+			bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
+					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,2));
+			bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
+					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,2));
+		}
+		else if (this.shootingCooldown.checkFinished()) {
+			this.shootingCooldown.reset();
+			float ShootPattern = (float)(Math.round(Math.random()*10)/10.0);
+			if(ShootPattern<=0.4) { //The Enemy of double Bullet Type
+				bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
+				bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,0));
+			}
+			else if(0.4 < ShootPattern && ShootPattern < 0.7) {//shoot double direction
+				bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,1));
+				bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,2));
+			}
+			else{
+				bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()//general shoot
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
+			}
+		}
+	}
+
 	/**
 	 * Destroys a ship.
 	 * 

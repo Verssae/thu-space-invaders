@@ -254,7 +254,7 @@ public final class Core {
 							&& gameState.getLivesRemaining() < MAX_LIVES;
 					
 					currentScreen = new GameScreen(gameState,
-							gameSettings.get(gameState.getLevel() - 1),
+							gameSettings.get(gameState.getLevel() + (getDiff() - 1) * 5 - 1),
 							bonusLife, width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " game screen at " + FPS + " fps.");
