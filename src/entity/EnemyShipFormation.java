@@ -1,13 +1,11 @@
 package entity;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.util.Random;
 
 import screen.Screen;
 import engine.Cooldown;
@@ -96,14 +94,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private List<EnemyShip> shooters;
 	/** Number of not destroyed ships. */
 	private int shipCount;
-
-	private int hideEnemyX;
-
-	private int hideEnemyY;
-
-	private boolean isHide;
-
-	private int a = 0, b = 0, cnt = 0;
 
 
 	/** Directions the formation can move. */
@@ -220,7 +210,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		if (movementInterval >= this.movementSpeed) {
 			movementInterval = 0;
 
-			boolean isAtTop = positionY+this.height<screen.getHeight()-BOTTOM_MARGIN;
 			boolean isAtBottom = positionY
 					+ this.height > screen.getHeight() - BOTTOM_MARGIN;
 			boolean isAtRightSide = positionX
@@ -286,51 +275,25 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 			for (List<EnemyShip> column : this.enemyShips)
 				for (EnemyShip enemyShip : column) {
-					if(isLast()){
-						if(!isAtTop) {
-							movementY = -20;
-							enemyShip.move(movementX, movementY);
-						}
-						else if(!isAtBottom){
-							movementY = 1;
-							enemyShip.move(movementX,movementY);
-						}
-					}else {
-						if (!isAtBottom) {
-							int randomPlace = (int) (Math.random() * column.size() - 1);
-							movementY = 1;
-							if (Math.random() < 0.70) {
-								if (randomPlace < enemyShips.size()) {
-									if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
-										movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
-									}
-								}
-							} else {
-								if (enemyShips.get(enemyShips.size() - 1) == column && column.get(column.size() - 1) == enemyShip) {
+					if (!isAtBottom) {
+						int randomPlace = (int) (Math.random() * column.size() - 1);
+						movementY = 1;
+						if(Math.random()<0.70){
+							if(randomPlace < enemyShips.size()) {
+								if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
 									movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 								}
+							}
+						}else{
+							if(enemyShips.get(enemyShips.size()-1) == column && column.get(column.size()-1) == enemyShip){
+								movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 							}
 						}
 					}
 					enemyShip.move(movementX, movementY);
 					enemyShip.update();
 				}
-			//마지막줄 남으면 더이상 색 변화 x
-			for (List<EnemyShip> column : this.enemyShips) {
-				for (EnemyShip enemyShip : column)
-					enemyShip.setColor(Color.white);
-			}
-			int randomPlace_r = (int) (Math.random() * enemyShips.size() - 1);
-			int randomPlace_c = (int) (Math.random() * enemyShips.get(randomPlace_r).size() - 1);
-			if(this.shipCount>nShipsWide) {
-				if (enemyShips.get(randomPlace_r).get(randomPlace_c) != null)
-					enemyShips.get(randomPlace_r).get(randomPlace_c).changeColor();
-			}
-			//목숨 여러개인 적 색상 변화
-			for (List<EnemyShip> column : this.enemyShips) {
-				for (EnemyShip enemyShip : column)
-					 enemyShip.changeColor_G(enemyShip.getEnemyLives());
-			}
+
 		}
 	}
 

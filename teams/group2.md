@@ -15,4 +15,6 @@ We develop Gameplay HUD
 
 4. 스코어 옆에 score 추가 (Add a "score" mark next to the score)
 
-5. 비행기 모양 바꾸기 (Changing the Shape of an Airplane)
+5. Play 버튼을 누를 때 easy normal hard에 따른 각각 5가지의 스테이지 선택 기능 추가
+
+6. 게임플레이 할때 Coin이 얼마나 쌓였는지 나타내는 기능 추가
