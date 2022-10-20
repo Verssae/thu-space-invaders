@@ -280,11 +280,11 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				for (EnemyShip enemyShip : column) {
 					if(isLast()){
 						if(!isAtTop) {
-							movementY = -20;
+							movementY = -30;
 							enemyShip.move(movementX, movementY);
 						}
 						else if(!isAtBottom){
-							movementY = 1;
+							movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 							enemyShip.move(movementX,movementY);
 						}
 					}else {
