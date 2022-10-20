@@ -425,7 +425,6 @@ public class GameScreen extends Screen {
 					}
 					this.ship.itemGet();
 					// 아이템 먹었을 때 색깔 변하는 효과
-					this.ship.setColor(Color.YELLOW); // 임시로 노란색
 
 				}
 				if (per == 1) {
@@ -434,7 +433,6 @@ public class GameScreen extends Screen {
 					ship.setSHOOTING_INTERVAL(shootingSpeed);
 					this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
 					PlayBgm.playSound("Bgm\\attackSpeed.wav");
-					this.ship.setColor(Color.RED);
 				}
 				if (per == 2) {
 					this.ship.itemGet();
@@ -442,7 +440,6 @@ public class GameScreen extends Screen {
 					ship.setSPEED(shipSpeed);
 					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
 					PlayBgm.playSound("Bgm\\movingSpeed.wav");
-					this.ship.setColor(Color.BLUE);
 				}
 			}
 		}

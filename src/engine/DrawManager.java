@@ -100,7 +100,9 @@ public final class DrawManager {
 		/** Custom Ship Image */
 		ShipCustomDestroyed,
 		/** dropped item */
-		Item;
+		Item,
+		/** Custom Ship Image - Item get */
+		ShipCustomItem;
 	};
 
 	/**
@@ -263,6 +265,15 @@ public final class DrawManager {
 			return;
 		}
 
+		if (entity.getSpriteType() == SpriteType.ShipCustomItem){
+			try {
+				Dummy_icon = ImageIO.read(new File("icon\\ship_item.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			backBufferGraphics.drawImage(Dummy_icon, positionX, positionY - 40, 40, 40, observer);
+			return;
+		}
 		backBufferGraphics.setColor(entity.getColor());
 		for (int i = 0; i < image.length; i++)
 			for (int j = 0; j < image[i].length; j++)

@@ -32,7 +32,6 @@ public class Ship extends Entity {
 	/** Time spent inactive between hits. */
 	private Cooldown destructionCooldown;
 
-
 	private Cooldown itemCooldown;
 
 
@@ -49,6 +48,7 @@ public class Ship extends Entity {
 		this.spriteType = SpriteType.Ship;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(300);
+		this.itemCooldown = Core.getCooldown(300);
 	}
 
 	public Ship(final int positionX, final int positionY, int sType) {
@@ -58,6 +58,7 @@ public class Ship extends Entity {
 		this.imageid = sType;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(1000);
+		this.itemCooldown = Core.getCooldown(300);
 	}
 	
 	/**
@@ -97,12 +98,19 @@ public class Ship extends Entity {
 	 * Updates status of the ship.
 	 */
 	public final void update() {
+
 		if (this.imagep) {
 			if (!this.destructionCooldown.checkFinished())
 				this.spriteType = SpriteType.ShipCustomDestroyed;
 			// use hash map to decide which image to use
 			else
+			if (!this.itemCooldown.checkFinished()) {
+				this.spriteType = spriteType.ShipCustomItem;
+			}
+			else {
 				this.spriteType = SpriteType.ShipCustom;
+			}
+
 			return;
 		}
 		if (!this.destructionCooldown.checkFinished())
