@@ -396,7 +396,7 @@ public final class DrawManager {
     		e.printStackTrace();
     	}
       
-    	backBufferGraphics.drawString(scoreString, screen.getWidth() - 60, 25);
+    	backBufferGraphics.drawString(scoreString, screen.getWidth() - 120, 25);
 	}
 
 	public void drawCoin(final Screen screen, final int coin) {
