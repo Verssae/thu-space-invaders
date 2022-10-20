@@ -1085,7 +1085,7 @@ public final class DrawManager {
 		backBufferGraphics.drawRect(31, 370, backBuffer.getWidth() - 62, backBuffer.getHeight() - 415);
 
 		String shipinfo_1 = new String(
-				"GREEN SHIP\nTHIS SHIP IS GREEN\nDEFAULT");
+				"GREEN SHIP\nTHIS SHIP IS GREEN \n DEFAULT");
 		String shipinfo_2 = new String(
 				"<RED SHIP>\nTHIS SHIP IS RED");
 		String shipinfo_3 = new String(
@@ -1191,7 +1191,7 @@ public final class DrawManager {
 		int frontdelim = 0;
 		int backdelim = 0;
 		var x = new ArrayList<String>();
-		while ((input.length() - frontdelim > linelen)) {
+		while ((input.length() - frontdelim > linelen) || ((input.indexOf('\n', frontdelim) != -1))) {
 			if ((input.indexOf('\n', frontdelim) != -1) && ((input.indexOf('\n', frontdelim)-frontdelim) < linelen)) {
 				backdelim = input.indexOf('\n', frontdelim);
 				x.add(input.substring(frontdelim, backdelim));
