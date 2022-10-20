@@ -1315,8 +1315,48 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.WHITE);
 		drawLeftRegular2String(screen, Normal, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
 
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l1, (500 + screen.getWidth()) / 4
+				- fontRegular2Metrics.stringWidth(l1) / 2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
+
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l2, (600 + screen.getWidth()) / 4
+				- fontRegular2Metrics.stringWidth(l2) / 2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
+
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l3, (700 + screen.getWidth())/ 4
+				- fontRegular2Metrics.stringWidth(l3) / 2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
+
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l4, (800 + screen.getWidth()) / 4
+				- fontRegular2Metrics.stringWidth(l4) / 2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
+
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l5, (900 + screen.getWidth()) / 4
+				- fontRegular2Metrics.stringWidth(l5) / 2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
+
 		backBufferGraphics.setColor(Color.WHITE);
 		drawLeftRegular2String(screen, Hard, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 8);
+
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l1, (500 + screen.getWidth()) / 4
+				- fontRegular2Metrics.stringWidth(l1) / 2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 8);
+
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l2, (600 + screen.getWidth()) / 4
+				- fontRegular2Metrics.stringWidth(l2) / 2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 8);
+
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l3, (700 + screen.getWidth())/ 4
+				- fontRegular2Metrics.stringWidth(l3) / 2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 8);
+
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l4, (800 + screen.getWidth()) / 4
+				- fontRegular2Metrics.stringWidth(l4) / 2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 8);
+
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l5, (900 + screen.getWidth()) / 4
+				- fontRegular2Metrics.stringWidth(l5) / 2, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 8);
 
 
 	}
