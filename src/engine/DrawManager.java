@@ -1173,7 +1173,7 @@ public final class DrawManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		backBufferGraphics.drawImage(Dummy_icon, winxbase + 125, winxbase + 125, 80, 120, observer);
+		backBufferGraphics.drawImage(Dummy_data_icon, winxbase + 125, winxbase + 125, 80, 120, observer);
 		drawCenteredRegularString(screen, "Price :" + item_price, winxbase+80);
 		drawCenteredBigString(screen, "Purchase?", winybase+winh*7);
 		if (modaloption == 0)

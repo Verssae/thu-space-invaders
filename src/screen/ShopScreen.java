@@ -376,11 +376,11 @@ public class ShopScreen extends Screen {
 		drawManager.drawshop(this, invrow, invcol, this.state);
 		if (this.state == shopstates.SHOP_MODAL) {
 			if (invrow == 0 || invrow == 1 || invrow == 2) {
-				drawManager.drawShopModal(this, Item.itemregistry_ship.get(invrow).name, String.valueOf(Item.itemregistry_ship.get(invrow).price), shopmodaltype.SM_YESNO, modaloption, ship_icon, 0);
+				drawManager.drawShopModal(this, Item.itemregistry_ship.get(invrow).name, String.valueOf(Item.itemregistry_ship.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
 			}
 			if (invcol == 1) {
 				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawShopModal(this, Item.itemregistry_bgm.get(invrow).name, String.valueOf(Item.itemregistry_bgm.get(invrow).price), shopmodaltype.SM_YESNO, modaloption, 0, bgm_icon);
+					drawManager.drawShopModal(this, Item.itemregistry_bgm.get(invrow).name, String.valueOf(Item.itemregistry_bgm.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
 			}
 		}
 		/**
