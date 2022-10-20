@@ -36,7 +36,7 @@ public final class FileManager {
 	/** Application logger. */
 	private static Logger logger;
 	/** Max number of high scores. */
-	private static final int MAX_SCORES = 7;
+	private static final int MAX_SCORES = 10;
 
 	/**
 	 * private constructor.
@@ -149,12 +149,21 @@ public final class FileManager {
 			Score highScore = null;
 			String name = reader.readLine();
 			String score = reader.readLine();
+			String stage = reader.readLine();
+			String killed = reader.readLine();
+			String bullets = reader.readLine();
+			String accuracy = reader.readLine();
 
-			while ((name != null) && (score != null)) {
-				highScore = new Score(name, Integer.parseInt(score));
+			while ((name != null) && (score != null) && (stage != null) && (killed != null) && (bullets != null) && (accuracy != null)) {
+				highScore = new Score(name, Integer.parseInt(score), Integer.parseInt(stage), Integer.parseInt(killed), Integer.parseInt(bullets), Float.parseFloat(accuracy));
 				highScores.add(highScore);
 				name = reader.readLine();
 				score = reader.readLine();
+				stage = reader.readLine();
+				killed = reader.readLine();
+				bullets = reader.readLine();
+				accuracy = reader.readLine();
+
 			}
 		} finally {
 			if (inputStream != null)
@@ -197,12 +206,20 @@ public final class FileManager {
 			Score highScore = null;
 			String name = bufferedReader.readLine();
 			String score = bufferedReader.readLine();
+			String stage = bufferedReader.readLine();
+			String killed = bufferedReader.readLine();
+			String bullets = bufferedReader.readLine();
+			String accuracy = bufferedReader.readLine();
 
-			while ((name != null) && (score != null)) {
-				highScore = new Score(name, Integer.parseInt(score));
+			while ((name != null) && (score != null) && (stage != null) && (killed != null) && (bullets != null) && (accuracy != null)) {
+				highScore = new Score(name, Integer.parseInt(score), Integer.parseInt(stage), Integer.parseInt(killed), Integer.parseInt(bullets), Float.parseFloat(accuracy));
 				highScores.add(highScore);
 				name = bufferedReader.readLine();
 				score = bufferedReader.readLine();
+				stage = bufferedReader.readLine();
+				killed = bufferedReader.readLine();
+				bullets = bufferedReader.readLine();
+				accuracy = bufferedReader.readLine();
 			}
 
 		} catch (FileNotFoundException e) {
@@ -251,14 +268,22 @@ public final class FileManager {
 
 			logger.info("Saving user high scores.");
 
-			// Saves 7 or less scores.
+			// Saves 10 or less scores.
 			int savedCount = 0;
 			for (Score score : highScores) {
 				if (savedCount >= MAX_SCORES)
 					break;
-				bufferedWriter.write(score.getName());
+				bufferedWriter.write(score.getName());	// name
 				bufferedWriter.newLine();
-				bufferedWriter.write(Integer.toString(score.getScore()));
+				bufferedWriter.write(Integer.toString(score.getScore()));	// score
+				bufferedWriter.newLine();
+				bufferedWriter.write(Integer.toString(score.getStage()));	// stage
+				bufferedWriter.newLine();
+				bufferedWriter.write(Integer.toString(score.getKilled()));	// killed
+				bufferedWriter.newLine();
+				bufferedWriter.write(Integer.toString(score.getBullets()));	// bullets
+				bufferedWriter.newLine();
+				bufferedWriter.write(Float.toString(score.getAccuracy()));	// accuracy
 				bufferedWriter.newLine();
 				savedCount++;
 			}
