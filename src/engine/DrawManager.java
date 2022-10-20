@@ -963,6 +963,8 @@ public final class DrawManager {
 				- fontRegular2Metrics.stringWidth(string) / 2, height);
 	}
 
+
+
 	/**
 	 * Draws a centered string on big font.
 	 *
@@ -1239,52 +1241,52 @@ public final class DrawManager {
 	public void drawLevelMenu(final Screen screen, final int option) {
 		String LevelString = "Level";
 		String instructionsString = "Press Space to return";
-		String leve_1 = "Level 1";
-		String leve_2 = "Level 2";
-		String leve_3 = "Level 3";
-		String leve_4 = "Level 4";
-		String leve_5 = "Level 5";
+		String Easy = "Easy";
+		String Normal = "Normal";
+		String Hard = "Hard";
+		String l1 = "1";
+		String l2 = "2";
+		String l3 = "3";
+		String l4 = "4";
+		String l5 = "5";
 
-		backBufferGraphics.setColor(LevelMenuScreen.getScreenColor());
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
 		drawCenteredBigString(screen, LevelString, screen.getHeight() / 8);
 
 		backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, instructionsString, screen.getHeight() / 5);
 
-		if (option == 101)
-			backBufferGraphics.setColor(LevelMenuScreen.getScreenColor());
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, leve_1,
-				screen.getHeight() / 3 * 2);
+		backBufferGraphics.setColor(Color.WHITE);
+		drawLeftRegular2String(screen, Easy, screen.getHeight() / 3);
 
-		if (option == 102)
-			backBufferGraphics.setColor(Color.RED);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, leve_2, screen.getHeight()
-				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
 
-		if (option == 103)
-			backBufferGraphics.setColor(Color.BLUE);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, leve_3, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 4);
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l1, (500 + screen.getWidth()) / 4
+				- fontRegular2Metrics.stringWidth(l1) / 2, screen.getHeight() / 3);
 
-		if (option == 104)
-			backBufferGraphics.setColor(Color.BLUE);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, leve_4, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 6);
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l2, (600 + screen.getWidth()) / 4
+				- fontRegular2Metrics.stringWidth(l2) / 2, screen.getHeight() / 3);
 
-		if (option == 105)
-			backBufferGraphics.setColor(Color.BLUE);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, leve_5, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 8);
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l3, (700 + screen.getWidth())/ 4
+				- fontRegular2Metrics.stringWidth(l3) / 2, screen.getHeight() / 3);
+
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l4, (800 + screen.getWidth()) / 4
+				- fontRegular2Metrics.stringWidth(l4) / 2, screen.getHeight() / 3);
+
+		backBufferGraphics.setFont(fontRegular2);
+		backBufferGraphics.drawString(l5, (900 + screen.getWidth()) / 4
+				- fontRegular2Metrics.stringWidth(l5) / 2, screen.getHeight() / 3);
+
+		backBufferGraphics.setColor(Color.WHITE);
+		drawLeftRegular2String(screen, Normal, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 4);
+
+		backBufferGraphics.setColor(Color.WHITE);
+		drawLeftRegular2String(screen, Hard, screen.getHeight() / 3 + fontRegular2Metrics.getHeight() * 8);
+
+
 	}
 }
 

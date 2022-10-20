@@ -11,10 +11,7 @@ import engine.Core;
  */
 
 public class LevelMenuScreen extends Screen {
-    /**
-     * Screen change parameter
-     */
-    public static int colorchange;
+
     /**
      * Milliseconds between changes in user selection.
      */
