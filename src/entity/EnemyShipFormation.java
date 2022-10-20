@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,9 +17,9 @@ import engine.GameSettings;
 
 /**
  * Groups enemy ships into a formation that moves together.
- * 
+ *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
- * 
+ *
  */
 public class EnemyShipFormation implements Iterable<EnemyShip> {
 
@@ -108,7 +109,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	/**
 	 * Constructor, sets the initial conditions.
-	 * 
+	 *
 	 * @param gameSettings
 	 *            Current game settings.
 	 */
@@ -147,7 +148,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				else
 					spriteType = SpriteType.EnemyShipA1;
 
-				column.add(new EnemyShip((SEPARATION_DISTANCE 
+				column.add(new EnemyShip((SEPARATION_DISTANCE
 						* this.enemyShips.indexOf(column))
 								+ positionX, (SEPARATION_DISTANCE * i)
 								+ positionY, spriteType));
@@ -169,7 +170,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	/**
 	 * Associates the formation to a given screen.
-	 * 
+	 *
 	 * @param newScreen
 	 *            Screen to attach.
 	 */
@@ -196,7 +197,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					shootingVariance);
 			this.shootingCooldown.reset();
 		}
-		
+
 		cleanUp();
 
 		int movementX = 0;
@@ -210,6 +211,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		if (movementInterval >= this.movementSpeed) {
 			movementInterval = 0;
 
+			boolean isAtTop = positionY +
+					this.height<screen.getHeight()-BOTTOM_MARGIN;
 			boolean isAtBottom = positionY
 					+ this.height > screen.getHeight() - BOTTOM_MARGIN;
 			boolean isAtRightSide = positionX
@@ -275,25 +278,53 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 			for (List<EnemyShip> column : this.enemyShips)
 				for (EnemyShip enemyShip : column) {
-					if (!isAtBottom) {
-						int randomPlace = (int) (Math.random() * column.size() - 1);
-						movementY = 1;
-						if(Math.random()<0.70){
-							if(randomPlace < enemyShips.size()) {
-								if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+					if(isLast()){
+						if(!isAtTop) {
+							movementY = -30;
+							enemyShip.move(movementX, movementY);
+						}
+						else if(!isAtBottom){
+							movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
+							enemyShip.move(movementX,movementY);
+						}
+					}else {
+						if (!isAtBottom) {
+							int randomPlace = (int) (Math.random() * column.size() - 1);
+							movementY = 1;
+							if (Math.random() < 0.70) {
+								if (randomPlace < enemyShips.size()) {
+									if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+										movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
+									}
+								}
+							} else {
+								if (enemyShips.get(enemyShips.size() - 1) == column && column.get(column.size() - 1) == enemyShip) {
 									movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 								}
 							}
-						}else{
-							if(enemyShips.get(enemyShips.size()-1) == column && column.get(column.size()-1) == enemyShip){
-								movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
-							}
 						}
+						enemyShip.move(movementX, movementY);
+						enemyShip.update();
 					}
-					enemyShip.move(movementX, movementY);
-					enemyShip.update();
 				}
 
+			//마지막줄 남으면 더이상 색 변화 x
+			for (List<EnemyShip> column : this.enemyShips) {
+				for (EnemyShip enemyShip : column)
+					enemyShip.setColor(Color.white);
+			}
+
+			int randomPlace_r = (int) (Math.random() * enemyShips.size() - 1);
+			int randomPlace_c = (int) (Math.random() * enemyShips.get(randomPlace_r).size() - 1);
+			if(this.shipCount>nShipsWide) {
+				if (enemyShips.get(randomPlace_r).get(randomPlace_c) != null)
+					enemyShips.get(randomPlace_r).get(randomPlace_c).changeColor();
+			}
+			//목숨 여러개인 적 색상 변화
+			for (List<EnemyShip> column : this.enemyShips) {
+				for (EnemyShip enemyShip : column)
+					 enemyShip.changeColor_G(enemyShip.getEnemyLives());
+			}
 		}
 	}
 
@@ -324,7 +355,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 		int leftMostPoint = 0;
 		int rightMostPoint = 0;
-		
+
 		for (List<EnemyShip> column : this.enemyShips) {
 			if (!column.isEmpty()) {
 				if (leftMostPoint == 0)
@@ -342,7 +373,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	/**
 	 * Shoots a bullet downwards.
-	 * 
+	 *
 	 * @param bullets
 	 *            Bullets set to add the bullet being shot.
 	 */
@@ -483,17 +514,30 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	/**
 	 * Destroys a ship.
-	 * 
+	 *
 	 * @param destroyedShip
 	 *            Ship to be destroyed.
 	 */
 	public final void destroy(final EnemyShip destroyedShip) {
 		for (List<EnemyShip> column : this.enemyShips)
 			for (int i = 0; i < column.size(); i++)
-				if (column.get(i).equals(destroyedShip)) {
-					column.get(i).destroy();
-					this.logger.info("Destroyed ship in ("
-							+ this.enemyShips.indexOf(column) + "," + i + ")");
+				if(i == 0){
+					if(shipCount <= this.nShipsWide) {
+						if (column.get(i).equals(destroyedShip)) {
+							column.get(i).destroy();
+							this.logger.info("Destroyed ship in ("
+									+ this.enemyShips.indexOf(column) + "," + i + ")");
+							this.shipCount--;
+						}
+					}
+				}
+				else{
+					if (column.get(i).equals(destroyedShip)) {
+						column.get(i).destroy();
+						this.logger.info("Destroyed ship in ("
+								+ this.enemyShips.indexOf(column) + "," + i + ")");
+						this.shipCount--;
+					}
 				}
 
 		// Updates the list of ships that can shoot the player.
@@ -519,7 +563,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			}
 		}
 
-		this.shipCount--;
+
 	}
 
 	/**
