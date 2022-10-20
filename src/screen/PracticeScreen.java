@@ -91,7 +91,7 @@ public class PracticeScreen extends Screen {
 		this.bonusLife = bonusLife;
 		this.level = gameState.getLevel();
 		this.score = gameState.getScore();
-		this.lives = gameState.getLivesRemaining();
+		this.lives = -99; //gameState.getLivesRemaining();
 		if (this.bonusLife)
 			this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
@@ -279,7 +279,7 @@ public class PracticeScreen extends Screen {
 					recyclable.add(bullet);
 					if (!this.ship.isDestroyed()) {
 						// 라이프 무적
-						//this.ship.destroy();
+						this.ship.destroy();
 						//this.lives--;
 						this.logger.info("Hit on player ship, But player is invincibility");
 					}
