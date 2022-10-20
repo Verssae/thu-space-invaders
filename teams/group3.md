@@ -20,6 +20,6 @@ Hi, We are Group3.
  
     경고 효과-warning effect -‘Warning!’ signal center of the game screen
 
-5.레벨별 배경화면 변경 (Background design based on level) (with team#9)-could be change 
+5.배경화면 변경 (Background design based on lives)
   
-    배경화면 레벨에 따라 변경- Swing Frame 사용-change the background according to the level -use Swing Frame-Imagelcon library(create and insert a background variable)
+    생명 수에 따른 배경색 변경(4가지 색)-change background color according to the number of lives
