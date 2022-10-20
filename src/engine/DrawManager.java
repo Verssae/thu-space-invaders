@@ -781,35 +781,53 @@ public final class DrawManager {
 		SM_YESNO, SM_OK
 	}
 
-	public void drawshopmodal (Screen screen, String item_name, String item_price, shopmodaltype mode, int modaloption) {
-		int winw= backBuffer.getWidth()*8/10;
-		int winh=400;
+	public void drawShopModal (Screen screen, String item_name, String item_price, engine.DrawManager.shopmodaltype mode, int modaloption) {
+		int winw=backBuffer.getWidth()*8/10;
+		int winh=backBuffer.getHeight()*8/10;
 		int winxbase=(backBuffer.getWidth()-winw)/2;
 		int winybase=(backBuffer.getHeight()-winh)/2;
-		backBufferGraphics.setColor(Color.GRAY);
+		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
 		backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
-		backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredBigString(screen, item_name, winxbase+40);
+		backBufferGraphics.setColor((Color.WHITE));
+		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
+		backBufferGraphics.drawRect(winxbase+5, winybase+5, winw-10, winh-10);
+		drawCenteredBigString(screen, item_name, winxbase+50);
 		try {
 			Dummy_icon = ImageIO.read(new File("icon\\Dummy-data-icon.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		backBufferGraphics.drawImage(Dummy_icon, winxbase + 125, winxbase + 125, 80, 120, observer);
-		backBufferGraphics.drawString("Price:", winxbase + 125, winxbase + 100);
-		drawCenteredBigString(screen, item_price, winxbase+125);
-		backBufferGraphics.drawString("Purchase?", winxbase + 100, winybase + 260);
-		backBufferGraphics.drawString("YES", winxbase+70, winybase+290);
-		backBufferGraphics.drawString("NO", winxbase+winw-110, winybase+290);
-		if (modaloption == 0) {
+		drawCenteredRegularString(screen, "Price :" + item_price, winxbase+80);
+		drawCenteredBigString(screen, "Purchase?", winybase+winh*7);
+		if (modaloption == 0)
 			backBufferGraphics.setColor(Color.GREEN);
-			backBufferGraphics.drawString("YES", winxbase+70, winybase+290);
-		}
-		else if (modaloption == 1) {
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.drawString("YES", winxbase+(winx/5)*3, winybase+winh*8);
+		if (modaloption == 1)
 			backBufferGraphics.setColor(Color.GREEN);
-			backBufferGraphics.drawString("NO", winxbase+winw-110, winybase+290);
-		}
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.drawString("NO", winxbase+(winw/10)*7, winybase+winh*8);
+	}
+
+
+	public void drawShopCheck(Screen screen, String text) {
+		int winw=backBuffer.getWidth()*8/10;
+		int winh=backBuffer.getHeight()*4/10;
+		int winxbase=(backBuffer.getWidth()-winw)/2;
+		int winybase=(backBuffer.getHeight()-winh)/2;
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
+		backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
+		backBufferGraphics.setColor((Color.WHITE));
+		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
+		backBufferGraphics.drawRect(winxbase+5, winybase+5, winw-10, winh-10);
+		drawCenteredBigString(screen, text, winybase+winh*2) ;
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredRegularString(screen, "OK", winybase+winh*2); ;
 	}
 	private java.util.ArrayList<String> formatstr(String input)
 	{
