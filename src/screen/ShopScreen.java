@@ -11,6 +11,7 @@ import engine.*;
 import engine.DrawManager.shopmodaltype;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import javax.swing.tree.DefaultTreeSelectionModel;
 
 //notimplementedexception
 public class ShopScreen extends Screen {
@@ -50,6 +51,8 @@ public class ShopScreen extends Screen {
 	 */
 	public final int run() {
 		this.state = shopstates.SHOP_INVEN;
+		default_ship=engine.Inventory.getcurrentship()-1000;
+		default_bgm=apply_bgm;
 		super.run();
 		return this.returnCode;
 	}
