@@ -19,8 +19,6 @@ public class GameState {
 	/** Ships destroyed until now. */
 	private int shipsDestroyed;
 
-	private int diff;
-
 	/**
 	 * Constructor.
 	 * 

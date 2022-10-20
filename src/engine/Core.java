@@ -33,36 +33,25 @@ public final class Core {
 	/** Total number of levels. */
 	private static final int NUM_LEVELS = 5;
 
-	/** Difficulty settings for level 1. */
-	private static final GameSettings SETTINGS_LEVEL_1_E = new GameSettings(5, 4, 58, 2000);
-	/** Difficulty settings for level 2. */
-	private static final GameSettings SETTINGS_LEVEL_2_E = new GameSettings(5, 5, 54, 1900);
-	/** Difficulty settings for level 3. */
-	private static final GameSettings SETTINGS_LEVEL_3_E = new GameSettings(6, 5, 50, 1800);
-	/** Difficulty settings for level 4. */
-	private static final GameSettings SETTINGS_LEVEL_4_E = new GameSettings(6, 6, 46, 1700);
-	/** Difficulty settings for level 5. */
-	private static final GameSettings SETTINGS_LEVEL_5_E = new GameSettings(7, 6, 42, 1600);
-	// NORMAL
-	private static final GameSettings SETTINGS_LEVEL_1_N = new GameSettings(6, 4, 38, 1500);
-	/** Difficulty settings for level 2. */
-	private static final GameSettings SETTINGS_LEVEL_2_N = new GameSettings(6, 5, 34, 1400);
-	/** Difficulty settings for level 3. */
-	private static final GameSettings SETTINGS_LEVEL_3_N = new GameSettings(7, 5, 30, 1300);
-	/** Difficulty settings for level 4. */
-	private static final GameSettings SETTINGS_LEVEL_4_N = new GameSettings(8, 6, 26, 1200);
-	/** Difficulty settings for level 5. */
-	private static final GameSettings SETTINGS_LEVEL_5_N = new GameSettings(9, 6, 22, 1100);
-	// HARD
-	private static final GameSettings SETTINGS_LEVEL_1_H = new GameSettings(6, 5, 18, 1000);
-	/** Difficulty settings for level 2. */
-	private static final GameSettings SETTINGS_LEVEL_2_H = new GameSettings(7, 5, 14, 900);
-	/** Difficulty settings for level 3. */
-	private static final GameSettings SETTINGS_LEVEL_3_H = new GameSettings(8, 5, 9, 800);
-	/** Difficulty settings for level 4. */
-	private static final GameSettings SETTINGS_LEVEL_4_H = new GameSettings(9, 6, 5, 700);
-	/** Difficulty settings for level 5. */
-	private static final GameSettings SETTINGS_LEVEL_5_H = new GameSettings(10, 6, 1, 600);
+	private static final GameSettings[] SETTINGS_LEVELS = {
+		new GameSettings(5, 4, 60, 2000),
+		new GameSettings(5, 5, 50, 2500),
+		new GameSettings(6, 5, 40, 1500),
+		new GameSettings(6, 6, 30, 1500),
+		new GameSettings(7, 6, 20, 1000),
+
+		new GameSettings(6, 4, 60, 2000),
+		new GameSettings(6, 5, 50, 2500),
+		new GameSettings(7, 5, 40, 1500),
+		new GameSettings(8, 6, 30, 1500),
+		new GameSettings(9, 6, 20, 1000),
+
+		new GameSettings(6, 5, 60, 2000),
+		new GameSettings(7, 5, 50, 2500),
+		new GameSettings(8, 5, 40, 1500),
+		new GameSettings(9, 6, 30, 1500),
+		new GameSettings(10, 6, 20, 1000),
+	};
 
 	/** Frame to draw the screen on. */
 	private static Frame frame;
@@ -77,6 +66,8 @@ public final class Core {
 	private static Handler fileHandler;
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
+	/** Game difficulty mode. */
+	private static int diff;
 
 	/**
 	 * Test implementation.
@@ -109,21 +100,8 @@ public final class Core {
 		int height = frame.getHeight();
 
 		gameSettings = new ArrayList<GameSettings>();
-		gameSettings.add(SETTINGS_LEVEL_1_E);
-		gameSettings.add(SETTINGS_LEVEL_2_E);
-		gameSettings.add(SETTINGS_LEVEL_3_E);
-		gameSettings.add(SETTINGS_LEVEL_4_E);
-		gameSettings.add(SETTINGS_LEVEL_5_E);
-		gameSettings.add(SETTINGS_LEVEL_1_N);
-		gameSettings.add(SETTINGS_LEVEL_2_N);
-		gameSettings.add(SETTINGS_LEVEL_3_N);
-		gameSettings.add(SETTINGS_LEVEL_4_N);
-		gameSettings.add(SETTINGS_LEVEL_5_N);
-		gameSettings.add(SETTINGS_LEVEL_1_H);
-		gameSettings.add(SETTINGS_LEVEL_2_H);
-		gameSettings.add(SETTINGS_LEVEL_3_H);
-		gameSettings.add(SETTINGS_LEVEL_4_H);
-		gameSettings.add(SETTINGS_LEVEL_5_H);
+		for (int i = 0; i < SETTINGS_LEVELS.length; i++)
+			gameSettings.add(SETTINGS_LEVELS[i]);
 
 		GameState gameState;
 
@@ -144,7 +122,7 @@ public final class Core {
 					// Game & score
 					Scanner sc = new Scanner(System.in);
 					LOGGER.info("Select your difficulty 1 is easy, 2 is normal, 3 is hard");
-					int diff = sc.nextInt();
+					diff = sc.nextInt();
 					while (diff < 1 || diff > 3) {
 						LOGGER.info("Select your difficulty 1 is easy, 2 is normal, 3 is hard");
 						diff = sc.nextInt();
@@ -165,14 +143,14 @@ public final class Core {
 
 						gameState = ((GameScreen) currentScreen).getGameState();
 
-						gameState = new GameState(gameState.getLevel() + (diff - 1) * 5 + 1,
+						gameState = new GameState(gameState.getLevel() + 1,
 								gameState.getScore(),
 								gameState.getLivesRemaining(),
 								gameState.getBulletsShot(),
 								gameState.getShipsDestroyed());
 
 					} while (gameState.getLivesRemaining() > 0
-							&& gameState.getLevel() % NUM_LEVELS != 0);
+							&& (gameState.getLevel() - 1) % NUM_LEVELS != 0);
 
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " score screen at " + FPS + " fps, with a score of "
@@ -325,5 +303,9 @@ public final class Core {
 	public static void setSize(int width, int height) {
 		WIDTH = width;
 		HEIGHT = height;
+	}
+	
+	public static int getDiff() {
+		return diff;
 	}
 }
