@@ -19,6 +19,8 @@ import entity.Ship;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import static screen.ShopScreen.selecteditem;
+
 /**
  * Manages screen drawing.
  * 
@@ -1080,25 +1082,33 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.WHITE);
 		int leftbuf = (backBuffer.getWidth() - (50 * 5 + 30 * 4)) / 2;
 		backBufferGraphics.drawRect(31, 370, backBuffer.getWidth() - 62, backBuffer.getHeight() - 415);
-		/*
-		 * ArrayList<String> info = new ArrayList<String>();
-		 * info.add(0, "SHIP ABILITY 1");
-		 * info.add(1, "SHIP ABILITY 2");
-		 * info.add(2, "SHIP ABILITY 3");
-		 */
-		String info = new String(
-				"SHIP ABILITY 1\nSHIP ABILITY 2\nSHIP ABILITY 3\nSHIP ABILITY 4: THIS IS QUITE A LONG STRING EXAMPLE");
-		try {
-			drawmultiline(screen, info, 45, 390, 4);
-		} finally {
-		}
-		/*
-		 * for (int i = 0; i < 3; i++) {
-		 * backBufferGraphics.setColor((Color.WHITE));
-		 * backBufferGraphics.setFont(fontSmall);
-		 * backBufferGraphics.drawString((String) info.get(i), 45, i * 20 + 396);
-		 * }
-		 */
+
+		String shipinfo_1 = new String(
+				"THIS IS SHIP 1\n1111111111\nTHIS IS QUITE A LONG LONG STRING EXAMPLE");
+		String shipinfo_2 = new String(
+				"THIS IS SHIP 2\n2222222222\nTHIS IS QUITE A LONG LONG STRING EXAMPLE");
+		String shipinfo_3 = new String(
+				"THIS IS SHIP 3\n3333333333\nTHIS IS QUITE A LONG LONG STRING EXAMPLE");
+		String bgminfo_1 = new String(
+				"THIS IS BGM 1\n11111111111\nTHIS IS QUITE A LONG LONG STRING EXAMPLE");
+		String bgminfo_2 = new String(
+				"THIS IS BGM 2\n22222222222\nTHIS IS QUITE A LONG LONG STRING EXAMPLE");
+		String bgminfo_3 = new String(
+				"THIS IS BGM 3\n33333333333\nTHIS IS QUITE A LONG LONG STRING EXAMPLE");
+
+		if (selecteditem().itemid == 1000)
+			drawmultiline(screen, shipinfo_1, 45, 390, 3);
+		else if (selecteditem().itemid == 1001)
+			drawmultiline(screen, shipinfo_2, 45, 390, 3);
+		else if (selecteditem().itemid == 1002)
+			drawmultiline(screen, shipinfo_3, 45, 390, 3);
+		else if (selecteditem().itemid == 2000)
+			drawmultiline(screen, bgminfo_1, 45, 390, 3);
+		else if (selecteditem().itemid == 2001)
+			drawmultiline(screen, bgminfo_2, 45, 390, 3);
+		else if (selecteditem().itemid == 2002)
+			drawmultiline(screen, bgminfo_3, 45, 390, 3);
+
 		/**
 		 * for (int i = 0; i < Inventory.inventory.size(); i++) {
 		 * backBufferGraphics.drawString(Item.itemregistry.get(i).name, x, y);
@@ -1202,7 +1212,7 @@ public final class DrawManager {
 	}
 
 	private java.util.ArrayList<String> formatstr(String input) {
-		int linelen = 30;
+		int linelen = 44;
 		int frontdelim = 0;
 		int backdelim = 0;
 		var x = new ArrayList<String>();
@@ -1227,7 +1237,9 @@ public final class DrawManager {
 		for (String istr : formatstr(input)) {
 			if (c++ > maxlines)
 				return;
-			drawCenteredRegularString(scr, istr, y + offset);
+				backBufferGraphics.setColor((Color.WHITE));
+				backBufferGraphics.setFont(fontSmall);
+		 		backBufferGraphics.drawString((String) istr, 45, c * 20 + 356);
 			offset += fontRegularMetrics.getHeight();
 		}
 	}
