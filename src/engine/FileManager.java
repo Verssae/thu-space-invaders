@@ -294,3 +294,21 @@ public final class FileManager {
 		}
 	}
 }
+
+public Font loadImage(String name) throws IOException{
+		InputStream inputStream = null;
+		Font font;
+
+		try {
+			// Font loading.
+			inputStream = FileManager.class.getClassLoader()
+					.getResourceAsStream("font.ttf");
+			font = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(
+					size);
+		} finally {
+			if (inputStream != null)
+				inputStream.close();
+		}
+
+		return font;
+	}
