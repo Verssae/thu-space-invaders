@@ -75,6 +75,8 @@ public class ShopScreen extends Screen {
 	int checkoption = 0;
 	int default_ship = 0;
 	int default_bgm = 0;
+	int ship_icon = 0;
+	int bgm_icon = 0;
 	Image selectIcon;
 	{
 		try {
@@ -142,6 +144,7 @@ public class ShopScreen extends Screen {
 							}
 							else if (selecteditem().itemid == 1001) {
 								default_ship = 1;
+								ship_icon = 1;
 								if (Inventory.inventory_ship.size() == 2) {
 									Inventory.inventory_ship.get(0).appliedp = false;
 									Inventory.inventory_ship.get(1).appliedp = true;
@@ -155,6 +158,7 @@ public class ShopScreen extends Screen {
 							}
 							else if (selecteditem().itemid == 1002) {
 								default_ship = 2;
+								ship_icon = 2;
 								if (Inventory.inventory_ship.size() == 2) {
 									Inventory.inventory_ship.get(0).appliedp = false;
 									Inventory.inventory_ship.get(1).appliedp = true;
@@ -172,11 +176,13 @@ public class ShopScreen extends Screen {
 								this.selectionCooldown.reset();
 							}
 							else if (selecteditem().itemid == 2001) {
+								bgm_icon = 1;
 								apply_bgm = 1;
 								default_bgm = 1;
 								this.selectionCooldown.reset();
 							}
 							else if (selecteditem().itemid == 2002) {
+								bgm_icon = 1;
 								apply_bgm = 2;
 								default_bgm = 2;
 								this.selectionCooldown.reset();
