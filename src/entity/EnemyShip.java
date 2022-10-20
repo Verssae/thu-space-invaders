@@ -23,6 +23,8 @@ public class EnemyShip extends Entity {
 	private static final int C_TYPE_POINTS = 30;
 	/** Point value of a bonus enemy. */
 	private static final int BONUS_TYPE_POINTS = 100;
+	/** Point value of a type C enemy. */
+	private static final int BOSS_TYPE_POINTS = 200;
 
 	/** Cooldown between sprite changes. */
 	private Cooldown animationCooldown;
@@ -30,8 +32,6 @@ public class EnemyShip extends Entity {
 	private boolean isDestroyed;
 	/** Values of the ship, in points, when destroyed. */
 	private int pointValue;
-	/** lives of the enemyship. */
-	public int enemyLives;
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -42,9 +42,6 @@ public class EnemyShip extends Entity {
 	 *            Initial position of the ship in the Y axis.
 	 * @param spriteType
 	 *            Sprite type, image corresponding to the ship.
-	 *
-	 *  enemy has a 30percent chance of two lives.
-	 *
 	 */
 	public EnemyShip(final int positionX, final int positionY,
 			final SpriteType spriteType) {
@@ -53,29 +50,30 @@ public class EnemyShip extends Entity {
 		this.spriteType = spriteType;
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
-		float livesRate = (float)(Math.round(Math.random()*10)/10.0);
-		if (livesRate <= 0.3) {
-			this.enemyLives = 2;
-			changeColor_G(enemyLives);
-		}
-		else	this.enemyLives = 1;
 
 		switch (this.spriteType) {
-		case EnemyShipA1:
-		case EnemyShipA2:
-			this.pointValue = A_TYPE_POINTS;
-			break;
-		case EnemyShipB1:
-		case EnemyShipB2:
-			this.pointValue = B_TYPE_POINTS;
-			break;
-		case EnemyShipC1:
-		case EnemyShipC2:
-			this.pointValue = C_TYPE_POINTS;
-			break;
-		default:
-			this.pointValue = 0;
-			break;
+			case EnemyShipA1:
+			case EnemyShipA2:
+				this.pointValue = A_TYPE_POINTS;
+				break;
+			case EnemyShipB1:
+			case EnemyShipB2:
+				this.pointValue = B_TYPE_POINTS;
+				break;
+			case EnemyShipC1:
+			case EnemyShipC2:
+				this.pointValue = C_TYPE_POINTS;
+				break;
+			case BossShip1:
+				break;
+			case BossShip2:
+				break;
+			case BossShip3:
+				this.pointValue = BOSS_TYPE_POINTS;
+				break;
+			default:
+				this.pointValue = 0;
+				break;
 		}
 	}
 
@@ -100,10 +98,6 @@ public class EnemyShip extends Entity {
 		return this.pointValue;
 	}
 
-	/** Setter enemyLives. */
-	public void setenemyLives(int life) { this.enemyLives = life;}
-	/** Getter enemyLives. */
-	public int getEnemyLives() {return enemyLives;}
 	/**
 	 * Moves the ship the specified distance.
 	 * 
@@ -125,26 +119,31 @@ public class EnemyShip extends Entity {
 			this.animationCooldown.reset();
 
 			switch (this.spriteType) {
-			case EnemyShipA1:
-				this.spriteType = SpriteType.EnemyShipA2;
-				break;
-			case EnemyShipA2:
-				this.spriteType = SpriteType.EnemyShipA1;
-				break;
-			case EnemyShipB1:
-				this.spriteType = SpriteType.EnemyShipB2;
-				break;
-			case EnemyShipB2:
-				this.spriteType = SpriteType.EnemyShipB1;
-				break;
-			case EnemyShipC1:
-				this.spriteType = SpriteType.EnemyShipC2;
-				break;
-			case EnemyShipC2:
-				this.spriteType = SpriteType.EnemyShipC1;
-				break;
-			default:
-				break;
+				case EnemyShipA1:
+					this.spriteType = SpriteType.EnemyShipA2;
+					break;
+				case EnemyShipA2:
+					this.spriteType = SpriteType.EnemyShipA1;
+					break;
+				case EnemyShipB1:
+					this.spriteType = SpriteType.EnemyShipB2;
+					break;
+				case EnemyShipB2:
+					this.spriteType = SpriteType.EnemyShipB1;
+					break;
+				case EnemyShipC1:
+					this.spriteType = SpriteType.EnemyShipC2;
+					break;
+				case EnemyShipC2:
+					this.spriteType = SpriteType.EnemyShipC1;
+					break;
+//				case BossShip1:
+//					this.spriteType = spriteType.BossShip2;
+//					break;
+//				case BossShip2:
+//					this.spriteType = spriteType.BossShip1;
+				default:
+					break;
 			}
 		}
 	}
@@ -155,6 +154,14 @@ public class EnemyShip extends Entity {
 	public final void destroy() {
 		this.isDestroyed = true;
 		this.spriteType = SpriteType.Explosion;
+	}
+
+	public final void b1_destroy() {
+		this.isDestroyed = true;
+		this.spriteType = SpriteType.BossShip2;
+	}public final void b2_destroy() {
+		this.isDestroyed = true;
+		this.spriteType = SpriteType.BossShip3;
 	}
 
 	/**
