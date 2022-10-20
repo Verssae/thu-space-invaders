@@ -329,7 +329,7 @@ public final class DrawManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		backBufferGraphics.drawImage(coin_icon, 190, 8, 22, 22, observer);
+		backBufferGraphics.drawImage(coin_icon, screen.getWidth()-250, 8, 22, 22, observer);
 		backBufferGraphics.drawString(coinString, screen.getWidth() - 212, 25);
 	}
 
@@ -997,14 +997,12 @@ public final class DrawManager {
 	}
 
 	public int getshopgridcoordx(int c) {
-		int leftbuf = (backBuffer.getWidth() - (50 * 5 + 30 * 4)) / 2;
-		return leftbuf + 100 * c;
+		return 31 + 100 * c;
 		// assumed grid size
 	}
 
 	public int getshopgridcoordy(int r) {
-		int shopgridbaseheight = backBuffer.getHeight() * 20 / 100 + 25;
-		return shopgridbaseheight + 130 * r;
+		return 130 + 130 * r;
 		// assumed grid size
 	}
 
@@ -1025,8 +1023,8 @@ public final class DrawManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		backBufferGraphics.drawImage(coin_icon, 330, 15, 30, 30, observer);
-		backBufferGraphics.drawString(String.valueOf(Coin.balance), 370, 40);
+		backBufferGraphics.drawImage(coin_icon, screen.getWidth()-100, 15, 30, 30, observer);
+		backBufferGraphics.drawString(String.valueOf(Coin.balance), screen.getWidth()-55, 40);
 		backBufferGraphics.drawLine(0, 60, backBuffer.getWidth(), 60);
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 2; j++) {
@@ -1059,7 +1057,7 @@ public final class DrawManager {
 			e.printStackTrace();
 		}
 		backBufferGraphics.drawImage(ship_3, getshopgridcoordx(2) + 11, getshopgridcoordy(0) + 9, 50, 50, observer);
-		backBufferGraphics.drawImage(coin_icon, 330, 15, 30, 30, observer);
+		backBufferGraphics.drawImage(coin_icon, screen.getWidth()-100, 15, 30, 30, observer);
 		backBufferGraphics.drawString("BGM", 31, 250);
 		try {
 			bgm_1 = ImageIO.read(new File("icon\\bgm_1.png\\"));
