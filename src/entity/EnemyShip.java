@@ -31,6 +31,9 @@ public class EnemyShip extends Entity {
 	/** Values of the ship, in points, when destroyed. */
 	private int pointValue;
 
+	/** lives of the enemyship. */
+	public int enemyLives;
+
 	/**
 	 * Constructor, establishes the ship's properties.
 	 * 
@@ -48,6 +51,12 @@ public class EnemyShip extends Entity {
 		this.spriteType = spriteType;
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
+		float livesRate = (float)(Math.round(Math.random()*10)/10.0);
+		if (livesRate <= 0.3) {
+			this.enemyLives = 2;
+			changeColor_G(enemyLives);
+		}
+		else	this.enemyLives = 1;
 
 		switch (this.spriteType) {
 		case EnemyShipA1:
@@ -88,6 +97,11 @@ public class EnemyShip extends Entity {
 	public final int getPointValue() {
 		return this.pointValue;
 	}
+
+	/** Setter enemyLives. */
+	public void setenemyLives(int life) { this.enemyLives = life;}
+	/** Getter enemyLives. */
+	public int getEnemyLives() {return enemyLives;}
 
 	/**
 	 * Moves the ship the specified distance.
