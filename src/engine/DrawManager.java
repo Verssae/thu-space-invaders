@@ -237,7 +237,7 @@ public final class DrawManager {
 							+ j * 2, 1, 1);
 	}
 
-	public void drawimg(String name, int positionX, int sizex, int sizey, final int positionY) {
+	public void drawimg(String name, int positionX, int positionY, int sizex, int sizey) {
 		try {
 			backBufferGraphics.drawImage(imagemap.get(name), positionX, positionY, sizex, sizey, observer);
 		} catch (Exception e) {
