@@ -1146,7 +1146,7 @@ public final class DrawManager {
 		SM_YESNO, SM_OK
 	}
 
-	public void drawShopModal (Screen screen, String item_name, String item_price, engine.DrawManager.shopmodaltype mode, int modaloption) {
+	public void drawShopModal (Screen screen, String item_name, String item_price, engine.DrawManager.shopmodaltype mode, int modaloption, int ship_icon, int bgm_icon) {
 		int winw=backBuffer.getWidth()*8/10;
 		int winh=backBuffer.getHeight()*8/10;
 		int winxbase=(backBuffer.getWidth()-winw)/2;
@@ -1158,12 +1158,35 @@ public final class DrawManager {
 		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
 		backBufferGraphics.drawRect(winxbase+5, winybase+5, winw-10, winh-10);
 		drawCenteredBigString(screen, item_name, winxbase+50);
-		try {
-			Dummy_data_icon = ImageIO.read(new File("icon\\Dummy-data-icon.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (ship_icon == 1) {
+			try {
+				Dummy_data_icon = ImageIO.read(new File("icon\\ship_2.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		backBufferGraphics.drawImage(Dummy_icon, winxbase + 125, winxbase + 125, 80, 120, observer);
+		else if (ship_icon == 2) {
+			try {
+				Dummy_data_icon = ImageIO.read(new File("icon\\ship_3.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else if (bgm_icon == 1) {
+			try {
+				Dummy_data_icon = ImageIO.read(new File("icon\\bgm_2.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else if (bgm_icon == 2) {
+			try {
+				Dummy_data_icon = ImageIO.read(new File("icon\\bgm_3.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		backBufferGraphics.drawImage(Dummy_data_icon, winxbase + 125, winxbase + 125, 80, 120, observer);
 		drawCenteredRegularString(screen, "Price :" + item_price, winxbase+80);
 		drawCenteredBigString(screen, "Purchase?", winybase+winh*7);
 		if (modaloption == 0)
