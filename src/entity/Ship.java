@@ -51,6 +51,9 @@ public class Ship extends Entity {
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(300);
 		switch (Core.getDiff()) {
+			case 0:
+				this.SPEED = 2;
+				break;
 			case 1:
 				this.SPEED = 1;
 				break;

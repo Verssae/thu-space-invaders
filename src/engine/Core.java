@@ -239,10 +239,10 @@ public final class Core {
 				LOGGER.info("Closing title screen.");
 				break;
 			case 2:
-        // Game & score
+				// Game & score
 				Scanner sc = new Scanner(System.in);
 				LOGGER.info("Select your difficulty 0 is practice, 1 is easy, 2 is normal, 3 is hard");
-				int diff = sc.nextInt();
+				diff = sc.nextInt();
 				while(diff < 0 || diff > 3){
 					LOGGER.info("Select your difficulty 0 is practice, 1 is easy, 2 is normal, 3 is hard");
 					diff = sc.nextInt();
@@ -268,7 +268,7 @@ public final class Core {
 								gameState.getScore(),
 								gameState.getLivesRemaining(),
 								gameState.getBulletsShot(),
-								gameState.getShipsDestroyed());
+								gameState.getShipsDestroyed(), 0);
 
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel()%NUM_LEVELS != 0);

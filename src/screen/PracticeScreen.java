@@ -8,6 +8,7 @@ import engine.Cooldown;
 import engine.Core;
 import engine.GameSettings;
 import engine.GameState;
+import engine.Inventory;
 import entity.Bullet;
 import entity.BulletPool;
 import entity.EnemyShip;
@@ -106,7 +107,12 @@ public class PracticeScreen extends Screen {
 
 		enemyShipFormation = new EnemyShipFormation(this.gameSettings);
 		enemyShipFormation.attach(this);
-		this.ship = new Ship(this.width / 2, this.height - 30);
+		//this.ship = new Ship(this.width / 2, this.height - 30);
+		switch (Inventory.getcurrentship()) {
+			case 1000 -> this.ship = new Ship(this.width / 2, this.height - 30, 1);
+			case 1001 -> this.ship = new Ship(this.width / 2, this.height - 30, 2);
+			case 1002 -> this.ship = new Ship(this.width / 2, this.height - 30, 3);
+		}
 		// Appears each 10-30 seconds.
 		this.enemyShipSpecialCooldown = Core.getVariableCooldown(
 				BONUS_SHIP_INTERVAL, BONUS_SHIP_VARIANCE);
@@ -339,6 +345,6 @@ public class PracticeScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.lives,
-				this.bulletsShot, this.shipsDestroyed);
+				this.bulletsShot, this.shipsDestroyed, 0);
 	}
 }
