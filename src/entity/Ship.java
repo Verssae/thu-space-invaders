@@ -6,6 +6,7 @@ import java.util.Set;
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager.SpriteType;
+import screen.ShopScreen;
 
 /**
  * Implements a ship, to be controlled by the player.
@@ -21,7 +22,11 @@ public class Ship extends Entity {
 	private static final int BULLET_SPEED = -6;
 	/** Movement of the ship for each unit of time. */
 	private int SPEED = 2;
-	
+	public int animctr = 1;
+
+	private boolean imagep;
+	public int imageid;
+
 	/** Minimum time between shots. */
 	private Cooldown shootingCooldown;
 	/** Time spent inactive between hits. */
@@ -31,15 +36,24 @@ public class Ship extends Entity {
 	 * Constructor, establishes the ship's properties.
 	 * 
 	 * @param positionX
-	 *            Initial position of the ship in the X axis.
+	 *                  Initial position of the ship in the X axis.
 	 * @param positionY
-	 *            Initial position of the ship in the Y axis.
+	 *                  Initial position of the ship in the Y axis.
 	 */
 	public Ship(final int positionX, final int positionY) {
 		super(positionX, positionY, 13 * 2, 8 * 2, Color.GREEN);
 		this.spriteType = SpriteType.Ship;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(300);
+	}
+
+	public Ship(final int positionX, final int positionY, int sType) {
+		super(positionX, positionY, 13 * 2, 8 * 2, Color.GREEN);
+		imagep = true;
+		this.spriteType = SpriteType.ShipCustom;
+		this.imageid = sType;
+		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
+		this.destructionCooldown = Core.getCooldown(1000);
 	}
 
 	/**
@@ -62,14 +76,14 @@ public class Ship extends Entity {
 	 * Shoots a bullet upwards.
 	 * 
 	 * @param bullets
-	 *            List of bullets on screen, to add the new bullet.
+	 *                List of bullets on screen, to add the new bullet.
 	 * @return Checks if the bullet was shot correctly.
 	 */
 	public final boolean shoot(final Set<Bullet> bullets) {
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			bullets.add(BulletPool.getBullet(positionX + this.width / 2,
-					positionY, BULLET_SPEED,0));
+					positionY, BULLET_SPEED, 0));
 			return true;
 		}
 		return false;
@@ -79,6 +93,14 @@ public class Ship extends Entity {
 	 * Updates status of the ship.
 	 */
 	public final void update() {
+		if (this.imagep) {
+			if (!this.destructionCooldown.checkFinished())
+				this.spriteType = SpriteType.ShipCustomDestroyed;
+			// use hash map to decide which image to use
+			else
+				this.spriteType = SpriteType.ShipCustom;
+			return;
+		}
 		if (!this.destructionCooldown.checkFinished())
 			this.spriteType = SpriteType.ShipDestroyed;
 		else
@@ -118,7 +140,11 @@ public class Ship extends Entity {
 		return SHOOTING_INTERVAL;
 	}
 
-	public void setSPEED(int SPEED) {this.SPEED = SPEED; }
+	public void setSPEED(int SPEED) {
+		this.SPEED = SPEED;
+	}
 
-	public int getSPEED() {return SPEED; }
+	public int getSPEED() {
+		return SPEED;
+	}
 }
