@@ -127,4 +127,12 @@ public class Entity {
 	public final int getHeight() {
 		return this.height;
 	}
+
+	public final void changeColor() {
+		if (this.color == Color.WHITE) setColor(Color.BLACK);
+	}
+
+	public final void changeColor_G(int enemyLives) {
+		if (this.color == Color.WHITE && enemyLives == 2) setColor(Color.GRAY);
+	}
 }
