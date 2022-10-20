@@ -1117,40 +1117,6 @@ public final class DrawManager {
 
 	}
 
-	/**
-	 * public void drawApplyMenu(Screen screen, String item_name, int location) {
-	 * if (ShopScreen.checkItem((ShopScreen.selecteditem()))) {
-	 * int winw = backBuffer.getWidth() * 8 / 10;
-	 * int winh = 400;
-	 * int winxbase = (backBuffer.getWidth() - winw) / 2;
-	 * int winybase = (backBuffer.getHeight() - winh) / 2;
-	 * backBufferGraphics.setColor(Color.GRAY);
-	 * backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
-	 * backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
-	 * backBufferGraphics.setColor(Color.WHITE);
-	 * drawCenteredBigString(screen, item_name, winxbase + 40);
-	 * try {
-	 * Dummy_icon = ImageIO.read(new File("icon\\Dummy-data-icon.png\\"));
-	 * } catch (IOException e) {
-	 * e.printStackTrace();
-	 * }
-	 * backBufferGraphics.drawImage(Dummy_icon, winxbase + 115, winxbase + 80, 100,
-	 * 130, observer);
-	 * backBufferGraphics.drawString("Apply?", winxbase + 125, winybase + 240);
-	 * backBufferGraphics.drawString("YES", winxbase + 70, winybase + 270);
-	 * backBufferGraphics.drawString("NO", winxbase + winw - 110, winybase + 270);
-	 * if (location == 0) {
-	 * backBufferGraphics.setColor(Color.GREEN);
-	 * backBufferGraphics.drawString("YES", winxbase + 70, winybase + 270);
-	 * } else if (location == 1) {
-	 * backBufferGraphics.setColor(Color.GREEN);
-	 * backBufferGraphics.drawString("NO", winxbase + winw - 110, winybase + 270);
-	 * }
-	 * 
-	 * }
-	 * }
-	 */
-
 	// like MessageBox
 	public enum shopmodaltype {
 		SM_YESNO, SM_OK
