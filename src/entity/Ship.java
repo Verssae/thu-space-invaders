@@ -20,6 +20,7 @@ public class Ship extends Entity {
 	private int SHOOTING_INTERVAL = 750;
 	/** Speed of the bullets shot by the ship. */
 	private static final int BULLET_SPEED = -6;
+
 	/** Movement of the ship for each unit of time. */
 	private int SPEED = 2;
 	public int animctr = 1;
@@ -31,6 +32,8 @@ public class Ship extends Entity {
 	private Cooldown shootingCooldown;
 	/** Time spent inactive between hits. */
 	private Cooldown destructionCooldown;
+	/** Movement of the ship for each unit of time. */
+	private int SPEED;
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -45,6 +48,17 @@ public class Ship extends Entity {
 		this.spriteType = SpriteType.Ship;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(300);
+		switch (Core.getDiff()) {
+			case 1:
+				this.SPEED = 1;
+				break;
+			case 2:
+				this.SPEED = 5;
+				break;
+			case 3:
+				this.SPEED = 10;
+				break;
+		}
 	}
 
 	public Ship(final int positionX, final int positionY, int sType) {
