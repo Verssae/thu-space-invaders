@@ -7,12 +7,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import engine.*;
 import screen.Screen;
-import engine.Cooldown;
-import engine.Core;
-import engine.DrawManager;
 import engine.DrawManager.SpriteType;
-import engine.GameSettings;
 
 /**
  * Groups enemy ships into a formation that moves together.
@@ -352,6 +349,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		EnemyShip shooter = this.shooters.get(index);
 
 		if (this.shootingCooldown.checkFinished()) {
+			new Sound().bulletsound();
 			this.shootingCooldown.reset();
 			float ShootPattern = (float)(Math.round(Math.random()*10)/10.0);
 			if (isLast()) { // The last enemy can get the all ShootPattern.
@@ -397,6 +395,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		for (List<EnemyShip> column : this.enemyShips)
 			for (int i = 0; i < column.size(); i++)
 				if (column.get(i).equals(destroyedShip)) {
+					new Sound().explosionsound();
 					column.get(i).destroy();
 					this.logger.info("Destroyed ship in ("
 							+ this.enemyShips.indexOf(column) + "," + i + ")");

@@ -168,6 +168,7 @@ public final class Core {
 				// Game & score.
 				do {
 					PlayBgm.play();
+					new Sound().backroundmusic();
 					// One extra live every few levels.
 					boolean bonusLife = gameState.getLevel()
 							% EXTRA_LIFE_FRECUENCY == 0
