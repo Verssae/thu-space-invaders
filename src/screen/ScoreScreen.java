@@ -12,9 +12,9 @@ import engine.Score;
 
 /**
  * Implements the score screen.
- * 
+ *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
- * 
+ *
  */
 public class ScoreScreen extends Screen {
 
@@ -45,10 +45,13 @@ public class ScoreScreen extends Screen {
 	private int nameCharSelected;
 	/** Time between changes in user selection. */
 	private Cooldown selectionCooldown;
-
+	/** shot accuracy */
+	private float accuracy;
+	/** last stage before dead */
+	private int stage;
 	/**
 	 * Constructor, establishes the properties of the screen.
-	 * 
+	 *
 	 * @param width
 	 *            Screen width.
 	 * @param height
@@ -59,10 +62,12 @@ public class ScoreScreen extends Screen {
 	 *            Current game state.
 	 */
 	public ScoreScreen(final int width, final int height, final int fps,
-			final GameState gameState) {
+					   final GameState gameState) {
 		super(width, height, fps);
 
 		this.score = gameState.getScore();
+		this.stage = gameState.getLevel();
+		this.accuracy = Math.round((float)gameState.getShipsDestroyed()/gameState.getBulletsShot()*100);
 		this.livesRemaining = gameState.getLivesRemaining();
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
@@ -86,7 +91,7 @@ public class ScoreScreen extends Screen {
 
 	/**
 	 * Starts the action.
-	 * 
+	 *
 	 * @return Next screen code.
 	 */
 	public final int run() {
@@ -132,14 +137,14 @@ public class ScoreScreen extends Screen {
 					this.name[this.nameCharSelected] =
 							(char) (this.name[this.nameCharSelected]
 									== LAST_CHAR ? FIRST_CHAR
-							: this.name[this.nameCharSelected] + 1);
+									: this.name[this.nameCharSelected] + 1);
 					this.selectionCooldown.reset();
 				}
 				if (inputManager.isKeyDown(KeyEvent.VK_DOWN)) {
 					this.name[this.nameCharSelected] =
 							(char) (this.name[this.nameCharSelected]
 									== FIRST_CHAR ? LAST_CHAR
-							: this.name[this.nameCharSelected] - 1);
+									: this.name[this.nameCharSelected] - 1);
 					this.selectionCooldown.reset();
 				}
 			}
@@ -151,7 +156,7 @@ public class ScoreScreen extends Screen {
 	 * Saves the score as a high score.
 	 */
 	private void saveScore() {
-		highScores.add(new Score(new String(this.name), score));
+		highScores.add(new Score(new String(this.name), score, this.stage, this.shipsDestroyed, this.bulletsShot, this.accuracy));
 		Collections.sort(highScores);
 		if (highScores.size() > MAX_HIGH_SCORE_NUM)
 			highScores.remove(highScores.size() - 1);

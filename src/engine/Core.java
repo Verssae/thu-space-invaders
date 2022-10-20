@@ -72,6 +72,26 @@ public final class Core {
 	private static Handler fileHandler;
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
+	/** Bgm player */
+	private static Clip clip;
+
+	/** Test only !!
+	 * You can add item max 15
+	 * If you have fewer than 15 items to add, refer to DrawManager's drawshop method
+	 * Ship skin itemid is start 1000 ~
+	 * Bgm itemid is start 2000 ~ */
+	private static final Item Test1 =
+			new Item(1000, "Dummy-data-ship", 0,false);
+	private static final Item Test2 =
+			new Item(1001, "Dummy-data-ship2", 0,false);
+	private static final Item Test3 =
+			new Item(1002, "Dummy-data-ship3", 0,false);
+	private static final Item Test4 =
+			new Item(2000, "Default BGM", 0);
+	private static final Item Test5 =
+			new Item(2001, "Lively BGM", 0);
+	private static final Item Test6 =
+			new Item(2002, "Nervous BGM", 0);
 
 
 	/**
@@ -95,7 +115,6 @@ public final class Core {
 			LOGGER.setLevel(Level.ALL);
 
 		} catch (Exception e) {
-			// TODO handle exception
 			e.printStackTrace();
 		}
 
@@ -103,6 +122,23 @@ public final class Core {
 		DrawManager.getInstance().setFrame(frame);
 		int width = frame.getWidth();
 		int height = frame.getHeight();
+
+		/** Test only !!
+		 * You can add item max 15
+		 * If you have fewer than 15 items to add, refer to DrawManager's drawshop method */
+		Inventory.inventory_ship=new ArrayList<Item>();
+		Inventory.inventory_bgm=new ArrayList<Item>();
+		Inventory.inventory_ship.add(Test1);
+		Inventory.inventory_bgm.add(Test4);
+		Inventory.inventory_ship.get(0).appliedp = true;
+		Item.itemregistry_ship = new ArrayList<Item>();
+		Item.itemregistry_bgm = new ArrayList<Item>();
+		Item.itemregistry_ship.add(Test1);
+		Item.itemregistry_ship.add(Test2);
+		Item.itemregistry_ship.add(Test3);
+		Item.itemregistry_bgm.add(Test4);
+		Item.itemregistry_bgm.add(Test5);
+		Item.itemregistry_bgm.add(Test6);
 
 		gameSettings = new ArrayList<GameSettings>();
 		gameSettings.add(SETTINGS_LEVEL_1);
@@ -117,7 +153,7 @@ public final class Core {
 
 		int returnCode = 1;
 		do {
-			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
+			gameState = new GameState(1, 0, MAX_LIVES, 0, 0, Coin.balance);
 
 			switch (returnCode) {
 			case 1:
@@ -131,6 +167,7 @@ public final class Core {
 			case 2:
 				// Game & score.
 				do {
+					PlayBgm.play();
 					// One extra live every few levels.
 					boolean bonusLife = gameState.getLevel()
 							% EXTRA_LIFE_FRECUENCY == 0
@@ -143,6 +180,9 @@ public final class Core {
 							+ " game screen at " + FPS + " fps.");
 					frame.setScreen(currentScreen);
 					LOGGER.info("Closing game screen.");
+					clip = PlayBgm.getClip();
+					PlayBgm.BgmStop(clip);
+
 
 					gameState = ((GameScreen) currentScreen).getGameState();
 
@@ -150,7 +190,8 @@ public final class Core {
 							gameState.getScore(),
 							gameState.getLivesRemaining(),
 							gameState.getBulletsShot(),
-							gameState.getShipsDestroyed());
+							gameState.getShipsDestroyed(),
+							gameState.getCoin());
 
 				} while (gameState.getLivesRemaining() > 0
 						&& gameState.getLevel() <= NUM_LEVELS);
@@ -183,7 +224,7 @@ public final class Core {
 				break;
 			case 5:
 				//Store.
-				currentScreen = new StoreScreen(width, height, FPS);
+				currentScreen = new ShopScreen(width, height, FPS, 1);
 				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 						+ " store screen at " + FPS + " fps.");
 				returnCode = frame.setScreen(currentScreen);
