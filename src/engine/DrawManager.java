@@ -1170,7 +1170,7 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.drawString("YES", winxbase+(winx/5)*3, winybase+winh*8);
+		backBufferGraphics.drawString("YES", winxbase+(winxbase/5)*3, winybase+winh*8);
 		if (modaloption == 1)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
@@ -1179,21 +1179,6 @@ public final class DrawManager {
 	}
 
 
-	public void drawShopCheck(Screen screen, String text) {
-		int winw=backBuffer.getWidth()*8/10;
-		int winh=backBuffer.getHeight()*4/10;
-		int winxbase=(backBuffer.getWidth()-winw)/2;
-		int winybase=(backBuffer.getHeight()-winh)/2;
-		backBufferGraphics.setColor(Color.BLACK);
-		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
-		backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
-		backBufferGraphics.setColor((Color.WHITE));
-		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
-		backBufferGraphics.drawRect(winxbase+5, winybase+5, winw-10, winh-10);
-		drawCenteredBigString(screen, text, winybase+winh*2) ;
-		backBufferGraphics.setColor(Color.GREEN);
-		drawCenteredRegularString(screen, "OK", winybase+winh*2); ;
-	}
 
 	public void drawShopCheck(Screen screen, String text) {
 		int winw = backBuffer.getWidth() * 8 / 10;
