@@ -1085,17 +1085,17 @@ public final class DrawManager {
 		backBufferGraphics.drawRect(31, 370, backBuffer.getWidth() - 62, backBuffer.getHeight() - 415);
 
 		String shipinfo_1 = new String(
-				"GREEN SHIP\nTHIS SHIP IS GREEN \n DEFAULT");
+				"<GREEN SHIP>\n: THIS SHIP IS GREEN \n→ DEFAULT");
 		String shipinfo_2 = new String(
-				"<RED SHIP>\nTHIS SHIP IS RED");
+				"<RED SHIP>\n: THIS SHIP IS RED\n→ 100 COIN");
 		String shipinfo_3 = new String(
-				"<BLUE SHIP>\nTHIS SHIP IS BLUE");
+				"<BLUE SHIP>\n: THIS SHIP IS BLUE\n→ 1000 COIN");
 		String bgminfo_1 = new String(
-				"THIS IS BGM 1\n11111111111\nTHIS IS QUITE A LONG LONG STRING EXAMPLE");
+				"<BGM 1>\n: THIS IS DEFAULT BGM\n→ DEFAULT");
 		String bgminfo_2 = new String(
-				"THIS IS BGM 2\n22222222222\nTHIS IS QUITE A LONG LONG STRING EXAMPLE");
+				"<BGM 2>\n: GOOD MUSIC\n→ 100 COIN");
 		String bgminfo_3 = new String(
-				"THIS IS BGM 3\n33333333333\nTHIS IS QUITE A LONG LONG STRING EXAMPLE");
+				"<BGM 3>\n: AWESOME MUSIC\n→ 1000 COIN");
 
 		if (selecteditem().itemid == 1000)
 			drawmultiline(screen, shipinfo_1, 45, 390, 3);
