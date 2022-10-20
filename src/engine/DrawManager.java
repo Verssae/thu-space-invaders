@@ -11,8 +11,13 @@ import java.util.Map;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
+import screen.Screen;
+import screen.GameScreen;
+=======
 import screen.*;
 import screen.ShopScreen.shopstates;
+>>>>>>> 3800bdc7166b28e7a2e1a37ff87afe50b611d716
 import entity.Entity;
 import entity.Ship;
 
@@ -111,13 +116,11 @@ public final class DrawManager {
 		 * Player bullet.
 		 */
 		Bullet,
-		/**
-		 * Enemy bullet.
-		 */
+		/** Enemy bullets. */
 		EnemyBullet,
-		/**
-		 * First enemy ship - first form.
-		 */
+		EnemyBulletN,
+		EnemyBulletH,
+		/** First enemy ship - first form. */
 		EnemyShipA1,
 		/**
 		 * First enemy ship - second form.
@@ -143,13 +146,15 @@ public final class DrawManager {
 		 * Bonus ship.
 		 */
 		EnemyShipSpecial,
-		/**
-		 * Destroyed enemy ship.
-		 */
+		/** Destroyed enemy ship - first form. */
 		Explosion,
-		/**
-		 * Custom Ship Image
-		 */
+		/** Destroyed enemy ship - second form. */
+		Explosion2,
+		/** Destroyed enemy ship - third form. */
+		Explosion3,
+		/** Destroyed enemy ship - fourth form. */
+		Explosion4,
+		/** Custom Ship Image */
 		ShipCustom,
 		/**
 		 * Custom Ship Image
@@ -175,6 +180,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.ShipDestroyed, new boolean[13][8]);
 			spriteMap.put(SpriteType.Bullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyBullet, new boolean[3][5]);
+			spriteMap.put(SpriteType.EnemyBulletN, new boolean[5][5]);
+			spriteMap.put(SpriteType.EnemyBulletH, new boolean[7][5]);
 			spriteMap.put(SpriteType.EnemyShipA1, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipA2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipB1, new boolean[12][8]);
@@ -183,6 +190,9 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyShipC2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSpecial, new boolean[16][7]);
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
+			spriteMap.put(SpriteType.Explosion2, new boolean[13][7]);
+			spriteMap.put(SpriteType.Explosion3, new boolean[13][7]);
+			spriteMap.put(SpriteType.Explosion4, new boolean[13][9]);
 			spriteMap.put(SpriteType.Item, new boolean[9][8]);
 			spriteMap.put(SpriteType.ShipLive, new boolean[13][8]);
 			fileManager.loadSprite(spriteMap);
@@ -213,6 +223,7 @@ public final class DrawManager {
 		return instance;
 	}
 
+
 	/**
 	 * Sets the frame to draw the image on.
 	 *
@@ -228,6 +239,7 @@ public final class DrawManager {
 	 *
 	 * @param screen Screen to draw in.
 	 */
+	Color[] bg_colors = {Color.LIGHT_GRAY, Color.GRAY, Color.DARK_GRAY};
 	public void initDrawing(final Screen screen) {
 		backBuffer = new BufferedImage(screen.getWidth(), screen.getHeight(),
 				BufferedImage.TYPE_INT_RGB);
@@ -235,7 +247,13 @@ public final class DrawManager {
 		graphics = frame.getGraphics();
 		backBufferGraphics = backBuffer.getGraphics();
 
-		backBufferGraphics.setColor(Color.BLACK);
+		if(GameScreen.lives > 0 && GameScreen.lives <= 3){
+			backBufferGraphics.setColor(bg_colors[3 - GameScreen.lives]);
+		}
+		else{
+			backBufferGraphics.setColor(Color.BLACK);
+		}
+
 		backBufferGraphics
 				.fillRect(0, 0, screen.getWidth(), screen.getHeight());
 
@@ -421,10 +439,16 @@ public final class DrawManager {
 	public void drawLives(final Screen screen, final int lives) {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
-		Ship dummyShip = new Ship(0, 0);
-		for (int i = 0; i < lives; i++)
-			drawEntity(dummyShip, 40 + 35 * i, 10);
+		if(lives == -99) {
+			backBufferGraphics.drawString("Infin.", 20, 25);
+			Ship dummyShip = new Ship(0, 0, 0);
+			drawEntity(dummyShip, 40 + 35, 10);
+		} else {
+			backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
+			Ship dummyShip = new Ship(0, 0, 0);
+			for (int i = 0; i < lives; i++)
+				drawEntity(dummyShip, 40 + 35 * i, 10);
+		}
 	}
 
 	/**
