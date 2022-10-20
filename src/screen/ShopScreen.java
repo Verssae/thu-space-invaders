@@ -356,6 +356,11 @@ public class ShopScreen extends Screen {
 	 * Draws the elements associated with the screen.
 	 */
 	private void draw() {
+		int items_xbase=97;
+		int items_len=100;
+		int ships_y=157;
+		int bgms_y=327;
+
 		drawManager.initDrawing(this);
 		drawManager.drawshop(this, invrow, invcol, this.state);
 		if (this.state == shopstates.SHOP_MODAL) {
