@@ -211,6 +211,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		if (movementInterval >= this.movementSpeed) {
 			movementInterval = 0;
 
+			boolean isAtTop = positionY +
+					this.height<screen.getHeight()-BOTTOM_MARGIN;
 			boolean isAtBottom = positionY
 					+ this.height > screen.getHeight() - BOTTOM_MARGIN;
 			boolean isAtRightSide = positionX
@@ -276,23 +278,34 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 			for (List<EnemyShip> column : this.enemyShips)
 				for (EnemyShip enemyShip : column) {
-					if (!isAtBottom) {
-						int randomPlace = (int) (Math.random() * column.size() - 1);
-						movementY = 1;
-						if(Math.random()<0.70){
-							if(randomPlace < enemyShips.size()) {
-								if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+					if(isLast()){
+						if(!isAtTop) {
+							movementY = -20;
+							enemyShip.move(movementX, movementY);
+						}
+						else if(!isAtBottom){
+							movementY = 1;
+							enemyShip.move(movementX,movementY);
+						}
+					}else {
+						if (!isAtBottom) {
+							int randomPlace = (int) (Math.random() * column.size() - 1);
+							movementY = 1;
+							if (Math.random() < 0.70) {
+								if (randomPlace < enemyShips.size()) {
+									if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
+										movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
+									}
+								}
+							} else {
+								if (enemyShips.get(enemyShips.size() - 1) == column && column.get(column.size() - 1) == enemyShip) {
 									movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 								}
 							}
-						}else{
-							if(enemyShips.get(enemyShips.size()-1) == column && column.get(column.size()-1) == enemyShip){
-								movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
-							}
 						}
+						enemyShip.move(movementX, movementY);
+						enemyShip.update();
 					}
-					enemyShip.move(movementX, movementY);
-					enemyShip.update();
 				}
 
 			//마지막줄 남으면 더이상 색 변화 x
@@ -300,6 +313,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				for (EnemyShip enemyShip : column)
 					enemyShip.setColor(Color.white);
 			}
+
 			int randomPlace_r = (int) (Math.random() * enemyShips.size() - 1);
 			int randomPlace_c = (int) (Math.random() * enemyShips.get(randomPlace_r).size() - 1);
 			if(this.shipCount>nShipsWide) {

@@ -125,7 +125,9 @@ public class GameScreen extends Screen {
 	/**
 	 * Set of all items dropped by on screen enemyships.
 	 */
-	private Set<Item> items; 
+	private Set<Item> items;
+	public int enemyLives;
+
 
 
 	/**
@@ -352,17 +354,24 @@ public class GameScreen extends Screen {
 			} else {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
 					if (!enemyShip.isDestroyed()
-							&& checkCollision(bullet, enemyShip)) {
-						this.score += enemyShip.getPointValue();
-						this.shipsDestroyed++;
-						Random random = new Random();
-						int per = random.nextInt(2);
-						if(per == 0){
-							items.add(ItemPool.getItem(enemyShip.getPositionX() + enemyShip.getWidth() / 2,
-									enemyShip.getPositionY(), ITEM_SPEED));
+							&& checkCollision(bullet, enemyShip)) {enemyLives = enemyShip.getEnemyLives();
+						if (enemyLives == 1) {
+							this.score += enemyShip.getPointValue();
+							this.shipsDestroyed++;
+							Random random = new Random();
+							int per = random.nextInt(2);
+							if (per == 0) {
+								items.add(ItemPool.getItem(enemyShip.getPositionX() + enemyShip.getWidth() / 2,
+										enemyShip.getPositionY(), ITEM_SPEED));
+							}
+							this.enemyShipFormation.destroy(enemyShip);
+							recyclable.add(bullet);
 						}
-						this.enemyShipFormation.destroy(enemyShip);
-						recyclable.add(bullet);
+						else{
+							enemyLives--;
+							enemyShip.setenemyLives(enemyLives);
+							recyclable.add(bullet);
+						}
 					}
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
