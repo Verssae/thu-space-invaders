@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.util.Random;
 
 import screen.Screen;
 import engine.Cooldown;
@@ -96,14 +95,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private List<EnemyShip> shooters;
 	/** Number of not destroyed ships. */
 	private int shipCount;
-
-	private int hideEnemyX;
-
-	private int hideEnemyY;
-
-	private boolean isHide;
-
-	private int a = 0, b = 0, cnt = 0;
 
 
 	/** Directions the formation can move. */
