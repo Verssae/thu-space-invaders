@@ -1060,7 +1060,7 @@ public final class DrawManager {
 		String shipinfo_3 = new String(
 				"<BLUE SHIP>\n: THIS SHIP IS BLUE\n>>> 1000 COIN");
 		String bgminfo_1 = new String(
-				"<BGM 1>\n: THIS IS DEFAULT BGM\n>>> DEFAULT");
+				"<BGM 1>\n: THIS IS DEFAULT MUSIC\n>>> DEFAULT");
 		String bgminfo_2 = new String(
 				"<BGM 2>\n: GOOD MUSIC\n>>> 100 COIN");
 		String bgminfo_3 = new String(
