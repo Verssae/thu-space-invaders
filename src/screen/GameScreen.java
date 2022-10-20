@@ -93,7 +93,7 @@ public class GameScreen extends Screen {
 	/** Current coin. */
 	private int coin;
 	/** Player lives left. */
-	private int lives;
+	public static int lives;
 	/**
 	 * Total bullets shot by the player.
 	 */
