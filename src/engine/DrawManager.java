@@ -82,8 +82,10 @@ public final class DrawManager {
 		ShipDestroyed,
 		/** Player bullet. */
 		Bullet,
-		/** Enemy bullet. */
+		/** Enemy bullets. */
 		EnemyBullet,
+		EnemyBulletN,
+		EnemyBulletH,
 		/** First enemy ship - first form. */
 		EnemyShipA1,
 		/** First enemy ship - second form. */
@@ -128,6 +130,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.ShipDestroyed, new boolean[13][8]);
 			spriteMap.put(SpriteType.Bullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyBullet, new boolean[3][5]);
+			spriteMap.put(SpriteType.EnemyBulletN, new boolean[5][5]);
+			spriteMap.put(SpriteType.EnemyBulletH, new boolean[7][5]);
 			spriteMap.put(SpriteType.EnemyShipA1, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipA2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipB1, new boolean[12][8]);
@@ -364,10 +368,16 @@ public final class DrawManager {
 	public void drawLives(final Screen screen, final int lives) {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
-		Ship dummyShip = new Ship(0, 0);
-		for (int i = 0; i < lives; i++)
-			drawEntity(dummyShip, 40 + 35 * i, 10);
+		if(lives == -99) {
+			backBufferGraphics.drawString("Infin.", 20, 25);
+			Ship dummyShip = new Ship(0, 0, 0);
+			drawEntity(dummyShip, 40 + 35, 10);
+		} else {
+			backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
+			Ship dummyShip = new Ship(0, 0, 0);
+			for (int i = 0; i < lives; i++)
+				drawEntity(dummyShip, 40 + 35 * i, 10);
+		}
 	}
 
 	/**
