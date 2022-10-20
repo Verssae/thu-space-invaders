@@ -219,55 +219,6 @@ public final class DrawManager {
 	public void drawEntity(final Entity entity, final int positionX,
 			final int positionY) {
 		boolean[][] image = spriteMap.get(entity.getSpriteType());
-
-		if (entity.getSpriteType() == SpriteType.ShipCustom
-				|| entity.getSpriteType() == SpriteType.ShipCustomDestroyed) {
-			switch (((Ship) entity).imageid) {
-				case 1:
-					try {
-						// ((Ship)entity).imageid; //hash-map!
-						switch (((Ship) entity).animctr) {
-							case 1 -> Dummy_icon = ImageIO.read(new File("icon\\Default_ship_front.png"));
-							case 2 -> Dummy_icon = ImageIO.read(new File("icon\\Default_ship_left.png"));
-							case 3 -> Dummy_icon = ImageIO.read(new File("icon\\Default_ship_right.png"));
-							default -> Dummy_icon = ImageIO.read(new File("icon\\Default_ship_front.png"));
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					break;
-				case 2:
-					try {
-						// ((Ship)entity).imageid; //hash-map!
-						switch (((Ship) entity).animctr) {
-							case 1 -> Dummy_icon = ImageIO.read(new File("icon\\ship2_front.png"));
-							case 2 -> Dummy_icon = ImageIO.read(new File("icon\\ship2_left.png"));
-							case 3 -> Dummy_icon = ImageIO.read(new File("icon\\ship2_right.png"));
-							default -> Dummy_icon = ImageIO.read(new File("icon\\ship2_front.png"));
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					break;
-				case 3:
-					try {
-						// ((Ship)entity).imageid; //hash-map!
-						switch ((((Ship) entity).animctr)) {
-							case 1 -> Dummy_icon = ImageIO.read(new File("icon\\ship3_front.png"));
-							case 2 -> Dummy_icon = ImageIO.read(new File("icon\\ship3_left.png"));
-							case 3 -> Dummy_icon = ImageIO.read(new File("icon\\ship3_right.png"));
-							default -> Dummy_icon = ImageIO.read(new File("icon\\ship3_front.png"));
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					break;
-
-			}
-			backBufferGraphics.drawImage(Dummy_icon, positionX, positionY - 40, 40, 40, observer);
-			return;
-		}
-
 		backBufferGraphics.setColor(entity.getColor());
 		for (int i = 0; i < image.length; i++)
 			for (int j = 0; j < image[i].length; j++)
@@ -1139,12 +1090,38 @@ public final class DrawManager {
 		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
 		backBufferGraphics.drawRect(winxbase+5, winybase+5, winw-10, winh-10);
 		drawCenteredBigString(screen, item_name, winxbase+50);
-		try {
-			Dummy_data_icon = ImageIO.read(new File("icon\\Dummy-data-icon.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (selecteditem().itemid == 1001) {
+			try {
+				Dummy_data_icon = ImageIO.read(new File("icon\\ship_2.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2, screen.getHeight() / 2, 80, 120, observer);
 		}
-		backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2, screen.getHeight() / 2, 80, 120, observer);
+		if (selecteditem().itemid == 1002) {
+			try {
+				Dummy_data_icon = ImageIO.read(new File("icon\\ship_3.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2, screen.getHeight() / 2, 80, 120, observer);
+		}
+		if (selecteditem().itemid == 2001) {
+			try {
+				Dummy_data_icon = ImageIO.read(new File("icon\\bgm_2.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2, screen.getHeight() / 2, 80, 120, observer);
+		}
+		if (selecteditem().itemid == 2002) {
+			try {
+				Dummy_data_icon = ImageIO.read(new File("icon\\bgm_3.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2, screen.getHeight() / 2, 80, 120, observer);
+		}
 		drawCenteredRegularString(screen, "Price :" + item_price, winxbase+80);
 		drawCenteredBigString(screen, "Purchase?", winybase+winh*7);
 		if (modaloption == 0)
