@@ -1076,34 +1076,34 @@ public final class DrawManager {
 		if (selecteditem().itemid == 2002) {
 			drawimg("bgm3", screen.getWidth() / 2 - 40, screen.getHeight() / 2 - 60, 80, 80);
 		}
-		drawCenteredRegularString(screen, "Price :" + item_price, winxbase+80);
-		drawCenteredBigString(screen, "Purchase?", winybase*7);
+		drawCenteredRegularString(screen, "Price :" + item_price, winxbase + 80);
+		drawCenteredBigString(screen, "Purchase?", winybase * 7);
 		if (modaloption == 0)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.drawString("YES", winxbase+(winw/4) - fontRegularMetrics.stringWidth("YES") / 2, winybase*8);
+		backBufferGraphics.drawString("YES", winxbase + (winw / 4) - fontRegularMetrics.stringWidth("YES") / 2, winybase * 8);
 		if (modaloption == 1)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.drawString("NO", winxbase+(winw/10)*7 - fontRegularMetrics.stringWidth("NO") / 2, winybase*8);
+		backBufferGraphics.drawString("NO", winxbase + (winw / 10) * 7 - fontRegularMetrics.stringWidth("NO") / 2, winybase * 8);
 	}
 
 	public void drawShopCheck(Screen screen, String text) {
-		int winw=backBuffer.getWidth()*8/10;
-		int winh=backBuffer.getHeight()*4/10;
-		int winxbase=(backBuffer.getWidth()-winw)/2;
-		int winybase=(backBuffer.getHeight()-winh)/2;
+		int winw = backBuffer.getWidth() * 8 / 10;
+		int winh = backBuffer.getHeight() * 4 / 10;
+		int winxbase = (backBuffer.getWidth() - winw) / 2;
+		int winybase = (backBuffer.getHeight() - winh) / 2;
 		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
 		backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
 		backBufferGraphics.setColor((Color.WHITE));
 		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
-		backBufferGraphics.drawRect(winxbase+5, winybase+5, winw-10, winh-10);
-		drawCenteredBigString(screen, text, winybase*3/2) ;
+		backBufferGraphics.drawRect(winxbase + 5, winybase + 5, winw - 10, winh - 10);
+		drawCenteredBigString(screen, text, winybase * 3 / 2) ;
 		backBufferGraphics.setColor(Color.GREEN);
-		drawCenteredRegularString(screen, "OK", winybase*2); ;
+		drawCenteredRegularString(screen, "OK", winybase * 2); ;
 	}
 
 	public void drawSelectIcon_ship(Screen screen, int x, int y) {
@@ -1134,7 +1134,7 @@ public final class DrawManager {
 		return x;
 	}
 
-	private void drawmultiline(Scree n scr, String input, int x, int y, int maxlines) {
+	private void drawmultiline(Screen scr, String input, int x, int y, int maxlines) {
 		int offset = 0;
 		int c = 1;
 		for (String istr : formatstr(input)) {
