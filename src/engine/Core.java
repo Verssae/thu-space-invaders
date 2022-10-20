@@ -34,23 +34,23 @@ public final class Core {
 	private static final int NUM_LEVELS = 5;
 
 	private static final GameSettings[] SETTINGS_LEVELS = {
-		new GameSettings(5, 4, 60, 2000),
-		new GameSettings(5, 5, 50, 2500),
-		new GameSettings(6, 5, 40, 1500),
-		new GameSettings(6, 6, 30, 1500),
-		new GameSettings(7, 6, 20, 1000),
+		new GameSettings(5, 4, 58, 2000),
+		new GameSettings(5, 5, 54, 1900),
+		new GameSettings(6, 5, 50, 1800),
+		new GameSettings(6, 6, 46, 1700),
+		new GameSettings(7, 6, 42, 1600),
 
-		new GameSettings(6, 4, 60, 2000),
-		new GameSettings(6, 5, 50, 2500),
-		new GameSettings(7, 5, 40, 1500),
-		new GameSettings(8, 6, 30, 1500),
-		new GameSettings(9, 6, 20, 1000),
+		new GameSettings(6, 4, 38, 1500),
+		new GameSettings(6, 5, 34, 1400),
+		new GameSettings(7, 5, 30, 1300),
+		new GameSettings(8, 6, 26, 1200),
+		new GameSettings(9, 6, 22, 1100),
 
-		new GameSettings(6, 5, 60, 2000),
-		new GameSettings(7, 5, 50, 2500),
-		new GameSettings(8, 5, 40, 1500),
-		new GameSettings(9, 6, 30, 1500),
-		new GameSettings(10, 6, 20, 1000),
+		new GameSettings(6, 5, 18, 1000),
+		new GameSettings(7, 5, 14, 900),
+		new GameSettings(8, 5, 9, 800),
+		new GameSettings(9, 6, 5, 700),
+		new GameSettings(10, 6, 1, 600),
 	};
 
 	/** Frame to draw the screen on. */
