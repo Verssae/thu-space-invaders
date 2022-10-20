@@ -77,15 +77,6 @@ public class ShopScreen extends Screen {
 	int checkoption = 0;
 	int default_ship = 0;
 	int default_bgm = 0;
-	Image selectIcon;
-	{
-		try {
-			selectIcon = ImageIO.read(new File("icon\\Select-icon.png\\"));
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-
 
 	protected final void update() {
 		super.update();
@@ -390,40 +381,40 @@ public class ShopScreen extends Screen {
 		}
 
 		else if (default_ship == 0 && default_bgm == 0) {
-			drawManager.drawSelectIcon_ship(this,57, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 57, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this,57, 197);
+			drawManager.drawSelectIcon_bgm(this, 57, 327);
 		}
 		else if (default_ship == 1 && default_bgm == 0) {
-			drawManager.drawSelectIcon_ship(this, 157, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 57, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 157, 197);
+			drawManager.drawSelectIcon_bgm(this, 57, 327);
 		}
 		else if (default_ship == 2 && default_bgm == 0) {
-			drawManager.drawSelectIcon_ship(this, 257, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 57, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 257, 197);
+			drawManager.drawSelectIcon_bgm(this, 57, 327);
 		}
 		else if (default_ship == 0 && default_bgm == 1) {
-			drawManager.drawSelectIcon_ship(this, 57, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 157, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 57, 197);
+			drawManager.drawSelectIcon_bgm(this, 157, 327);
 		}
 		else if (default_ship == 1 && default_bgm == 1) {
-			drawManager.drawSelectIcon_ship(this, 157, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 157, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 157, 197);
+			drawManager.drawSelectIcon_bgm(this, 157, 327);
 		}
 		else if (default_ship == 2 && default_bgm == 1) {
-			drawManager.drawSelectIcon_ship(this, 257, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 157, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 257, 197);
+			drawManager.drawSelectIcon_bgm(this, 157, 327);
 		}
 		else if (default_ship == 0 && default_bgm == 2) {
-			drawManager.drawSelectIcon_ship(this, 57, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 257, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 57, 197);
+			drawManager.drawSelectIcon_bgm(this, 257, 327);
 		}
 		else if (default_ship == 1 && default_bgm == 2) {
-			drawManager.drawSelectIcon_ship(this, 157, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 257, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 157, 197);
+			drawManager.drawSelectIcon_bgm(this, 257, 327);
 		}
 		else if (default_ship == 2 && default_bgm == 2) {
-			drawManager.drawSelectIcon_ship(this, 257, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 257, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 257, 197);
+			drawManager.drawSelectIcon_bgm(this, 257, 327);
 		}
 
 

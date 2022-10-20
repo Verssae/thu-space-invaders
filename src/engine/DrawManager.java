@@ -296,12 +296,7 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		String coinString = String.format("%04d", coin);
-		try {
-			coin_icon = ImageIO.read(new File("icon\\coin-icon.png\\"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		backBufferGraphics.drawImage(coin_icon, screen.getWidth() - 250, 8, 22, 22, observer);
+		drawimg("coin", screen.getWidth() - 250, 8, 22, 22);
 		backBufferGraphics.drawString(coinString, screen.getWidth() - 212, 25);
 	}
 
@@ -990,12 +985,7 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredBigString(screen, "Shop", 40);
 		backBufferGraphics.setColor(Color.WHITE);
-		try {
-			coin_icon = ImageIO.read(new File("icon\\coin-icon.png\\"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		backBufferGraphics.drawImage(coin_icon, screen.getWidth() - 100, 15, 30, 30, observer);
+		drawimg("coin", screen.getWidth() - 100, 15, 30, 30);
 		backBufferGraphics.drawString(String.valueOf(Coin.balance), screen.getWidth() - 55, 40);
 		backBufferGraphics.drawLine(0, 60, backBuffer.getWidth(), 60);
 		for (int i = 0; i < 3; i++) {
@@ -1011,44 +1001,14 @@ public final class DrawManager {
 		}
 
 		backBufferGraphics.drawString("SHIP", 31, 120);
-		try {
-			ship_1 = ImageIO.read(new File("icon\\ship_1.png\\"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		backBufferGraphics.drawImage(ship_1, getshopgridcoordx(0) + 11, getshopgridcoordy(0) + 9, 50, 50, observer);
-		try {
-			ship_2 = ImageIO.read(new File("icon\\ship_2.png\\"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		backBufferGraphics.drawImage(ship_2, getshopgridcoordx(1) + 11, getshopgridcoordy(0) + 9, 50, 50, observer);
-		try {
-			ship_3 = ImageIO.read(new File("icon\\ship_3.png\\"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		backBufferGraphics.drawImage(ship_3, getshopgridcoordx(2) + 11, getshopgridcoordy(0) + 9, 50, 50, observer);
-		backBufferGraphics.drawImage(coin_icon, screen.getWidth() - 100, 15, 30, 30, observer);
+		drawimg("shipg", getshopgridcoordx(0) + 11, getshopgridcoordy(0) + 9, 50, 50);
+		drawimg("shipr", getshopgridcoordx(1) + 11, getshopgridcoordy(0) + 9, 50, 50);
+		drawimg("shipb", getshopgridcoordx(2) + 11, getshopgridcoordy(0) + 9, 50, 50);
+		drawimg("coin", screen.getWidth() - 100, 15, 30, 30);
 		backBufferGraphics.drawString("BGM", 31, 250);
-		try {
-			bgm_1 = ImageIO.read(new File("icon\\bgm_1.png\\"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		backBufferGraphics.drawImage(bgm_1, getshopgridcoordx(0) + 8, getshopgridcoordy(1) + 11, 50, 50, observer);
-		try {
-			bgm_2 = ImageIO.read(new File("icon\\bgm_2.png\\"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		backBufferGraphics.drawImage(bgm_2, getshopgridcoordx(1) + 8, getshopgridcoordy(1) + 11, 50, 50, observer);
-		try {
-			bgm_3 = ImageIO.read(new File("icon\\bgm_3.png\\"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		backBufferGraphics.drawImage(bgm_3, getshopgridcoordx(2) + 8, getshopgridcoordy(1) + 11, 50, 50, observer);
+		drawimg("bgm1", getshopgridcoordx(0) + 8, getshopgridcoordy(1) + 11, 50, 50);
+		drawimg("bgm2", getshopgridcoordx(1) + 8, getshopgridcoordy(1) + 11, 50, 50);
+		drawimg("bgm3", getshopgridcoordx(2) + 8, getshopgridcoordy(1) + 11, 50, 50);
 		backBufferGraphics.setColor(Color.WHITE);
 		int leftbuf = (backBuffer.getWidth() - (50 * 5 + 30 * 4)) / 2;
 		backBufferGraphics.drawRect(31, 370, backBuffer.getWidth() - 62, backBuffer.getHeight() - 415);
@@ -1105,36 +1065,16 @@ public final class DrawManager {
 		backBufferGraphics.drawRect(winxbase + 5, winybase + 5, winw - 10, winh - 10);
 		drawCenteredBigString(screen, item_name, winxbase + 50);
 		if (selecteditem().itemid == 1001) {
-			try {
-				Dummy_data_icon = ImageIO.read(new File("icon\\ship_2.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2 - 40, screen.getHeight() / 2 - 60, 80, 120, observer);
+			drawimg("shipr", screen.getWidth() / 2 - 40, screen.getHeight() / 2 - 60, 80, 80);
 		}
 		if (selecteditem().itemid == 1002) {
-			try {
-				Dummy_data_icon = ImageIO.read(new File("icon\\ship_3.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2 - 40, screen.getHeight() / 2 - 60, 80, 120, observer);
+			drawimg("shipb", screen.getWidth() / 2 - 40, screen.getHeight() / 2 - 60, 80, 80);
 		}
 		if (selecteditem().itemid == 2001) {
-			try {
-				Dummy_data_icon = ImageIO.read(new File("icon\\bgm_2.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2 - 40, screen.getHeight() / 2 - 60, 80, 120, observer);
+			drawimg("bgm2", screen.getWidth() / 2 - 40, screen.getHeight() / 2 - 60, 80, 80);
 		}
 		if (selecteditem().itemid == 2002) {
-			try {
-				Dummy_data_icon = ImageIO.read(new File("icon\\bgm_3.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2 - 40, screen.getHeight() / 2 - 60, 80, 120, observer);
+			drawimg("bgm3", screen.getWidth() / 2 - 40, screen.getHeight() / 2 - 60, 80, 80);
 		}
 		drawCenteredRegularString(screen, "Price :" + item_price, winxbase + 80);
 		drawCenteredBigString(screen, "Purchase?", winybase + winh * 7);
@@ -1167,12 +1107,12 @@ public final class DrawManager {
 		;
 	}
 
-	public void drawSelectIcon_ship(Screen screen, int x, int y, Image image) {
-		backBufferGraphics.drawImage(image, x, y, observer);
+	public void drawSelectIcon_ship(Screen screen, int x, int y) {
+		backBufferGraphics.drawImage(imagemap.get("sel"), x, y, null, observer);
 	}
 
-	public void drawSelectIcon_bgm(Screen screen, int x, int y, Image image) {
-		backBufferGraphics.drawImage(image, x, y, observer);
+	public void drawSelectIcon_bgm(Screen screen, int x, int y) {
+		backBufferGraphics.drawImage(imagemap.get("sel"), x, y, null, observer);
 	}
 
 	private java.util.ArrayList<String> formatstr(String input) {
