@@ -419,6 +419,9 @@ public class GameScreen extends Screen {
 					if (this.lives < 3) {
 						this.lives++;
 						this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
+						PlayBgm.playSound("Bgm\\lifePoint.wav");
+					}else{
+						PlayBgm.playSound("Bgm\\itemFail.wav");
 					}
 					this.ship.itemGet();
 					// 아이템 먹었을 때 색깔 변하는 효과
@@ -430,6 +433,7 @@ public class GameScreen extends Screen {
 					int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 0.7);
 					ship.setSHOOTING_INTERVAL(shootingSpeed);
 					this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
+					PlayBgm.playSound("Bgm\\attackSpeed.wav");
 					this.ship.setColor(Color.RED);
 				}
 				if (per == 2) {
@@ -437,6 +441,7 @@ public class GameScreen extends Screen {
 					int shipSpeed = (int) (ship.getSPEED() + 1);
 					ship.setSPEED(shipSpeed);
 					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
+					PlayBgm.playSound("Bgm\\movingSpeed.wav");
 					this.ship.setColor(Color.BLUE);
 				}
 			}
