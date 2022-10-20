@@ -1036,17 +1036,17 @@ public final class DrawManager {
 		backBufferGraphics.drawRect(31, 370, backBuffer.getWidth() - 62, backBuffer.getHeight() - 415);
 
 		String shipinfo_1 = new String(
-				"<GREEN SHIP>\n: THIS SHIP IS GREEN \n→ DEFAULT");
+				"<GREEN SHIP>\n: THIS SHIP IS GREEN \n>>> DEFAULT");
 		String shipinfo_2 = new String(
-				"<RED SHIP>\n: THIS SHIP IS RED\n→ 100 COIN");
+				"<RED SHIP>\n: THIS SHIP IS RED\n>>> 100 COIN");
 		String shipinfo_3 = new String(
-				"<BLUE SHIP>\n: THIS SHIP IS BLUE\n→ 1000 COIN");
+				"<BLUE SHIP>\n: THIS SHIP IS BLUE\n>>> 1000 COIN");
 		String bgminfo_1 = new String(
-				"<BGM 1>\n: THIS IS DEFAULT BGM\n→ DEFAULT");
+				"<BGM 1>\n: THIS IS DEFAULT BGM\n>>> DEFAULT");
 		String bgminfo_2 = new String(
-				"<BGM 2>\n: GOOD MUSIC\n→ 100 COIN");
+				"<BGM 2>\n: GOOD MUSIC\n>>> 100 COIN");
 		String bgminfo_3 = new String(
-				"<BGM 3>\n: AWESOME MUSIC\n→ 1000 COIN");
+				"<BGM 3>\n: AWESOME MUSIC\n>>> 1000 COIN");
 
 		if (selecteditem().itemid == 1000)
 			drawmultiline(screen, shipinfo_1, 45, 390, 3);
@@ -1096,7 +1096,7 @@ public final class DrawManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2, screen.getHeight() / 2, 80, 120, observer);
+			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2 - 40, screen.getHeight() / 2 - 60, 80, 120, observer);
 		}
 		if (selecteditem().itemid == 1002) {
 			try {
@@ -1104,7 +1104,7 @@ public final class DrawManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2, screen.getHeight() / 2, 80, 120, observer);
+			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2 - 40, screen.getHeight() / 2 - 60, 80, 120, observer);
 		}
 		if (selecteditem().itemid == 2001) {
 			try {
@@ -1112,7 +1112,7 @@ public final class DrawManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2, screen.getHeight() / 2, 80, 120, observer);
+			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2 - 40, screen.getHeight() / 2 - 60, 80, 120, observer);
 		}
 		if (selecteditem().itemid == 2002) {
 			try {
@@ -1120,7 +1120,7 @@ public final class DrawManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2, screen.getHeight() / 2, 80, 120, observer);
+			backBufferGraphics.drawImage(Dummy_data_icon, screen.getWidth() / 2 - 40, screen.getHeight() / 2 - 60, 80, 120, observer);
 		}
 		drawCenteredRegularString(screen, "Price :" + item_price, winxbase+80);
 		drawCenteredBigString(screen, "Purchase?", winybase+winh*7);
