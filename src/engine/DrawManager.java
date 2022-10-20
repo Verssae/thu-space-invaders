@@ -21,9 +21,9 @@ import javax.swing.*;
 
 /**
  * Manages screen drawing.
- * 
+ *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
- * 
+ *
  */
 public final class DrawManager {
 
@@ -145,7 +145,7 @@ public final class DrawManager {
 
 	/**
 	 * Returns shared instance of DrawManager.
-	 * 
+	 *
 	 * @return Shared instance of DrawManager.
 	 */
 	protected static DrawManager getInstance() {
@@ -156,7 +156,7 @@ public final class DrawManager {
 
 	/**
 	 * Sets the frame to draw the image on.
-	 * 
+	 *
 	 * @param currentFrame
 	 *                     Frame to draw on.
 	 */
@@ -167,7 +167,7 @@ public final class DrawManager {
 	/**
 	 * First part of the drawing process. Initialices buffers, draws the
 	 * background and prepares the images.
-	 * 
+	 *
 	 * @param screen
 	 *               Screen to draw in.
 	 */
@@ -212,7 +212,7 @@ public final class DrawManager {
 	 *                  Coordinates for the upper side of the image.
 	 */
 	public void drawEntity(final Entity entity, final int positionX,
-			final int positionY) {
+						   final int positionY) {
 		boolean[][] image = spriteMap.get(entity.getSpriteType());
 
 		if (entity.getSpriteType() == SpriteType.ShipCustom
@@ -327,7 +327,7 @@ public final class DrawManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		backBufferGraphics.drawImage(coin_icon, 190, 8, 22, 22, observer);
+		backBufferGraphics.drawImage(coin_icon, screen.getWidth()-250, 8, 22, 22, observer);
 		backBufferGraphics.drawString(coinString, screen.getWidth() - 212, 25);
 	}
 
@@ -510,7 +510,7 @@ public final class DrawManager {
 
 	// 스크린 설정
 	public void drawSettingOption(final Screen screen, final int option, final int screenchange,
-			final int MasterSoundchange, final int MusicSoundchange, final int EffectSoundchange) {
+								  final int MasterSoundchange, final int MusicSoundchange, final int EffectSoundchange) {
 		String defaultScreenmessage = "Three mod";
 		String defaultMasterSoundmessage = "Five mod";
 		String defaultMusicSoundmessage = "Five mod";
@@ -646,8 +646,8 @@ public final class DrawManager {
 	 *                       If the score is a new high score.
 	 */
 	public void drawResults(final Screen screen, final int score,
-			final int livesRemaining, final int shipsDestroyed,
-			final float accuracy, final boolean isNewRecord) {
+							final int livesRemaining, final int shipsDestroyed,
+							final float accuracy, final boolean isNewRecord) {
 		String scoreString = String.format("score %04d", score);
 		String livesRemainingString = "lives remaining " + livesRemaining;
 		String shipsDestroyedString = "enemies destroyed " + shipsDestroyed;
@@ -680,7 +680,7 @@ public final class DrawManager {
 	 *                         Current character selected for modification.
 	 */
 	public void drawNameInput(final Screen screen, final char[] name,
-			final int nameCharSelected) {
+							  final int nameCharSelected) {
 		String newRecordString = "New Record!";
 		String introduceNameString = "Introduce name:";
 
@@ -695,9 +695,9 @@ public final class DrawManager {
 		int positionX = screen.getWidth()
 				/ 2
 				- (fontRegularMetrics.getWidths()[name[0]]
-						+ fontRegularMetrics.getWidths()[name[1]]
-						+ fontRegularMetrics.getWidths()[name[2]]
-						+ fontRegularMetrics.getWidths()[' ']) / 2;
+				+ fontRegularMetrics.getWidths()[name[1]]
+				+ fontRegularMetrics.getWidths()[name[2]]
+				+ fontRegularMetrics.getWidths()[' ']) / 2;
 
 		for (int i = 0; i < 3; i++) {
 			if (i == nameCharSelected)
@@ -708,8 +708,8 @@ public final class DrawManager {
 			positionX += fontRegularMetrics.getWidths()[name[i]] / 2;
 			positionX = i == 0 ? positionX
 					: positionX
-							+ (fontRegularMetrics.getWidths()[name[i - 1]]
-									+ fontRegularMetrics.getWidths()[' ']) / 2;
+					+ (fontRegularMetrics.getWidths()[name[i - 1]]
+					+ fontRegularMetrics.getWidths()[' ']) / 2;
 
 			backBufferGraphics.drawString(Character.toString(name[i]),
 					positionX,
@@ -729,7 +729,7 @@ public final class DrawManager {
 	 *                     If the score is a new high score.
 	 */
 	public void drawGameOver(final Screen screen, final boolean acceptsInput,
-			final boolean isNewRecord) {
+							 final boolean isNewRecord) {
 		String gameOverString = "Game Over";
 		String continueOrExitString = "Press Space to play again, Escape to exit";
 
@@ -797,7 +797,7 @@ public final class DrawManager {
 	 *                   List of high scores.
 	 */
 	public void drawHighScores(final Screen screen,
-			final List<Score> highScores) {
+							   final List<Score> highScores) {
 		backBufferGraphics.setColor(Color.WHITE);
 		int i = 0;
 		String nameString ="";
@@ -912,28 +912,28 @@ public final class DrawManager {
 	 *               Height of the drawing.
 	 */
 	public void drawCenteredRegular2String(final Screen screen,
-			final String string, final int height) {
+										   final String string, final int height) {
 		backBufferGraphics.setFont(fontRegular2);
 		backBufferGraphics.drawString(string, screen.getWidth() / 2 - fontRegular2Metrics.stringWidth(string) / 2,
 				height);
 	}
 
 	public void drawCenteredRegularString(final Screen screen,
-			final String string, final int height) {
+										  final String string, final int height) {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.drawString(string, screen.getWidth() / 2 - fontRegularMetrics.stringWidth(string) / 2,
 				height);
 	}
 
 	public void drawLeftRegular2String(final Screen screen,
-			final String string, final int height) {
+									   final String string, final int height) {
 		backBufferGraphics.setFont(fontRegular2);
 		backBufferGraphics.drawString(string, screen.getWidth() / 4 - fontRegular2Metrics.stringWidth(string) / 2,
 				height);
 	}
 
 	public void drawRightRegular2String(final Screen screen,
-			final String string, final int height) {
+										final String string, final int height) {
 		backBufferGraphics.setFont(fontRegular2);
 		backBufferGraphics.drawString(string, 3 * screen.getWidth() / 4
 				- fontRegular2Metrics.stringWidth(string) / 2, height);
@@ -950,7 +950,7 @@ public final class DrawManager {
 	 *               Height of the drawing.
 	 */
 	public void drawCenteredBigString(final Screen screen, final String string,
-			final int height) {
+									  final int height) {
 		backBufferGraphics.setFont(fontBig);
 		backBufferGraphics.drawString(string, screen.getWidth() / 2 - fontBigMetrics.stringWidth(string) / 2, height);
 	}
@@ -968,7 +968,7 @@ public final class DrawManager {
 	 *                  Checks if a bonus life is received.
 	 */
 	public void drawCountDown(final Screen screen, final int level,
-			final int number, final boolean bonusLife) {
+							  final int number, final boolean bonusLife) {
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
 		backBufferGraphics.setColor(Color.BLACK);
@@ -982,7 +982,7 @@ public final class DrawManager {
 								+ fontBigMetrics.getHeight() / 3);
 			} else {
 				drawCenteredBigString(screen, "Level " + level
-						+ " - Bonus life!",
+								+ " - Bonus life!",
 						screen.getHeight() / 2
 								+ fontBigMetrics.getHeight() / 3);
 			}
@@ -995,14 +995,12 @@ public final class DrawManager {
 	}
 
 	public int getshopgridcoordx(int c) {
-		int leftbuf = (backBuffer.getWidth() - (50 * 5 + 30 * 4)) / 2;
-		return leftbuf + 100 * c;
+		return 31 + 100 * c;
 		// assumed grid size
 	}
 
 	public int getshopgridcoordy(int r) {
-		int shopgridbaseheight = backBuffer.getHeight() * 20 / 100 + 25;
-		return shopgridbaseheight + 130 * r;
+		return 130 + 130 * r;
 		// assumed grid size
 	}
 
@@ -1023,8 +1021,8 @@ public final class DrawManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		backBufferGraphics.drawImage(coin_icon, 330, 15, 30, 30, observer);
-		backBufferGraphics.drawString(String.valueOf(Coin.balance), 370, 40);
+		backBufferGraphics.drawImage(coin_icon, screen.getWidth(), 15, 30, 30, observer);
+		backBufferGraphics.drawString(String.valueOf(Coin.balance), screen.getWidth()-55, 40);
 		backBufferGraphics.drawLine(0, 60, backBuffer.getWidth(), 60);
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 2; j++) {
@@ -1057,7 +1055,7 @@ public final class DrawManager {
 			e.printStackTrace();
 		}
 		backBufferGraphics.drawImage(ship_3, getshopgridcoordx(2) + 11, getshopgridcoordy(0) + 9, 50, 50, observer);
-		backBufferGraphics.drawImage(coin_icon, 330, 15, 30, 30, observer);
+		backBufferGraphics.drawImage(coin_icon, screen.getWidth()-100, 15, 30, 30, observer);
 		backBufferGraphics.drawString("BGM", 31, 250);
 		try {
 			bgm_1 = ImageIO.read(new File("icon\\bgm_1.png\\"));
@@ -1080,120 +1078,83 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.WHITE);
 		int leftbuf = (backBuffer.getWidth() - (50 * 5 + 30 * 4)) / 2;
 		backBufferGraphics.drawRect(31, 370, backBuffer.getWidth() - 62, backBuffer.getHeight() - 415);
-		/*
-		 * ArrayList<String> info = new ArrayList<String>();
-		 * info.add(0, "SHIP ABILITY 1");
-		 * info.add(1, "SHIP ABILITY 2");
-		 * info.add(2, "SHIP ABILITY 3");
-		 */
-		String info = new String(
-				"SHIP ABILITY 1\nSHIP ABILITY 2\nSHIP ABILITY 3\nSHIP ABILITY 4: THIS IS QUITE A LONG STRING EXAMPLE");
-		try {
-			drawmultiline(screen, info, 45, 390, 4);
-		} finally {
+
+		ArrayList<String> info = new ArrayList<String>();
+		info.add(0, "SHIP ABILITY 1");
+		info.add(1, "SHIP ABILITY 2");
+		info.add(2, "SHIP ABILITY 3");
+
+		for (int i = 0; i < 3; i++) {
+			backBufferGraphics.setColor((Color.WHITE));
+			backBufferGraphics.setFont(fontSmall);
+			backBufferGraphics.drawString((String) info.get(i), 45, i * 20 + 396);
 		}
-		/*
-		 * for (int i = 0; i < 3; i++) {
-		 * backBufferGraphics.setColor((Color.WHITE));
-		 * backBufferGraphics.setFont(fontSmall);
-		 * backBufferGraphics.drawString((String) info.get(i), 45, i * 20 + 396);
-		 * }
-		 */
 		/**
-		 * for (int i = 0; i < Inventory.inventory.size(); i++) {
-		 * backBufferGraphics.drawString(Item.itemregistry.get(i).name, x, y);
-		 * }
-		 */
+		 for (int i = 0; i < Inventory.inventory.size(); i++) {
+		 backBufferGraphics.drawString(Item.itemregistry.get(i).name, x, y);
+		 }*/
 
 	}
-
 	/**
-	 * public void drawApplyMenu(Screen screen, String item_name, int location) {
-	 * if (ShopScreen.checkItem((ShopScreen.selecteditem()))) {
-	 * int winw = backBuffer.getWidth() * 8 / 10;
-	 * int winh = 400;
-	 * int winxbase = (backBuffer.getWidth() - winw) / 2;
-	 * int winybase = (backBuffer.getHeight() - winh) / 2;
-	 * backBufferGraphics.setColor(Color.GRAY);
-	 * backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
-	 * backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
-	 * backBufferGraphics.setColor(Color.WHITE);
-	 * drawCenteredBigString(screen, item_name, winxbase + 40);
-	 * try {
-	 * Dummy_icon = ImageIO.read(new File("icon\\Dummy-data-icon.png\\"));
-	 * } catch (IOException e) {
-	 * e.printStackTrace();
-	 * }
-	 * backBufferGraphics.drawImage(Dummy_icon, winxbase + 115, winxbase + 80, 100,
-	 * 130, observer);
-	 * backBufferGraphics.drawString("Apply?", winxbase + 125, winybase + 240);
-	 * backBufferGraphics.drawString("YES", winxbase + 70, winybase + 270);
-	 * backBufferGraphics.drawString("NO", winxbase + winw - 110, winybase + 270);
-	 * if (location == 0) {
-	 * backBufferGraphics.setColor(Color.GREEN);
-	 * backBufferGraphics.drawString("YES", winxbase + 70, winybase + 270);
-	 * } else if (location == 1) {
-	 * backBufferGraphics.setColor(Color.GREEN);
-	 * backBufferGraphics.drawString("NO", winxbase + winw - 110, winybase + 270);
-	 * }
-	 * 
-	 * }
-	 * }
-	 */
+	 public void drawApplyMenu(Screen screen, String item_name, int location) {
+	 if (ShopScreen.checkItem((ShopScreen.selecteditem()))) {
+	 int winw = backBuffer.getWidth() * 8 / 10;
+	 int winh = 400;
+	 int winxbase = (backBuffer.getWidth() - winw) / 2;
+	 int winybase = (backBuffer.getHeight() - winh) / 2;
+	 backBufferGraphics.setColor(Color.GRAY);
+	 backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
+	 backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
+	 backBufferGraphics.setColor(Color.WHITE);
+	 drawCenteredBigString(screen, item_name, winxbase + 40);
+	 try {
+	 Dummy_icon = ImageIO.read(new File("icon\\Dummy-data-icon.png\\"));
+	 } catch (IOException e) {
+	 e.printStackTrace();
+	 }
+	 backBufferGraphics.drawImage(Dummy_icon, winxbase + 115, winxbase + 80, 100, 130, observer);
+	 backBufferGraphics.drawString("Apply?", winxbase + 125, winybase + 240);
+	 backBufferGraphics.drawString("YES", winxbase + 70, winybase + 270);
+	 backBufferGraphics.drawString("NO", winxbase + winw - 110, winybase + 270);
+	 if (location == 0) {
+	 backBufferGraphics.setColor(Color.GREEN);
+	 backBufferGraphics.drawString("YES", winxbase + 70, winybase + 270);
+	 } else if (location == 1) {
+	 backBufferGraphics.setColor(Color.GREEN);
+	 backBufferGraphics.drawString("NO", winxbase + winw - 110, winybase + 270);
+	 }
+
+	 }
+	 }*/
 
 	// like MessageBox
 	public enum shopmodaltype {
 		SM_YESNO, SM_OK
 	}
 
-	public void drawShopModal (Screen screen, String item_name, String item_price, engine.DrawManager.shopmodaltype mode, int modaloption, int ship_icon, int bgm_icon) {
-		int winw=backBuffer.getWidth()*8/10;
-		int winh=backBuffer.getHeight()*8/10;
-		int winxbase=(backBuffer.getWidth()-winw)/2;
-		int winybase=(backBuffer.getHeight()-winh)/2;
-		backBufferGraphics.setColor(Color.BLACK);
+	public void drawShopModal(Screen screen, String item_name, String item_price, shopmodaltype mode, int modaloption) {
+		int winw = backBuffer.getWidth() * 8 / 10;
+		int winh = 400;
+		int winxbase = (backBuffer.getWidth() - winw) / 2;
+		int winybase = (backBuffer.getHeight() - winh) / 2;
+		backBufferGraphics.setColor(Color.GRAY);
 		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
 		backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
-		backBufferGraphics.setColor((Color.WHITE));
-		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
-		backBufferGraphics.drawRect(winxbase+5, winybase+5, winw-10, winh-10);
-		drawCenteredBigString(screen, item_name, winxbase+50);
-		if (ship_icon == 1) {
-			try {
-				Dummy_data_icon = ImageIO.read(new File("icon\\ship_2.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredBigString(screen, item_name, winxbase + 40);
+		try {
+			Dummy_data_icon = ImageIO.read(new File("icon\\Dummy-data-icon.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		else if (ship_icon == 2) {
-			try {
-				Dummy_data_icon = ImageIO.read(new File("icon\\ship_3.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		else if (bgm_icon == 1) {
-			try {
-				Dummy_data_icon = ImageIO.read(new File("icon\\bgm_2.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		else if (bgm_icon == 2) {
-			try {
-				Dummy_data_icon = ImageIO.read(new File("icon\\bgm_3.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		backBufferGraphics.drawImage(Dummy_data_icon, winxbase + 125, winxbase + 125, 80, 120, observer);
+		backBufferGraphics.drawImage(Dummy_icon, winxbase + 125, winxbase + 125, 80, 120, observer);
 		drawCenteredRegularString(screen, "Price :" + item_price, winxbase+80);
 		drawCenteredBigString(screen, "Purchase?", winybase+winh*7);
 		if (modaloption == 0)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.drawString("YES", winxbase+(winxbase/5)*3, winybase+winh*8);
+		backBufferGraphics.drawString("YES", winxbase+(winw/5)*3, winybase+winh*8);
 		if (modaloption == 1)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
@@ -1202,46 +1163,43 @@ public final class DrawManager {
 	}
 
 
-
 	public void drawShopCheck(Screen screen, String text) {
-		int winw = backBuffer.getWidth() * 8 / 10;
-		int winh = backBuffer.getHeight() * 4 / 10;
-		int winxbase = (backBuffer.getWidth() - winw) / 2;
-		int winybase = (backBuffer.getHeight() - winh) / 2;
+		int winw=backBuffer.getWidth()*8/10;
+		int winh=backBuffer.getHeight()*4/10;
+		int winxbase=(backBuffer.getWidth()-winw)/2;
+		int winybase=(backBuffer.getHeight()-winh)/2;
 		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
 		backBufferGraphics.fillRect(winxbase, winybase, winw, winh);
 		backBufferGraphics.setColor((Color.WHITE));
 		backBufferGraphics.drawRect(winxbase, winybase, winw, winh);
-		backBufferGraphics.drawRect(winxbase + 5, winybase + 5, winw - 10, winh - 10);
-		drawCenteredBigString(screen, text, winybase + 100);
+		backBufferGraphics.drawRect(winxbase+5, winybase+5, winw-10, winh-10);
+		drawCenteredBigString(screen, text, winybase+winh*2) ;
 		backBufferGraphics.setColor(Color.GREEN);
-		drawCenteredRegularString(screen, "OK", winybase + 150);
-		;
+		drawCenteredRegularString(screen, "OK", winybase+winh*2); ;
 	}
 
 	public void drawSelectIcon_ship(Screen screen, int x, int y, Image image) {
 		backBufferGraphics.drawImage(image, x, y, observer);
 	}
-
 	public void drawSelectIcon_bgm(Screen screen, int x, int y, Image image) {
 		backBufferGraphics.drawImage(image, x, y, observer);
 	}
 
 	private java.util.ArrayList<String> formatstr(String input) {
-		int linelen = 30;
+		int linelen = 50;
 		int frontdelim = 0;
 		int backdelim = 0;
 		var x = new ArrayList<String>();
-		while ((input.length() - frontdelim > linelen)) {
-			if ((input.indexOf('\n', frontdelim) != -1) && ((input.indexOf('\n', frontdelim)-frontdelim) < linelen)) {
-				backdelim = input.indexOf('\n', frontdelim);
+		while (frontdelim - input.length() < linelen) {
+			if (input.indexOf('\n', frontdelim) < linelen) {
+				backdelim = input.indexOf('\n', 0);
 				x.add(input.substring(frontdelim, backdelim));
 				frontdelim = backdelim + 1;
 			} else {
 				backdelim = frontdelim + linelen;
 				x.add(input.substring(frontdelim, backdelim));
-				frontdelim = backdelim;
+				frontdelim = backdelim + 1;
 			}
 		}
 		x.add(input.substring(frontdelim, input.length()));
@@ -1250,12 +1208,9 @@ public final class DrawManager {
 
 	private void drawmultiline(Screen scr, String input, int x, int y, int maxlines) {
 		int offset = 0;
-		int c = 1;
 		for (String istr : formatstr(input)) {
-			if (c++ > maxlines)
-				return;
 			drawCenteredRegularString(scr, istr, y + offset);
-			offset += fontRegularMetrics.getHeight();
+			offset += 50;
 		}
 	}
 }
