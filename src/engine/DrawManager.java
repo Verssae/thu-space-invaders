@@ -70,7 +70,7 @@ public final class DrawManager {
 
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
-	public static BufferedImage blyat;
+	public static Map<String, BufferedImage> imagemap;
 	/** Sprite types. */
 	public static enum SpriteType {
 		/** Player ship. */
@@ -139,7 +139,8 @@ public final class DrawManager {
 			logger.info("Finished loading the fonts.");
 
 			//Images Loading
-			
+			imagemap = new LinkedHashMap<String, BufferedImage>();
+			imagemap.put("macarona", fileManager.loadImage("macarona.png"));
 
 		} catch (IOException e) {
 			logger.warning("Loading failed.");
@@ -1060,11 +1061,8 @@ public final class DrawManager {
 			drawmultiline(screen, bgminfo_2, 45, 390, 3);
 		else if (selecteditem().itemid == 2002)
 			drawmultiline(screen, bgminfo_3, 45, 390, 3);
-		try{
-		engine.Core.getFileManager().loadImage("macarona.png");
-		} catch (Exception e) {System.out.println("ERR");}
-		backBufferGraphics.drawImage(blyat, 500, 500, 100, 100, null, observer);
 
+		backBufferGraphics.drawImage(imagemap.get("macarona"), 200, 200, 200, 200, null, observer);
 		/**
 		 * for (int i = 0; i < Inventory.inventory.size(); i++) {
 		 * backBufferGraphics.drawString(Item.itemregistry.get(i).name, x, y);

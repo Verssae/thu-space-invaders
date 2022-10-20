@@ -313,7 +313,6 @@ public BufferedImage loadImage(String name) throws IOException{
 			if (inputStream != null)
 				inputStream.close();
 		}
-		engine.DrawManager.blyat=ret;
 		return ret;
 	}
 }
