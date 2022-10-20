@@ -244,11 +244,13 @@ public class ShopScreen extends Screen {
 									this.selectionCooldown.reset();
 								}
 								else if (selecteditem().itemid == 2001) {
+									engine.Inventory.inventory_bgm.add(selecteditem());
 									apply_bgm = 1;
 									default_bgm = 1;
 									this.selectionCooldown.reset();
 								}
 								else if (selecteditem().itemid == 2002) {
+									engine.Inventory.inventory_bgm.add(selecteditem());
 									apply_bgm = 2;
 									default_bgm = 2;
 									this.selectionCooldown.reset();
