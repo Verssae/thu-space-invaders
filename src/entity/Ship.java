@@ -47,13 +47,12 @@ public class Ship extends Entity {
 		this.destructionCooldown = Core.getCooldown(300);
 	}
 
-	public Ship(final int positionX, final int positionY, int sType) {
-		super(positionX, positionY, 13 * 2, 8 * 2, Color.GREEN);
-		imagep = true;
-		this.spriteType = SpriteType.ShipCustom;
-		this.imageid = sType;
+	public Ship(final int positionX, final int positionY, Color color) {
+		super(positionX, positionY, 13 * 2, 8 * 2, color);
+		imagep = false;
+		this.spriteType = SpriteType.Ship;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
-		this.destructionCooldown = Core.getCooldown(1000);
+		this.destructionCooldown = Core.getCooldown(300);
 	}
 
 	/**
