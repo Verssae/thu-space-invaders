@@ -1082,11 +1082,11 @@ public final class DrawManager {
 		backBufferGraphics.drawRect(31, 370, backBuffer.getWidth() - 62, backBuffer.getHeight() - 415);
 
 		String shipinfo_1 = new String(
-				"THIS IS SHIP 1\n1111111111\nTHIS IS QUITE A LONG LONG STRING EXAMPLE");
+				"GREEN SHIP\nTHIS SHIP IS GREEN\nDEFAULT");
 		String shipinfo_2 = new String(
-				"THIS IS SHIP 2\n2222222222\nTHIS IS QUITE A LONG LONG STRING EXAMPLE");
+				"<RED SHIP>\nTHIS SHIP IS RED");
 		String shipinfo_3 = new String(
-				"THIS IS SHIP 3\n3333333333\nTHIS IS QUITE A LONG LONG STRING EXAMPLE");
+				"<BLUE SHIP>\nTHIS SHIP IS BLUE");
 		String bgminfo_1 = new String(
 				"THIS IS BGM 1\n11111111111\nTHIS IS QUITE A LONG LONG STRING EXAMPLE");
 		String bgminfo_2 = new String(
@@ -1206,7 +1206,7 @@ public final class DrawManager {
 			if (c++ > maxlines)
 				return;
 				backBufferGraphics.setColor((Color.WHITE));
-				backBufferGraphics.setFont(fontSmall);
+				backBufferGraphics.setFont(fontRegular);
 		 		backBufferGraphics.drawString((String) istr, 45, c * 20 + 356);
 			offset += fontRegularMetrics.getHeight();
 		}
