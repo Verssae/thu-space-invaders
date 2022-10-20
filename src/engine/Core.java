@@ -2,14 +2,19 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Scanner;
 
+import entity.Ship;
 import screen.*;
+
+import javax.sound.sampled.Clip;
+
+import engine.Inventory.InventoryEntry;
 
 /**
  * Implements core game logic.
@@ -23,6 +28,9 @@ public final class Core {
 	 * difficulty of game
 	 */
 	public static int diff;
+
+	/** Bgm player */
+	private static Clip clip;
 
 	/**
 	 * Width of current screen.
@@ -133,10 +141,30 @@ public final class Core {
 	 */
 	private static ConsoleHandler consoleHandler;
 
+
+	/** Test only !!
+	 * You can add item max 15
+	 * If you have fewer than 15 items to add, refer to DrawManager's drawshop method
+	 * Ship skin itemid is start 1000 ~
+	 * Bgm itemid is start 2000 ~ */
+	private static final Item Test1 =
+			new Item(1000, "Dummy-data-ship", 0,false);
+	private static final Item Test2 =
+			new Item(1001, "Dummy-data-ship2", 0,false);
+	private static final Item Test3 =
+			new Item(1002, "Dummy-data-ship3", 0,false);
+	private static final Item Test4 =
+			new Item(2000, "Default BGM", 0);
+	private static final Item Test5 =
+			new Item(2001, "Lively BGM", 0);
+	private static final Item Test6 =
+			new Item(2002, "Nervous BGM", 0);
+
 	/**
 	 * Test implementation.
 	 *
-	 * @param args Program args, ignored.
+	 * @param args
+	 *             Program args, ignored.
 	 */
 	public static void main(final String[] args) {
 		try {
@@ -153,7 +181,6 @@ public final class Core {
 			LOGGER.setLevel(Level.ALL);
 
 		} catch (Exception e) {
-			// TODO handle exception
 			e.printStackTrace();
 		}
 
@@ -161,6 +188,23 @@ public final class Core {
 		DrawManager.getInstance().setFrame(frame);
 		int width = frame.getWidth();
 		int height = frame.getHeight();
+
+		/** Test only !!
+		 * You can add item max 15
+		 * If you have fewer than 15 items to add, refer to DrawManager's drawshop method */
+		Inventory.inventory_ship=new ArrayList<Item>();
+		Inventory.inventory_bgm=new ArrayList<Item>();
+		Inventory.inventory_ship.add(Test1);
+		Inventory.inventory_bgm.add(Test4);
+		Inventory.inventory_ship.get(0).appliedp = true;
+		Item.itemregistry_ship = new ArrayList<Item>();
+		Item.itemregistry_bgm = new ArrayList<Item>();
+		Item.itemregistry_ship.add(Test1);
+		Item.itemregistry_ship.add(Test2);
+		Item.itemregistry_ship.add(Test3);
+		Item.itemregistry_bgm.add(Test4);
+		Item.itemregistry_bgm.add(Test5);
+		Item.itemregistry_bgm.add(Test6);
 
 		gameSettings = new ArrayList<GameSettings>();
 		gameSettings.add(SETTINGS_LEVEL_1_E);
@@ -183,122 +227,123 @@ public final class Core {
 
 		int returnCode = 1;
 		do {
-			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
+			gameState = new GameState(1, 0, MAX_LIVES, 0, 0, Coin.balance);
 
 			switch (returnCode) {
-				case 1:
-					// Main menu.
-					currentScreen = new TitleScreen(width, height, FPS);
-					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-							+ " title screen at " + FPS + " fps.");
-					returnCode = frame.setScreen(currentScreen);
-					LOGGER.info("Closing title screen.");
-					break;
-				case 2:
-					// Game & score
-					Scanner sc = new Scanner(System.in);
+			case 1:
+				// Main menu.
+				currentScreen = new TitleScreen(width, height, FPS);
+				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+						+ " title screen at " + FPS + " fps.");
+				returnCode = frame.setScreen(currentScreen);
+				LOGGER.info("Closing title screen.");
+				break;
+			case 2:
+				// Game & score.
+				Scanner sc = new Scanner(System.in);
+				LOGGER.info("Select your difficulty 1 is easy, 2 is normal, 3 is hard");
+				diff = sc.nextInt();
+				while (diff < 1 || diff > 3) {
 					LOGGER.info("Select your difficulty 1 is easy, 2 is normal, 3 is hard");
 					diff = sc.nextInt();
-					while (diff < 1 || diff > 3) {
-						LOGGER.info("Select your difficulty 1 is easy, 2 is normal, 3 is hard");
-						diff = sc.nextInt();
-					}
-					do {
-						// One extra live every few levels.
-						boolean bonusLife = gameState.getLevel()
-								% EXTRA_LIFE_FRECUENCY == 0
-								&& gameState.getLivesRemaining() < MAX_LIVES;
-
-						currentScreen = new GameScreen(gameState,
-								gameSettings.get(gameState.getLevel() - 1 + (diff - 1) * 5),
-								bonusLife, width, height, FPS);
-						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-								+ " game screen at " + FPS + " fps.");
-						frame.setScreen(currentScreen);
-						LOGGER.info("Closing game screen.");
-
-						gameState = ((GameScreen) currentScreen).getGameState();
-
-						gameState = new GameState(gameState.getLevel() + (diff - 1) * 5 + 1,
-								gameState.getScore(),
-								gameState.getLivesRemaining(),
-								gameState.getBulletsShot(),
-								gameState.getShipsDestroyed());
-
-					} while (gameState.getLivesRemaining() > 0
-							&& gameState.getLevel() % NUM_LEVELS != 0);
-
+				}
+				do {
+					// One extra live every few levels.
+					boolean bonusLife = gameState.getLevel()
+							% EXTRA_LIFE_FRECUENCY == 0
+							&& gameState.getLivesRemaining() < MAX_LIVES;
+					
+					currentScreen = new GameScreen(gameState,
+							gameSettings.get(gameState.getLevel() - 1),
+							bonusLife, width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-							+ " score screen at " + FPS + " fps, with a score of "
-							+ gameState.getScore() + ", "
-							+ gameState.getLivesRemaining() + " lives remaining, "
-							+ gameState.getBulletsShot() + " bullets shot and "
-							+ gameState.getShipsDestroyed() + " ships destroyed.");
-					currentScreen = new ScoreScreen(width, height, FPS, gameState);
-					returnCode = frame.setScreen(currentScreen);
-					LOGGER.info("Closing score screen.");
-					break;
-				case 3:
-					// High scores.
-					currentScreen = new HighScoreScreen(width, height, FPS);
-					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-							+ " high score screen at " + FPS + " fps.");
-					returnCode = frame.setScreen(currentScreen);
-					LOGGER.info("Closing high score screen.");
-					break;
-				case 4:
-					// Setting.
-					currentScreen = new SettingScreen(width, height, FPS);
-					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-							+ " setting screen at " + FPS + " fps.");
-					returnCode = frame.setScreen(currentScreen);
-					LOGGER.info("Closing setting screen.");
-					break;
-				case 5:
-					// Store.
-					currentScreen = new StoreScreen(width, height, FPS);
-					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-							+ " store screen at " + FPS + " fps.");
-					returnCode = frame.setScreen(currentScreen);
-					LOGGER.info("Closing store screen.");
-					break;
+							+ " game screen at " + FPS + " fps.");
+					frame.setScreen(currentScreen);
+					LOGGER.info("Closing game screen.");
 
-				case 400050:
-					// HUDSettingScreen.
-					currentScreen = new HUDSettingScreen(width, height, FPS);
-					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-							+ " HUDSetting screen at " + FPS + " fps.");
-					returnCode = frame.setScreen(currentScreen);
-					LOGGER.info("Closing HUDSetting screen.");
-					break;
+					gameState = ((GameScreen) currentScreen).getGameState();
 
-				case 400010:
-					// Main menu.
-					/* This makes the old window disappear */
-					frame.setVisible(false);
-					/* This creates a new window with new width & height values */
-					frame = new Frame(WIDTH, HEIGHT);
-					DrawManager.getInstance().setFrame(frame);
-					width = frame.getWidth();
-					height = frame.getHeight();
-					currentScreen = new TitleScreen(width, height, FPS);
-					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-							+ " title screen at " + FPS + " fps.");
-					returnCode = frame.setScreen(currentScreen);
-					LOGGER.info("Closing title screen.");
-					break;
+					gameState = new GameState(gameState.getLevel() + 1,
+							gameState.getScore(),
+							gameState.getLivesRemaining(),
+							gameState.getBulletsShot(),
+							gameState.getShipsDestroyed(),0);
 
-				case 400060:
-					// HelpScreen.
-					currentScreen = new HelpScreen(width, height, FPS);
-					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-							+ " Help screen at " + FPS + " fps.");
-					returnCode = frame.setScreen(currentScreen);
-					LOGGER.info("Closing Help screen.");
-					break;
+				} while (gameState.getLivesRemaining() > 0
+						&& (gameState.getLevel() - 1) % NUM_LEVELS != 0);
 
-				default:
-					break;
+				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+						+ " score screen at " + FPS + " fps, with a score of "
+						+ gameState.getScore() + ", "
+						+ gameState.getLivesRemaining() + " lives remaining, "
+						+ gameState.getBulletsShot() + " bullets shot and "
+						+ gameState.getShipsDestroyed() + " ships destroyed.");
+				currentScreen = new ScoreScreen(width, height, FPS, gameState);
+				returnCode = frame.setScreen(currentScreen);
+				LOGGER.info("Closing score screen.");
+				break;
+			case 3:
+				// High scores.
+				currentScreen = new HighScoreScreen(width, height, FPS);
+				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+						+ " high score screen at " + FPS + " fps.");
+				returnCode = frame.setScreen(currentScreen);
+				LOGGER.info("Closing high score screen.");
+				break;
+			case 4:
+				//Setting.
+				currentScreen = new SettingScreen(width, height, FPS);
+				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+						+ " setting screen at " + FPS + " fps.");
+				returnCode = frame.setScreen(currentScreen);
+				LOGGER.info("Closing setting screen.");
+				break;
+			case 5:
+				//Store.
+				currentScreen = new StoreScreen(width, height, FPS);
+				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+						+ " store screen at " + FPS + " fps.");
+				returnCode = frame.setScreen(currentScreen);
+				LOGGER.info("Closing store screen.");
+				break;
+
+			case 400050:
+				//HUDSettingScreen.
+				currentScreen = new HUDSettingScreen(width, height, FPS);
+				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+						+ " HUDSetting screen at " + FPS + " fps.");
+				returnCode = frame.setScreen(currentScreen);
+				LOGGER.info("Closing HUDSetting screen.");
+				break;
+
+          case 400010:
+            // Main menu.
+            /* This makes the old window disappear */
+            frame.setVisible(false);
+            /* This creates a new window with new width & height values */
+            frame = new Frame(WIDTH, HEIGHT);
+            DrawManager.getInstance().setFrame(frame);
+            width = frame.getWidth();
+            height = frame.getHeight();
+            currentScreen = new TitleScreen(width, height, FPS);
+            LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                + " title screen at " + FPS + " fps.");
+            returnCode = frame.setScreen(currentScreen);
+            LOGGER.info("Closing title screen.");
+            break;
+
+			case 400060:
+				//HelpScreen.
+				currentScreen = new HelpScreen(width, height, FPS);
+				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+						+ " Help screen at " + FPS + " fps.");
+				returnCode = frame.setScreen(currentScreen);
+				LOGGER.info("Closing Help screen.");
+				break;
+
+
+			default:
+				break;
 			}
 
 		} while (returnCode != 0);
@@ -353,8 +398,9 @@ public final class Core {
 
 	/**
 	 * Controls creation of new cooldowns.
-	 *
-	 * @param milliseconds Duration of the cooldown.
+	 * 
+	 * @param milliseconds
+	 *            Duration of the cooldown.
 	 * @return A new cooldown.
 	 */
 	public static Cooldown getCooldown(final int milliseconds) {
@@ -363,9 +409,11 @@ public final class Core {
 
 	/**
 	 * Controls creation of new cooldowns with variance.
-	 *
-	 * @param milliseconds Duration of the cooldown.
-	 * @param variance     Variation in the cooldown duration.
+	 * 
+	 * @param milliseconds
+	 *            Duration of the cooldown.
+	 * @param variance
+	 *            Variation in the cooldown duration.
 	 * @return A new cooldown with variance.
 	 */
 	public static Cooldown getVariableCooldown(final int milliseconds,
@@ -378,6 +426,7 @@ public final class Core {
 		HEIGHT = height;
 	}
 
-	public static int getdiff(){return diff;}
-
+	public static int getDiff(){
+		return diff;
+	}
 }
