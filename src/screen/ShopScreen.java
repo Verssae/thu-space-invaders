@@ -68,6 +68,8 @@ public class ShopScreen extends Screen {
 	static int invrow = 0;
 	static int invcol = 0;
 	static int apply_bgm = 0;
+	static int ship_icon = 0;
+	static int bgm_icon = 0;
 
 	shopmodaltype modaltype;
 	int modaloption = 0;
@@ -75,8 +77,6 @@ public class ShopScreen extends Screen {
 	int checkoption = 0;
 	int default_ship = 0;
 	int default_bgm = 0;
-	int ship_icon = 0;
-	int bgm_icon = 0;
 	Image selectIcon;
 	{
 		try {
@@ -144,7 +144,6 @@ public class ShopScreen extends Screen {
 							}
 							else if (selecteditem().itemid == 1001) {
 								default_ship = 1;
-								ship_icon = 1;
 								if (Inventory.inventory_ship.size() == 2) {
 									Inventory.inventory_ship.get(0).appliedp = false;
 									Inventory.inventory_ship.get(1).appliedp = true;
@@ -158,7 +157,6 @@ public class ShopScreen extends Screen {
 							}
 							else if (selecteditem().itemid == 1002) {
 								default_ship = 2;
-								ship_icon = 2;
 								if (Inventory.inventory_ship.size() == 2) {
 									Inventory.inventory_ship.get(0).appliedp = false;
 									Inventory.inventory_ship.get(1).appliedp = true;
@@ -176,13 +174,11 @@ public class ShopScreen extends Screen {
 								this.selectionCooldown.reset();
 							}
 							else if (selecteditem().itemid == 2001) {
-								bgm_icon = 1;
 								apply_bgm = 1;
 								default_bgm = 1;
 								this.selectionCooldown.reset();
 							}
 							else if (selecteditem().itemid == 2002) {
-								bgm_icon = 1;
 								apply_bgm = 2;
 								default_bgm = 2;
 								this.selectionCooldown.reset();
@@ -383,28 +379,7 @@ public class ShopScreen extends Screen {
 					drawManager.drawShopModal(this, Item.itemregistry_bgm.get(invrow).name, String.valueOf(Item.itemregistry_bgm.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
 			}
 		}
-		/**
-		else if (this.state == shopstates.SHOP_APPLY) {
-			if (invrow == 0 || invrow == 1 || invrow == 2) {
-				drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow).name, location);
-			}
-			if (invcol == 1) {
-				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 3).name, location);
-			}
-			if (invcol == 2) {
-				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 6).name, location);
-			}
-			if (invcol == 3) {
-				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 9).name, location);
-			}
-			if (invcol == 4) {
-				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 12).name, location);
-			}
-		}*/
+
 		else if (this.state == shopstates.SHOP_CHECK) {
 			if (checkoption == 1) {
 				drawManager.drawShopCheck(this, "Purchase success!");
