@@ -8,13 +8,12 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import screen.GameScreen;
-import screen.HighScoreScreen;
-import screen.ScoreScreen;
-import screen.Screen;
-import screen.TitleScreen;
-import screen.SettingScreen;
-import screen.StoreScreen;
+import entity.Ship;
+import screen.*;
+
+import javax.sound.sampled.Clip;
+
+import engine.Inventory.InventoryEntry;
 
 /**
  * Implements core game logic.

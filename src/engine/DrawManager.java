@@ -135,6 +135,7 @@ public final class DrawManager {
 		return instance;
 	}
 
+
 	/**
 	 * Sets the frame to draw the image on.
 	 * 
