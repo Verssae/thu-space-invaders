@@ -1078,8 +1078,6 @@ public final class DrawManager {
 			drawmultiline(screen, bgminfo_2, 45, 390, 3);
 		else if (selecteditem().itemid == 2002)
 			drawmultiline(screen, bgminfo_3, 45, 390, 3);
-
-		backBufferGraphics.drawImage(imagemap.get("macarona"), 200, 200, 200, 200, null, observer);
 		/**
 		 * for (int i = 0; i < Inventory.inventory.size(); i++) {
 		 * backBufferGraphics.drawString(Item.itemregistry.get(i).name, x, y);
