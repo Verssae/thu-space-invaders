@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Color;
+import java.util.Arrays;
 import java.util.Set;
 
 import engine.Cooldown;
@@ -33,7 +34,11 @@ public class Ship extends Entity {
 	/** Time spent inactive between hits. */
 	private Cooldown destructionCooldown;
 	/** Movement of the ship for each unit of time. */
+	private int destructCool = 300;
 
+	private int frameCnt = 0;
+
+	private boolean getItem=false;
 	/**
 	 * Constructor, establishes the ship's properties.
 	 * 
@@ -48,7 +53,7 @@ public class Ship extends Entity {
 		imagep = false;
 		this.spriteType = SpriteType.Ship;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
-		this.destructionCooldown = Core.getCooldown(300);
+		this.destructionCooldown = Core.getCooldown(destructCool);
 		switch (Core.getDiff()) {
 			case 0:
 				this.SPEED = 2;
@@ -101,19 +106,43 @@ public class Ship extends Entity {
 	/**
 	 * Updates status of the ship.
 	 */
+	private Color[] rainbowEffect = {Color.RED, Color.ORANGE, Color.YELLOW, Color.green, Color.blue, new Color(0, 0, 128), new Color(139, 0, 255)};
 	public final void update() {
-		if (this.imagep) {
-			if (!this.destructionCooldown.checkFinished())
-				this.spriteType = SpriteType.ShipCustomDestroyed;
-			// use hash map to decide which image to use
-			else
-				this.spriteType = SpriteType.ShipCustom;
-			return;
-		}
-		if (!this.destructionCooldown.checkFinished())
-			this.spriteType = SpriteType.ShipDestroyed;
-		else
+		if (this.isDestroyed()) {
+			frameCnt++;
+			if (frameCnt % (destructCool * 0.01) == 0) {
+				if (getColor() == Color.GREEN) {
+					this.spriteType = SpriteType.ShipDestroyed;
+					setColor(Color.red);
+				} else {
+					setColor(Color.GREEN);
+					this.spriteType = SpriteType.Ship;
+				}
+			}
+		} else if (getItem) {
+			if (frameCnt >= 30) {
+				getItem = false;
+			} else {
+				try {
+					this.setColor(rainbowEffect[Arrays.asList(rainbowEffect).indexOf(this.getColor()) + 1]);
+				} catch (ArrayIndexOutOfBoundsException e) {
+					this.setColor(rainbowEffect[0]);
+				}
+				frameCnt++;
+			}
+		} else {
+			frameCnt = 0;
+			setColor(Color.GREEN);
 			this.spriteType = SpriteType.Ship;
+		}
+	}
+	public final void getItem() {
+		this.getItem = true;
+	}
+
+	public final void gameOver() {
+		this.setSpriteType(SpriteType.Explosion);
+		this.setColor(Color.MAGENTA);
 	}
 
 	/**
