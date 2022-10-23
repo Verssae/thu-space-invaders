@@ -1,5 +1,6 @@
 package screen;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
@@ -109,9 +110,9 @@ public class PracticeScreen extends Screen {
 		enemyShipFormation.attach(this);
 		//this.ship = new Ship(this.width / 2, this.height - 30);
 		switch (Inventory.getcurrentship()) {
-			case 1000 -> this.ship = new Ship(this.width / 2, this.height - 30, 1);
-			case 1001 -> this.ship = new Ship(this.width / 2, this.height - 30, 2);
-			case 1002 -> this.ship = new Ship(this.width / 2, this.height - 30, 3);
+			case 1000 -> this.ship = new Ship(this.width / 2, this.height - 30, Color.GREEN);
+			case 1001 -> this.ship = new Ship(this.width / 2, this.height - 30, Color.RED);
+			case 1002 -> this.ship = new Ship(this.width / 2, this.height - 30, Color.BLUE);
 		}
 		// Appears each 10-30 seconds.
 		this.enemyShipSpecialCooldown = Core.getVariableCooldown(

@@ -11,13 +11,11 @@ import java.util.Map;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 
-<<<<<<< HEAD
+import screen.*;
 import screen.Screen;
 import screen.GameScreen;
-=======
-import screen.*;
 import screen.ShopScreen.shopstates;
->>>>>>> 3800bdc7166b28e7a2e1a37ff87afe50b611d716
+
 import entity.Entity;
 import entity.Ship;
 
@@ -337,13 +335,19 @@ public final class DrawManager {
 	public void drawLives(final Screen screen, final int lives) {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
+		
+		Ship dummyShip = null;
+		switch (Inventory.getcurrentship()) {
+			case 1000 -> dummyShip = new Ship(0, 0, Color.GREEN);
+			case 1001 -> dummyShip = new Ship(0, 0, Color.RED);
+			case 1002 -> dummyShip = new Ship(0, 0, Color.BLUE);
+		}
+		
 		if(lives == -99) {
-			backBufferGraphics.drawString("Infin.", 20, 25);
-			Ship dummyShip = new Ship(0, 0, 0);
+			backBufferGraphics.drawString("Infin.", 20, 25);	
 			drawEntity(dummyShip, 40 + 35, 10);
 		} else {
 			backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
-			Ship dummyShip = new Ship(0, 0, 0);
 			for (int i = 0; i < lives; i++)
 				drawEntity(dummyShip, 40 + 35 * i, 10);
 		}
