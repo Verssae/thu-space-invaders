@@ -296,6 +296,7 @@ public class GameScreen extends Screen {
 				&& !this.levelFinished) {
 			this.levelFinished = true;
 			this.screenFinishedCooldown.reset();
+			if(this.lives==0) this.ship.gameOver();
 		}
 
 		if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
@@ -590,6 +591,7 @@ public class GameScreen extends Screen {
 					this.logger.info(
 							"Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
 				}
+				this.ship.getItem();
 			}
 		}
 		this.items.removeAll(recyclable);
