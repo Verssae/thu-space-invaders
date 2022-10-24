@@ -35,6 +35,7 @@ public class Sound {
             e.printStackTrace();
         }
     }
+
     public void explosionsound(){
         try{
             String bgm = "bomb.wav";

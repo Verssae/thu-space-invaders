@@ -94,6 +94,7 @@ public final class Core {
 			new Item(2002, "Nervous BGM", 0);
 
 
+
 	/**
 	 * Test implementation.
 	 * 
@@ -167,7 +168,7 @@ public final class Core {
 			case 2:
 				// Game & score.
 				do {
-					PlayBgm.play();
+
 					new Sound().backroundmusic();
 					// One extra live every few levels.
 					boolean bonusLife = gameState.getLevel()
@@ -277,6 +278,8 @@ public final class Core {
 		fileHandler.close();
 		System.exit(0);
 	}
+
+
 
 	/**
 	 * Constructor, not called.
