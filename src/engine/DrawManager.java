@@ -396,7 +396,7 @@ public final class DrawManager {
     		e.printStackTrace();
     	}
       
-    	backBufferGraphics.drawString(scoreString, screen.getWidth() - 120, 25);
+    	backBufferGraphics.drawString(scoreString, screen.getWidth() - 167, 25);
 	}
 
 	public void drawCoin(final Screen screen, final int coin) {
@@ -408,8 +408,8 @@ public final class DrawManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		backBufferGraphics.drawImage(coin_icon, 190, 8, 22, 22, observer);
-		backBufferGraphics.drawString(coinString, screen.getWidth() - 212, 25);
+		backBufferGraphics.drawImage(coin_icon, 180, 8, 22, 22, observer);
+		backBufferGraphics.drawString(coinString, screen.getWidth() - 232, 25);
 	}
 
 	/**
