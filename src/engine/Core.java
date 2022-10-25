@@ -160,6 +160,7 @@ public final class Core {
 	private static final Item Test6 =
 			new Item(2002, "Store BGM 2", 1000);
 
+
 	/**
 	 * Test implementation.
 	 *
@@ -239,6 +240,7 @@ public final class Core {
 				LOGGER.info("Closing title screen.");
 				break;
 			case 2:
+
 				// Game & score
 
 				Scanner sc = new Scanner(System.in);
@@ -274,6 +276,7 @@ public final class Core {
 
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel()%NUM_LEVELS != 0);
+
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " score screen at " + FPS + " fps, with a score of "
 							+ gameState.getScore() + ", "
@@ -391,6 +394,8 @@ public final class Core {
 		fileHandler.close();
 		System.exit(0);
 	}
+
+
 
 	/**
 	 * Constructor, not called.

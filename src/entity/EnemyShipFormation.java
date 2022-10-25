@@ -348,6 +348,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		for (int index : emptyColumns) {
 			this.enemyShips.remove(index);
 			logger.info("Removed column " + index);
+
 		}
 
 		int leftMostPoint = 0;
@@ -525,6 +526,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	public final void destroy(final EnemyShip destroyedShip) {
 		for (List<EnemyShip> column : this.enemyShips)
 			for (int i = 0; i < column.size(); i++)
+
+
 				if(i == 0){
 					if(shipCount <= this.nShipsWide) {
 						if (column.get(i).equals(destroyedShip)) {
@@ -544,6 +547,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 								+ this.enemyShips.indexOf(column) + "," + i + ")");
 						this.shipCount--;
 					}
+
+
 				}
 
 		// Updates the list of ships that can shoot the player.
