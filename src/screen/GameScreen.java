@@ -445,7 +445,7 @@ public class GameScreen extends Screen {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
 							Random random = new Random();
-							int per = random.nextInt(2);
+							int per = random.nextInt(3);
 							if (per == 0) {
 								items.add(ItemPool.getItem(enemyShip.getPositionX() + enemyShip.getWidth() / 2,
 										enemyShip.getPositionY(), ITEM_SPEED));
@@ -587,16 +587,36 @@ public class GameScreen extends Screen {
 					if (this.lives < 3) {
 						this.lives++;
 						this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
+						this.ship.item_number = 1;
+						this.ship.itemimgGet();
 					}
-					this.ship.item_number = 1;
-					this.ship.itemimgGet();
+					else {
+						if (ship.getSHOOTING_INTERVAL() > 300) {
+							int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() -100);
+							ship.setSHOOTING_INTERVAL(shootingSpeed);
+							ship.setSHOOTING_COOLDOWN(shootingSpeed);
+							this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
+						}
+						else {
+							this.logger.info("Acquire a item_shootingSpeedUp, MAX SHOOTING SPEED!");
+						}
+						this.ship.item_number = 2;
+						this.ship.itemimgGet();
+					}
 				}else if (per == 1) {
-					int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 0.7);
-					ship.setSHOOTING_INTERVAL(shootingSpeed);
-					this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
+					if (ship.getSHOOTING_INTERVAL() > 300) {
+						int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() -100);
+						ship.setSHOOTING_INTERVAL(shootingSpeed);
+						ship.setSHOOTING_COOLDOWN(shootingSpeed);
+						this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
+					}
+					else {
+						this.logger.info("Acquire a item_shootingSpeedUp, MAX SHOOTING SPEED!");
+					}
 					this.ship.item_number = 2;
 					this.ship.itemimgGet();
-				}else if (per == 2) {
+				}
+				else if (per == 2) {
 					int shipSpeed = (int) (ship.getSPEED() + 1);
 					ship.setSPEED(shipSpeed);
 					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
@@ -619,25 +639,17 @@ public class GameScreen extends Screen {
 							ship.getPositionY()+shipWidth, ship.getBULLET_SPEED(), 0));
 					this.logger.info("Three bullets");
 				}else {
-					int per2 = random.nextInt(3);
-					if(per2 ==0){
-						int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 0.7);
-						ship.setSHOOTING_INTERVAL(shootingSpeed);
-						this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
-					}
-					else {
-						bullets.add(BulletPool.getBullet(ship.getPositionX() - shipWidth / 2,
-								ship.getPositionY(), ship.getBULLET_SPEED(), 0));
-						bullets.add(BulletPool.getBullet(ship.getPositionX(),
-								ship.getPositionY() - shipWidth / 3, ship.getBULLET_SPEED(), 0));
-						bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth / 2,
-								ship.getPositionY() - shipWidth / 2, ship.getBULLET_SPEED(), 0));
-						bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth,
-								ship.getPositionY() - shipWidth / 3, ship.getBULLET_SPEED(), 0));
-						bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth + shipWidth / 2,
-								ship.getPositionY(), ship.getBULLET_SPEED(), 0));
-						this.logger.info("Five bullets");
-					}
+					bullets.add(BulletPool.getBullet(ship.getPositionX() - shipWidth / 2,
+							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+					bullets.add(BulletPool.getBullet(ship.getPositionX(),
+							ship.getPositionY() - shipWidth / 3, ship.getBULLET_SPEED(), 0));
+					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth / 2,
+							ship.getPositionY() - shipWidth / 2, ship.getBULLET_SPEED(), 0));
+					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth,
+							ship.getPositionY() - shipWidth / 3, ship.getBULLET_SPEED(), 0));
+					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth + shipWidth / 2,
+							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+					this.logger.info("Five bullets");
 				}
 				this.ship.getItem();
 			}
