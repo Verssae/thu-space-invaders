@@ -110,6 +110,7 @@ public class Entity {
 		return this.spriteType;
 	}
 
+	public final void setSpriteType(SpriteType newSprite) { this.spriteType=newSprite; }
 	/**
 	 * Getter for the width of the image associated to the entity.
 	 * 
