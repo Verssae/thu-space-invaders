@@ -240,10 +240,12 @@ public final class Core {
 				break;
 			case 2:
 				// Game & score
+
 				Scanner sc = new Scanner(System.in);
 				LOGGER.info("Select your difficulty 0 is practice, 1 is easy, 2 is normal, 3 is hard");
 				diff = sc.nextInt();
 				while(diff < 0 || diff > 3){
+					new Sound().backroundmusic();
 					LOGGER.info("Select your difficulty 0 is practice, 1 is easy, 2 is normal, 3 is hard");
 					diff = sc.nextInt();
 				}
@@ -283,6 +285,7 @@ public final class Core {
 					LOGGER.info("Closing score screen.");
 				} else {
 					do {
+						new Sound().backroundmusic();
 						// One extra live every few levels.
 						boolean bonusLife = gameState.getLevel()
 								% EXTRA_LIFE_FRECUENCY == 0

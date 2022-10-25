@@ -6,6 +6,7 @@ import java.util.Set;
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager.SpriteType;
+import engine.Sound;
 import screen.ShopScreen;
 
 /**
@@ -90,6 +91,7 @@ public class Ship extends Entity {
 	 */
 	public final boolean shoot(final Set<Bullet> bullets) {
 		if (this.shootingCooldown.checkFinished()) {
+			new Sound().bulletsound();
 			this.shootingCooldown.reset();
 			bullets.add(BulletPool.getBullet(positionX + this.width / 2,
 					positionY, BULLET_SPEED, 0));
@@ -120,6 +122,7 @@ public class Ship extends Entity {
 	 * Switches the ship to its destroyed state.
 	 */
 	public final void destroy() {
+		new Sound().explosionsound();
 		this.destructionCooldown.reset();
 	}
 
