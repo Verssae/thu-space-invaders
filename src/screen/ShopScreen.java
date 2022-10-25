@@ -11,6 +11,7 @@ import engine.*;
 import engine.DrawManager.shopmodaltype;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import javax.swing.tree.DefaultTreeSelectionModel;
 
 //notimplementedexception
 public class ShopScreen extends Screen {
@@ -50,6 +51,8 @@ public class ShopScreen extends Screen {
 	 */
 	public final int run() {
 		this.state = shopstates.SHOP_INVEN;
+		default_ship=engine.Inventory.getcurrentship()-1000;
+		default_bgm=apply_bgm;
 		super.run();
 		return this.returnCode;
 	}
@@ -65,6 +68,8 @@ public class ShopScreen extends Screen {
 	static int invrow = 0;
 	static int invcol = 0;
 	static int apply_bgm = 0;
+	static int ship_icon = 0;
+	static int bgm_icon = 0;
 
 	shopmodaltype modaltype;
 	int modaloption = 0;
@@ -72,15 +77,6 @@ public class ShopScreen extends Screen {
 	int checkoption = 0;
 	int default_ship = 0;
 	int default_bgm = 0;
-	Image selectIcon;
-	{
-		try {
-			selectIcon = ImageIO.read(new File("icon\\Select-icon.png\\"));
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-
 
 	protected final void update() {
 		super.update();
@@ -244,11 +240,13 @@ public class ShopScreen extends Screen {
 									this.selectionCooldown.reset();
 								}
 								else if (selecteditem().itemid == 2001) {
+									engine.Inventory.inventory_bgm.add(selecteditem());
 									apply_bgm = 1;
 									default_bgm = 1;
 									this.selectionCooldown.reset();
 								}
 								else if (selecteditem().itemid == 2002) {
+									engine.Inventory.inventory_bgm.add(selecteditem());
 									apply_bgm = 2;
 									default_bgm = 2;
 									this.selectionCooldown.reset();
@@ -356,39 +354,23 @@ public class ShopScreen extends Screen {
 	 * Draws the elements associated with the screen.
 	 */
 	private void draw() {
+		int items_xbase=97;
+		int items_len=100;
+		int ships_y=157;
+		int bgms_y=327;
+
 		drawManager.initDrawing(this);
 		drawManager.drawshop(this, invrow, invcol, this.state);
 		if (this.state == shopstates.SHOP_MODAL) {
 			if (invrow == 0 || invrow == 1 || invrow == 2) {
-				drawManager.drawshopmodal(this, Item.itemregistry_ship.get(invrow).name, String.valueOf(Item.itemregistry_ship.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
+				drawManager.drawShopModal(this, Item.itemregistry_ship.get(invrow).name, String.valueOf(Item.itemregistry_ship.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
 			}
 			if (invcol == 1) {
 				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawshopmodal(this, Item.itemregistry_bgm.get(invrow).name, String.valueOf(Item.itemregistry_bgm.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
+					drawManager.drawShopModal(this, Item.itemregistry_bgm.get(invrow).name, String.valueOf(Item.itemregistry_bgm.get(invrow).price), shopmodaltype.SM_YESNO, modaloption);
 			}
 		}
-		/**
-		else if (this.state == shopstates.SHOP_APPLY) {
-			if (invrow == 0 || invrow == 1 || invrow == 2) {
-				drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow).name, location);
-			}
-			if (invcol == 1) {
-				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 3).name, location);
-			}
-			if (invcol == 2) {
-				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 6).name, location);
-			}
-			if (invcol == 3) {
-				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 9).name, location);
-			}
-			if (invcol == 4) {
-				if (invrow == 0 || invrow == 1 || invrow == 2)
-					drawManager.drawApplyMenu(this, Item.itemregistry.get(invrow + 12).name, location);
-			}
-		}*/
+
 		else if (this.state == shopstates.SHOP_CHECK) {
 			if (checkoption == 1) {
 				drawManager.drawShopCheck(this, "Purchase success!");
@@ -399,40 +381,40 @@ public class ShopScreen extends Screen {
 		}
 
 		else if (default_ship == 0 && default_bgm == 0) {
-			drawManager.drawSelectIcon_ship(this,57, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 57, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this,57, 197);
+			drawManager.drawSelectIcon_bgm(this, 57, 327);
 		}
 		else if (default_ship == 1 && default_bgm == 0) {
-			drawManager.drawSelectIcon_ship(this, 157, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 57, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 157, 197);
+			drawManager.drawSelectIcon_bgm(this, 57, 327);
 		}
 		else if (default_ship == 2 && default_bgm == 0) {
-			drawManager.drawSelectIcon_ship(this, 257, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 57, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 257, 197);
+			drawManager.drawSelectIcon_bgm(this, 57, 327);
 		}
 		else if (default_ship == 0 && default_bgm == 1) {
-			drawManager.drawSelectIcon_ship(this, 57, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 157, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 57, 197);
+			drawManager.drawSelectIcon_bgm(this, 157, 327);
 		}
 		else if (default_ship == 1 && default_bgm == 1) {
-			drawManager.drawSelectIcon_ship(this, 157, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 157, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 157, 197);
+			drawManager.drawSelectIcon_bgm(this, 157, 327);
 		}
 		else if (default_ship == 2 && default_bgm == 1) {
-			drawManager.drawSelectIcon_ship(this, 257, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 157, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 257, 197);
+			drawManager.drawSelectIcon_bgm(this, 157, 327);
 		}
 		else if (default_ship == 0 && default_bgm == 2) {
-			drawManager.drawSelectIcon_ship(this, 57, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 257, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 57, 197);
+			drawManager.drawSelectIcon_bgm(this, 257, 327);
 		}
 		else if (default_ship == 1 && default_bgm == 2) {
-			drawManager.drawSelectIcon_ship(this, 157, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 257, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 157, 197);
+			drawManager.drawSelectIcon_bgm(this, 257, 327);
 		}
 		else if (default_ship == 2 && default_bgm == 2) {
-			drawManager.drawSelectIcon_ship(this, 257, 197, selectIcon);
-			drawManager.drawSelectIcon_bgm(this, 257, 327, selectIcon);
+			drawManager.drawSelectIcon_ship(this, 257, 197);
+			drawManager.drawSelectIcon_bgm(this, 257, 327);
 		}
 
 
