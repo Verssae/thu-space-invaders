@@ -19,7 +19,7 @@ public class Ship extends Entity {
 	/** Time between shots. */
 	private int SHOOTING_INTERVAL = 750;
 	/** Speed of the bullets shot by the ship. */
-	private static final int BULLET_SPEED = -6;
+	private int BULLET_SPEED = -6;
 
 	/** Movement of the ship for each unit of time. */
 	private int SPEED;
@@ -163,4 +163,5 @@ public class Ship extends Entity {
 	public int getSPEED() {
 		return SPEED;
 	}
+	public int getBULLET_SPEED() {return BULLET_SPEED;}
 }

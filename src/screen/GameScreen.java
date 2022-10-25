@@ -71,6 +71,10 @@ public class GameScreen extends Screen {
 	 */
 	private Ship ship;
 	/**
+	 * Player's ship width.
+	 */
+	private int shipWidth = 13*2;
+	/**
 	 * Bonus enemy ship that appears sometimes.
 	 */
 	private EnemyShip enemyShipSpecial;
@@ -567,32 +571,57 @@ public class GameScreen extends Screen {
 			if (checkCollision(item, this.ship) && !this.levelFinished) {
 				recyclable.add(item);
 				Random random = new Random();
-				int per = random.nextInt(3);
+				int per = random.nextInt(6);
 
 				if (per == 0) {
 					if (this.lives < 3) {
 						this.lives++;
 						this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
-						PlayBgm.playSound("Bgm\\lifePoint.wav");
-					}else{
-						PlayBgm.playSound("Bgm\\itemFail.wav");
 					}
-					
-					// 아이템 먹었을 때 색깔 변하는 효과
-					this.ship.setColor(Color.YELLOW); // 임시로 노란색
-
-				}
-				if (per == 1) {
+				}else if (per == 1) {
 					int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 0.7);
 					ship.setSHOOTING_INTERVAL(shootingSpeed);
 					this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
-					PlayBgm.playSound("Bgm\\attackSpeed.wav");
-				}
-				if (per == 2) {
+				}else if (per == 2) {
 					int shipSpeed = (int) (ship.getSPEED() + 1);
 					ship.setSPEED(shipSpeed);
 					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
-					PlayBgm.playSound("Bgm\\movingSpeed.wav");
+				}else if (per == 3) {
+					bullets.add(BulletPool.getBullet(ship.getPositionX(),
+							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth/2,
+							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth,
+							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+					this.logger.info("Three bullets");
+				}else if (per == 4) {
+					bullets.add(BulletPool.getBullet(ship.getPositionX()+shipWidth/2,
+							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth/2,
+							ship.getPositionY()+shipWidth/2, ship.getBULLET_SPEED(), 0));
+					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth/2,
+							ship.getPositionY()+shipWidth, ship.getBULLET_SPEED(), 0));
+					this.logger.info("Three bullets");
+				}else {
+					int per2 = random.nextInt(3);
+					if(per2 ==0){
+						int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 0.7);
+						ship.setSHOOTING_INTERVAL(shootingSpeed);
+						this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
+					}
+					else {
+						bullets.add(BulletPool.getBullet(ship.getPositionX() - shipWidth / 2,
+								ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+						bullets.add(BulletPool.getBullet(ship.getPositionX(),
+								ship.getPositionY() - shipWidth / 3, ship.getBULLET_SPEED(), 0));
+						bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth / 2,
+								ship.getPositionY() - shipWidth / 2, ship.getBULLET_SPEED(), 0));
+						bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth,
+								ship.getPositionY() - shipWidth / 3, ship.getBULLET_SPEED(), 0));
+						bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth + shipWidth / 2,
+								ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+						this.logger.info("Five bullets");
+					}
 				}
 			}
 		}
