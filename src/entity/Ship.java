@@ -194,12 +194,16 @@ public class Ship extends Entity {
 		return SPEED;
 	}
 
+	public void setSHOOTING_COOLDOWN(int SHOOTING_INTERVAL) {
+		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
+	}
+
 	public void setSHOOTING_INTERVAL(int SHOOTING_INTERVAL) {
 		this.SHOOTING_INTERVAL = SHOOTING_INTERVAL;
 	}
 
 	public int getSHOOTING_INTERVAL() {
-		return SHOOTING_INTERVAL;
+		return this.SHOOTING_INTERVAL;
 	}
 
 	public void setSPEED(int SPEED) {
