@@ -313,6 +313,15 @@ public class GameScreen extends Screen {
 	private void draw() {
 		drawManager.initDrawing(this);
 		drawManager.drawEntity(this.ship, this.ship.getPositionX(), this.ship.getPositionY());
+		if (this.ship.item_number == 1){
+			drawManager.drawimg("item_heart", this.ship.getPositionX()+15, this.ship.getPositionY()-25, 33, 33);
+		}
+		else if (this.ship.item_number == 2){
+			drawManager.drawimg("item_bulletspeed", this.ship.getPositionX()+15, this.ship.getPositionY()-25, 33, 33);
+		}
+		else if (this.ship.item_number == 3){
+			drawManager.drawimg("item_movespeed", this.ship.getPositionX()+15, this.ship.getPositionY()-25, 33, 33);
+		}
 		if (this.enemyShipSpecial != null)
 			drawManager.drawEntity(this.enemyShipSpecial,
 					this.enemyShipSpecial.getPositionX(),
@@ -578,14 +587,20 @@ public class GameScreen extends Screen {
 						this.lives++;
 						this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
 					}
+					this.ship.item_number = 1;
+					this.ship.itemGet();
 				}else if (per == 1) {
 					int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() * 0.7);
 					ship.setSHOOTING_INTERVAL(shootingSpeed);
 					this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
+					this.ship.item_number = 2;
+					this.ship.itemGet();
 				}else if (per == 2) {
 					int shipSpeed = (int) (ship.getSPEED() + 1);
 					ship.setSPEED(shipSpeed);
 					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
+					this.ship.item_number = 3;
+					this.ship.itemGet();
 				}else if (per == 3) {
 					bullets.add(BulletPool.getBullet(ship.getPositionX(),
 							ship.getPositionY(), ship.getBULLET_SPEED(), 0));

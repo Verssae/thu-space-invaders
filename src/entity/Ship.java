@@ -27,12 +27,14 @@ public class Ship extends Entity {
 
 	private boolean imagep;
 	public int imageid;
+	public int item_number = 0;
 
 	/** Minimum time between shots. */
 	private Cooldown shootingCooldown;
 	/** Time spent inactive between hits. */
 	private Cooldown destructionCooldown;
-	/** Movement of the ship for each unit of time. */
+	/** Item acquire effect duration time. */
+	private Cooldown itemCooldown;
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -49,6 +51,7 @@ public class Ship extends Entity {
 		this.spriteType = SpriteType.Ship;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(300);
+		this.itemCooldown = Core.getCooldown(300);
 		switch (Core.getDiff()) {
 			case 0:
 				this.SPEED = 2;
@@ -108,18 +111,19 @@ public class Ship extends Entity {
 				this.spriteType = SpriteType.ShipCustomDestroyed;
 			// use hash map to decide which image to use
 			else
-			
 				this.spriteType = SpriteType.ShipCustom;
-			
-
 			return;
 		}
-		if (!this.destructionCooldown.checkFinished())
-			this.spriteType = SpriteType.ShipDestroyed;
 		else
-			this.setColor(Color.green);
-			this.spriteType = SpriteType.Ship;
-			
+			if (this.itemCooldown.checkFinished()){
+				this.item_number = 0;
+			}
+			if (!this.destructionCooldown.checkFinished())
+				this.spriteType = SpriteType.ShipDestroyed;
+			else {
+				this.setColor(Color.green);
+				this.spriteType = SpriteType.Ship;
+			}
 	}
 
 	/**
@@ -138,6 +142,21 @@ public class Ship extends Entity {
 		return !this.destructionCooldown.checkFinished();
 	}
 
+	/**
+	 * Switches the ship to its item acquired state.
+	 */
+	public final void itemGet(){
+		this.itemCooldown.reset();
+	}
+
+	/**
+	 * Checks if the ship acquired an item.
+	 *
+	 * @return True if the ship acquired an item.
+	 */
+	public final boolean isItemGet(){
+		return !this.itemCooldown.checkFinished();
+	}
 
 	/**
 	 * Getter for the ship's speed.
