@@ -148,17 +148,17 @@ public final class Core {
 	 * Ship skin itemid is start 1000 ~
 	 * Bgm itemid is start 2000 ~ */
 	private static final Item Test1 =
-			new Item(1000, "Dummy-data-ship", 0,false);
+			new Item(1000, "Default Ship", 0,false);
 	private static final Item Test2 =
-			new Item(1001, "Dummy-data-ship2", 0,false);
+			new Item(1001, "Store Ship 1", 100,false);
 	private static final Item Test3 =
-			new Item(1002, "Dummy-data-ship3", 0,false);
+			new Item(1002, "Store Ship 2", 1000,false);
 	private static final Item Test4 =
 			new Item(2000, "Default BGM", 0);
 	private static final Item Test5 =
-			new Item(2001, "Lively BGM", 0);
+			new Item(2001, "Store BGM 1", 100);
 	private static final Item Test6 =
-			new Item(2002, "Nervous BGM", 0);
+			new Item(2002, "Store BGM 2", 1000);
 
 	/**
 	 * Test implementation.

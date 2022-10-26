@@ -1,5 +1,7 @@
 package engine;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.BufferedReader;
@@ -14,12 +16,15 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URLDecoder;
+import java.nio.Buffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
 
 import engine.DrawManager.SpriteType;
 
@@ -292,5 +297,22 @@ public final class FileManager {
 			if (bufferedWriter != null)
 				bufferedWriter.close();
 		}
+	}
+
+
+public BufferedImage loadImage(String name) throws IOException{
+		InputStream inputStream = null;
+		BufferedImage ret;
+		try {
+			// Font loading.
+			inputStream = FileManager.class.getClassLoader()
+					.getResourceAsStream(name);
+			ret=ImageIO.read(inputStream);
+			
+		} finally {
+			if (inputStream != null)
+				inputStream.close();
+		}
+		return ret;
 	}
 }
