@@ -57,6 +57,12 @@ public class Entity {
 		return color;
 	}
 
+	// 아이템 먹었을 때 색깔 변할 수 있게 메서드 추가 
+	// Add a method so that the color changes when you eat an item
+	public final void setColor(Color color) {
+		this.color = color;
+	}
+	
 	/**
 	 * Getter for the X axis position of the entity.
 	 * 
@@ -104,6 +110,7 @@ public class Entity {
 		return this.spriteType;
 	}
 
+	public final void setSpriteType(SpriteType newSprite) { this.spriteType=newSprite; }
 	/**
 	 * Getter for the width of the image associated to the entity.
 	 * 
@@ -120,5 +127,13 @@ public class Entity {
 	 */
 	public final int getHeight() {
 		return this.height;
+	}
+
+	public final void changeColor() {
+		if (this.color == Color.WHITE) setColor(Color.BLACK);
+	}
+
+	public final void changeColor_G(int enemyLives) {
+		if (this.color == Color.WHITE && enemyLives == 2) setColor(Color.GRAY);
 	}
 }
