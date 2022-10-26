@@ -55,6 +55,9 @@ public class Ship extends Entity {
 		super(positionX, positionY, 13 * 2, 8 * 2, color);
 		imagep = false;
 		this.spriteType = SpriteType.Ship;
+		if (positionY == 0) {
+			this.spriteType = SpriteType.ShipLive;
+		}
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.itemCooldown = Core.getCooldown(300);
 		this.destructionCooldown = Core.getCooldown(destructCool);
