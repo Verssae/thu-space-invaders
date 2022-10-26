@@ -13,6 +13,8 @@ public final class BulletPool {
 
 	/** Set of already created bullets. */
 	private static Set<Bullet> pool = new HashSet<Bullet>();
+	private static Set<BulletN> poolN = new HashSet<BulletN>();
+	private static Set<BulletH> poolH = new HashSet<BulletH>();
 
 	/**
 	 * Constructor, not called.
@@ -52,13 +54,50 @@ public final class BulletPool {
 		return bullet;
 	}
 
+	public static BulletN getBulletN(final int positionX,
+								   final int positionY, int speed, int movingPattern) {
+		BulletN bulletN;
+		if (!poolN.isEmpty()) {
+			bulletN = poolN.iterator().next();
+			poolN.remove(bulletN);
+			bulletN.setPositionX(positionX - 1);
+			bulletN.setPositionY(positionY);
+			bulletN.setSpeed(speed);
+			bulletN.setSprite();
+			bulletN.setMovingPattern(movingPattern);
+		} else {
+			bulletN = new BulletN(positionX, positionY, speed, movingPattern);
+			bulletN.setPositionX(positionX - 1);
+		}
+		return bulletN;
+	}
+
+	public static BulletH getBulletH(final int positionX,
+									 final int positionY, int speed, int movingPattern) {
+		BulletH bulletH;
+		if (!poolH.isEmpty()) {
+			bulletH = poolH.iterator().next();
+			poolH.remove(bulletH);
+			bulletH.setPositionX(positionX - 1);
+			bulletH.setPositionY(positionY);
+			bulletH.setSpeed(speed);
+			bulletH.setSprite();
+			bulletH.setMovingPattern(movingPattern);
+		} else {
+			bulletH = new BulletH(positionX, positionY, speed, movingPattern);
+			bulletH.setPositionX(positionX - 1);
+		}
+		return bulletH;
+	}
+
+
 	/**
 	 * Adds one or more bullets to the list of available ones.
 	 * 
 	 * @param bullet
 	 *            Bullets to recycle.
 	 */
-	public static void recycle(final Set<Bullet> bullet) {
-		pool.addAll(bullet);
-	}
+	public static void recycle(final Set<Bullet> bullet) {pool.addAll(bullet);}
+	public static void recycleN(final Set<BulletN> bulletN) {poolN.addAll(bulletN);}
+	public static void recycleH(final Set<BulletH> bulletH) {poolH.addAll(bulletH);}
 }
