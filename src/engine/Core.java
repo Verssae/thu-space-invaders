@@ -343,7 +343,7 @@ public final class Core {
 				break;
 			case 5:
 				//Store.
-				currentScreen = new StoreScreen(width, height, FPS);
+				currentScreen = new ShopScreen(width, height, FPS, 1);
 				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 						+ " store screen at " + FPS + " fps.");
 				returnCode = frame.setScreen(currentScreen);
