@@ -1186,4 +1186,57 @@ public final class DrawManager {
 			offset += fontRegularMetrics.getHeight();
 		}
 	}
+	public void drawLevelMenu(final Screen screen, final int option) {
+		String levelString = "LEVEL";
+		String instructionsString = "Press Space to return";
+		String level1 = "EASY:";
+		String level2 = "NORMAL:";
+		String level3 = "HARD:";
+		String stage1 = "1";
+		String stage2 = "2";
+		String stage3 = "3";
+		String stage4 = "4";
+		String stage5 = "5";
+
+		backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
+		drawCenteredBigString(screen, levelString, screen.getHeight() / 8);
+
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, instructionsString, screen.getHeight() / 5);
+
+		if (option == 1)
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+
+		backBufferGraphics.drawString(level1, 13, 220);
+		backBufferGraphics.drawString(stage1, 150, 220);
+		backBufferGraphics.drawString(stage2, 210, 220);
+		backBufferGraphics.drawString(stage3, 270, 220);
+		backBufferGraphics.drawString(stage4, 330, 220);
+		backBufferGraphics.drawString(stage5, 390, 220);
+
+		if (option == 2)
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.drawString(level2, 13, 280);
+		backBufferGraphics.drawString(stage1, 150, 280);
+		backBufferGraphics.drawString(stage2, 210, 280);
+		backBufferGraphics.drawString(stage3, 270, 280);
+		backBufferGraphics.drawString(stage4, 330, 280);
+		backBufferGraphics.drawString(stage5, 390, 280);
+
+		if (option == 3)
+			backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.drawString(level3, 13, 340);
+		backBufferGraphics.drawString(stage1, 150, 340);
+		backBufferGraphics.drawString(stage2, 210, 340);
+		backBufferGraphics.drawString(stage3, 270, 340);
+		backBufferGraphics.drawString(stage4, 330, 340);
+		backBufferGraphics.drawString(stage5, 390, 340);
+
+	}
 }
