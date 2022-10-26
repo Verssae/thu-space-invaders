@@ -33,6 +33,10 @@ public class PlayBgm {
     static DataLine.Info info3;
     static Clip clip3;
 
+    static File bgm_item;
+
+    static Clip clip_item;
+
     public static void play() {
 
         switch (ShopScreen.getApply_bgm()) {
@@ -85,6 +89,17 @@ public class PlayBgm {
 
 
 
+    }
+
+    public static void playSound(String s){
+        bgm_item = new File(s);
+        try {
+            AudioInputStream stream_itemEffect = AudioSystem.getAudioInputStream(bgm_item);
+            clip_item = AudioSystem.getClip();
+            clip_item.open(stream_itemEffect);
+            clip_item.start();
+
+        } catch (Exception e) {System.out.println("err : " + e);}
     }
 
     public static void BgmStop(Clip clip) {
