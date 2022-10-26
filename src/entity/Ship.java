@@ -7,7 +7,12 @@ import java.util.Set;
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager.SpriteType;
+import engine.Sound;
+<<<<<<< HEAD
 import screen.ShopScreen;
+=======
+
+>>>>>>> f834007de1fc0591994a1a298be18481333ee4e0
 
 /**
  * Implements a ship, to be controlled by the player.
@@ -99,6 +104,11 @@ public class Ship extends Entity {
 	 */
 	public final boolean shoot(final Set<Bullet> bullets) {
 		if (this.shootingCooldown.checkFinished()) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> f834007de1fc0591994a1a298be18481333ee4e0
+			new Sound().bulletsound();
 			this.shootingCooldown.reset();
 			bullets.add(BulletPool.getBullet(positionX + this.width / 2,
 					positionY, BULLET_SPEED, 0));
@@ -142,6 +152,11 @@ public class Ship extends Entity {
 			frameCnt = 0;
 			setColor(Color.GREEN);
 			this.spriteType = SpriteType.Ship;
+<<<<<<< HEAD
+
+
+
+=======
 		}
 	}
 	public final void getItem() {
@@ -151,13 +166,17 @@ public class Ship extends Entity {
 	public final void gameOver() {
 		this.setSpriteType(SpriteType.Explosion);
 		this.setColor(Color.MAGENTA);
+>>>>>>> 63dc87f2e4baf301d1e568fb45deb843fa3fd2ff
 	}
 
 	/**
 	 * Switches the ship to its destroyed state.
 	 */
 	public final void destroy() {
+		new Sound().explosionsound();
 		this.destructionCooldown.reset();
+
+		new Sound().explosionsound();
 	}
 
 	/**

@@ -160,6 +160,7 @@ public final class Core {
 	private static final Item Test6 =
 			new Item(2002, "Store BGM 2", 1000);
 
+
 	/**
 	 * Test implementation.
 	 *
@@ -239,11 +240,14 @@ public final class Core {
 				LOGGER.info("Closing title screen.");
 				break;
 			case 2:
+
 				// Game & score
+
 				Scanner sc = new Scanner(System.in);
 				LOGGER.info("Select your difficulty 0 is practice, 1 is easy, 2 is normal, 3 is hard");
 				diff = sc.nextInt();
 				while(diff < 0 || diff > 3){
+					new Sound().backroundmusic();
 					LOGGER.info("Select your difficulty 0 is practice, 1 is easy, 2 is normal, 3 is hard");
 					diff = sc.nextInt();
 				}
@@ -272,6 +276,7 @@ public final class Core {
 
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel()%NUM_LEVELS != 0);
+
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " score screen at " + FPS + " fps, with a score of "
 							+ gameState.getScore() + ", "
@@ -283,6 +288,7 @@ public final class Core {
 					LOGGER.info("Closing score screen.");
 				} else {
 					do {
+						new Sound().backroundmusic();
 						// One extra live every few levels.
 						boolean bonusLife = gameState.getLevel()
 								% EXTRA_LIFE_FRECUENCY == 0
@@ -388,6 +394,8 @@ public final class Core {
 		fileHandler.close();
 		System.exit(0);
 	}
+
+
 
 	/**
 	 * Constructor, not called.

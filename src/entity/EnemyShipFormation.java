@@ -8,12 +8,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import engine.*;
 import screen.Screen;
-import engine.Cooldown;
-import engine.Core;
-import engine.DrawManager;
 import engine.DrawManager.SpriteType;
-import engine.GameSettings;
 
 /**
  * Groups enemy ships into a formation that moves together.
@@ -351,6 +348,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		for (int index : emptyColumns) {
 			this.enemyShips.remove(index);
 			logger.info("Removed column " + index);
+
 		}
 
 		int leftMostPoint = 0;
@@ -378,11 +376,13 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 *            Bullets set to add the bullet being shot.
 	 */
 	public final void shoot(final Set<Bullet> bullets) {
+
 		// For now, only ships in the bottom row are able to shoot.
 		int index = (int) (Math.random() * this.shooters.size());
 		EnemyShip shooter = this.shooters.get(index);
 
 		if (this.shootingCooldown.checkFinished()) {
+			new Sound().bulletsound();
 			this.shootingCooldown.reset();
 			float ShootPattern = (float)(Math.round(Math.random()*10)/10.0);
 			if (isLast()) { // The last enemy can get the all ShootPattern.
@@ -437,6 +437,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,2));
 		}
 		else if (this.shootingCooldown.checkFinished()) {
+			new Sound().bulletsound();
 			this.shootingCooldown.reset();
 			float ShootPattern = (float)(Math.round(Math.random()*10)/10.0);
 			if (isLast()) { // The last enemy can get the all ShootPattern.
@@ -491,21 +492,25 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,2));
 		}
 		else if (this.shootingCooldown.checkFinished()) {
+
 			this.shootingCooldown.reset();
 			float ShootPattern = (float)(Math.round(Math.random()*10)/10.0);
 			if(ShootPattern<=0.4) { //The Enemy of double Bullet Type
+				new Sound().bulletsound();
 				bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
 						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
 				bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
 						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED * 2,0));
 			}
 			else if(0.4 < ShootPattern && ShootPattern < 0.7) {//shoot double direction
+				new Sound().bulletsound();
 				bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
 						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,1));
 				bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()
 						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,2));
 			}
 			else{
+				new Sound().bulletsound();
 				bulletsH.add(BulletPool.getBulletH(shooter.getPositionX()//general shoot
 						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED,0));
 			}
@@ -521,9 +526,12 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	public final void destroy(final EnemyShip destroyedShip) {
 		for (List<EnemyShip> column : this.enemyShips)
 			for (int i = 0; i < column.size(); i++)
+
+
 				if(i == 0){
 					if(shipCount <= this.nShipsWide) {
 						if (column.get(i).equals(destroyedShip)) {
+							new Sound().explosionsound();
 							column.get(i).destroy();
 							this.logger.info("Destroyed ship in ("
 									+ this.enemyShips.indexOf(column) + "," + i + ")");
@@ -533,11 +541,14 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				}
 				else{
 					if (column.get(i).equals(destroyedShip)) {
+						new Sound().explosionsound();
 						column.get(i).destroy();
 						this.logger.info("Destroyed ship in ("
 								+ this.enemyShips.indexOf(column) + "," + i + ")");
 						this.shipCount--;
 					}
+
+
 				}
 
 		// Updates the list of ships that can shoot the player.
