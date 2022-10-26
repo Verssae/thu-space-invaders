@@ -12,7 +12,7 @@ public class Sound {
 
     public void backroundmusic(){
         try{
-            String bgm = "background.wav";
+            String bgm = "Bgm/background.wav";
 
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(bgm).getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
@@ -25,7 +25,7 @@ public class Sound {
 
     public void bulletsound() {
         try {
-            String bgm = "ball.wav";
+            String bgm = "Bgm/ball.wav";
 
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(bgm).getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
@@ -38,7 +38,7 @@ public class Sound {
 
     public void explosionsound() {
         try {
-            String bgm = "bomb.wav";
+            String bgm = "Bgm/bomb.wav";
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(bgm).getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
