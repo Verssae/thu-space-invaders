@@ -109,7 +109,7 @@ public class LevelMenuScreen extends Screen {
      */
     private void draw() {
         drawManager.initDrawing(this);
-        drawManager.drawLevelMenu(this, this.returnCode);
+        //drawManager.drawLevelMenu(this, this.returnCode);
         drawManager.completeDrawing(this);
     }
 }
