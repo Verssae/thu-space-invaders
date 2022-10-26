@@ -355,18 +355,55 @@ public final class DrawManager {
 	 * @param score  Current score.
 	 */
 	public void drawScore(final Screen screen, final int score) {
-		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.WHITE);
-		String scoreString = String.format("%04d", score);
-		backBufferGraphics.drawString("Score:" + scoreString, screen.getWidth() - 100, 25);
+		/*
+    	backBufferGraphics.setFont(fontRegular);
+      	backBufferGraphics.setColor(Color.WHITE);
+      	String scoreString = String.format("%04d", score);
+      	backBufferGraphics.drawString(scoreString, screen.getWidth() - 60, 25);
+      	*/
+      	backBufferGraphics.setFont(fontRegular);
+      	backBufferGraphics.setColor(Color.WHITE);
+
+      	String scoreString = "";
+
+      	//implementation of logic
+      	fileManager = Core.getFileManager();
+      	List<Score> highScores;
+      	try {
+         	highScores = fileManager.loadHighScores();
+         	int max = -1;
+      		for(int i = 0; i < highScores.size(); i++) {
+         		if(max < highScores.get(i).getScore()) {
+            		max = highScores.get(i).getScore();
+         		}
+      		}
+
+    		if(max < score) {
+         		scoreString = "new score : ";
+         		scoreString += String.format("%04d", score);
+      		}
+      		else {
+         		scoreString = "score : ";
+        		scoreString += String.format("%04d", score);
+    		}
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+      
+    	backBufferGraphics.drawString(scoreString, screen.getWidth() - 167, 25);
 	}
 
 	public void drawCoin(final Screen screen, final int coin) {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		String coinString = String.format("%04d", coin);
-		drawimg("coin", screen.getWidth() - 250, 8, 22, 22);
-		backBufferGraphics.drawString(coinString, screen.getWidth() - 212, 25);
+		try {
+			coin_icon = ImageIO.read(new File("icon\\coin-icon.png\\"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		backBufferGraphics.drawImage(coin_icon, 180, 8, 22, 22, observer);
+		backBufferGraphics.drawString(coinString, screen.getWidth() - 232, 25);
 	}
 
 	/**
