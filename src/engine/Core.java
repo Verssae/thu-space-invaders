@@ -359,21 +359,22 @@ public final class Core {
 				LOGGER.info("Closing HUDSetting screen.");
 				break;
 
-          case 400010:
-            // Main menu.
-            /* This makes the old window disappear */
-            frame.setVisible(false);
-            /* This creates a new window with new width & height values */
-            frame = new Frame(WIDTH, HEIGHT);
-            DrawManager.getInstance().setFrame(frame);
-            width = frame.getWidth();
-            height = frame.getHeight();
-            currentScreen = new TitleScreen(width, height, FPS);
-            LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-                + " title screen at " + FPS + " fps.");
-            returnCode = frame.setScreen(currentScreen);
-            LOGGER.info("Closing title screen.");
-            break;
+            case 400010:
+	            // Main menu.
+	            /* This makes the old window disappear */
+	            Frame old_frame = frame;
+	            /* This creates a new window with new width & height values */
+	            frame = new Frame(WIDTH, HEIGHT);
+	            DrawManager.getInstance().setFrame(frame);
+	            width = frame.getWidth();
+	            height = frame.getHeight();
+	            currentScreen = new TitleScreen(width, height, FPS);
+	            old_frame.dispose();
+	            LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+			            + " title screen at " + FPS + " fps.");
+	            returnCode = frame.setScreen(currentScreen);
+	            LOGGER.info("Closing title screen.");
+	            break;
 
 			case 400060:
 				//HelpScreen.
