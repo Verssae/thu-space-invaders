@@ -363,7 +363,7 @@ public final class DrawManager {
       	//implementation of logic
       	fileManager = Core.getFileManager();
       	List<Score> highScores;
-      	try {
+		try{
          	highScores = fileManager.loadHighScores();
          	int max = -1;
       		for(int i = 0; i < highScores.size(); i++) {
@@ -371,20 +371,7 @@ public final class DrawManager {
             		max = highScores.get(i).getScore();
          		}
       		}
-
-    		if(max < score) {
-         		scoreString = "new score : ";
-         		scoreString += String.format("%04d", score);
-      		}
-      		else {
-         		scoreString = "score : ";
-        		scoreString += String.format("%04d", score);
-    		}
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-      
-    	backBufferGraphics.drawString(scoreString, screen.getWidth() - 167, 25);
+		}
 	}
 
 	public void drawCoin(final Screen screen, final int coin) {

@@ -74,6 +74,7 @@ public class HUDSettingScreen extends Screen {
             }
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
                 this.isRunning = false;
+                this.returnCode = 4;
 
         }
     }
