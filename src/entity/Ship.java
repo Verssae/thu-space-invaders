@@ -160,10 +160,17 @@ public class Ship extends Entity {
 
 		}
 	}
+<<<<<<< HEAD
 	public final void setBaseColor(Color newColor) {
 		baseColor=newColor;
 	}
 
+=======
+
+	public final void setBaseColor(Color newColor){
+		baseColor=newColor;
+	}
+>>>>>>> upstream/main
 	public final void getItem() {
 		this.getItem = true;
 	}
