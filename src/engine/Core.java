@@ -320,12 +320,7 @@ public final class Core {
 							+ gameState.getLivesRemaining() + " lives remaining, "
 							+ gameState.getBulletsShot() + " bullets shot and "
 							+ gameState.getShipsDestroyed() + " ships destroyed.");
-					
-					try {
-						currentScreen = new ScoreScreen(width, height, FPS, gameState);
-					} catch (Exception e) {
-						// TODO: handle exception
-					}		
+					currentScreen = new ScoreScreen(width, height, FPS, gameState);		
 					returnCode = frame.setScreen(currentScreen);
 					LOGGER.info("Closing score screen.");
 				}
