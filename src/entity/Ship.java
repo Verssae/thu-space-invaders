@@ -54,6 +54,8 @@ public class Ship extends Entity {
 	 *                  Initial position of the ship in the Y axis.
 	 */
 
+	private Color baseColor=Color.green;
+
 	public Ship(final int positionX, final int positionY, Color color) {
 		super(positionX, positionY, 13 * 2, 8 * 2, color);
 		imagep = false;
@@ -124,11 +126,11 @@ public class Ship extends Entity {
 		if (this.isDestroyed()) {
 			frameCnt++;
 			if (frameCnt % (destructCool * 0.01) == 0) {
-				if (getColor() == Color.GREEN) {
+				if (getColor() == baseColor) {
 					this.spriteType = SpriteType.ShipDestroyed;
 					setColor(Color.red);
 				} else {
-					setColor(Color.GREEN);
+					setColor(baseColor);
 					this.spriteType = SpriteType.Ship;
 				}
 			}
@@ -145,10 +147,14 @@ public class Ship extends Entity {
 			}
 		} else {
 			frameCnt = 0;
-			setColor(Color.GREEN);
+			setColor(baseColor);
 			this.spriteType = SpriteType.Ship;
 
 		}
+	}
+
+	public final void setBaseColor(Color newColor){
+		baseColor=newColor;
 	}
 	public final void getItem() {
 		this.getItem = true;
