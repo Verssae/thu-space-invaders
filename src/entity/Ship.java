@@ -6,6 +6,7 @@ import java.util.Set;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.Inventory;
 import engine.DrawManager.SpriteType;
 import engine.Sound;
 
@@ -14,9 +15,9 @@ import screen.ShopScreen;
 
 /**
  * Implements a ship, to be controlled by the player.
- * 
+ *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
- * 
+ *
  */
 public class Ship extends Entity {
 
@@ -47,12 +48,14 @@ public class Ship extends Entity {
 	private boolean getItem=false;
 	/**
 	 * Constructor, establishes the ship's properties.
-	 * 
+	 *
 	 * @param positionX
 	 *                  Initial position of the ship in the X axis.
 	 * @param positionY
 	 *                  Initial position of the ship in the Y axis.
 	 */
+
+	private Color baseColor=Color.green;
 
 	public Ship(final int positionX, final int positionY, Color color) {
 		super(positionX, positionY, 13 * 2, 8 * 2, color);
@@ -76,7 +79,7 @@ public class Ship extends Entity {
 				break;
 		}
 	}
-	
+
 	/**
 	 * Moves the ship speed units right, or until the right screen border is
 	 * reached.
@@ -95,7 +98,7 @@ public class Ship extends Entity {
 
 	/**
 	 * Shoots a bullet upwards.
-	 * 
+	 *
 	 * @param bullets
 	 *                List of bullets on screen, to add the new bullet.
 	 * @return Checks if the bullet was shot correctly.
@@ -117,6 +120,13 @@ public class Ship extends Entity {
 	 */
 	private Color[] rainbowEffect = {Color.RED, Color.ORANGE, Color.YELLOW, Color.green, Color.blue, new Color(0, 0, 128), new Color(139, 0, 255)};
 	public final void update() {
+
+		switch (Inventory.getcurrentship()) {
+			case 1000 -> setBaseColor(Color.GREEN);
+			case 1001 -> setBaseColor(Color.RED);
+			case 1002 -> setBaseColor(Color.BLUE);
+		}
+
 		// Item acquired additional image
 		if (this.itemCooldown.checkFinished()){
 			this.item_number = 0;
@@ -124,11 +134,11 @@ public class Ship extends Entity {
 		if (this.isDestroyed()) {
 			frameCnt++;
 			if (frameCnt % (destructCool * 0.01) == 0) {
-				if (getColor() == Color.GREEN) {
+				if (getColor() == baseColor) {
 					this.spriteType = SpriteType.ShipDestroyed;
 					setColor(Color.red);
 				} else {
-					setColor(Color.GREEN);
+					setColor(baseColor);
 					this.spriteType = SpriteType.Ship;
 				}
 			}
@@ -145,11 +155,15 @@ public class Ship extends Entity {
 			}
 		} else {
 			frameCnt = 0;
-			setColor(Color.GREEN);
+			setColor(baseColor);
 			this.spriteType = SpriteType.Ship;
 
 		}
 	}
+	public final void setBaseColor(Color newColor) {
+		baseColor=newColor;
+	}
+
 	public final void getItem() {
 		this.getItem = true;
 	}
@@ -172,7 +186,7 @@ public class Ship extends Entity {
 
 	/**
 	 * Checks if the ship is destroyed.
-	 * 
+	 *
 	 * @return True if the ship is currently destroyed.
 	 */
 	public final boolean isDestroyed() {
@@ -197,7 +211,7 @@ public class Ship extends Entity {
 
 	/**
 	 * Getter for the ship's speed.
-	 * 
+	 *
 	 * @return Speed of the ship.
 	 */
 	public final int getSpeed() {
