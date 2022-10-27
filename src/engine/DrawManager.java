@@ -397,12 +397,7 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		String coinString = String.format("%04d", coin);
-		try {
-			coin_icon = ImageIO.read(new File("icon\\coin-icon.png\\"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		backBufferGraphics.drawImage(coin_icon, 180, 8, 22, 22, observer);
+		drawimg("coin", screen.getWidth() - 260, 8, 22, 22);
 		backBufferGraphics.drawString(coinString, screen.getWidth() - 232, 25);
 	}
 

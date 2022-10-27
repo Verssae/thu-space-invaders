@@ -141,8 +141,8 @@ public class ShopScreen extends Screen {
 								}
 								else if (Inventory.inventory_ship.size() == 3) {
 									Inventory.inventory_ship.get(0).appliedp = false;
-									Inventory.inventory_ship.get(1).appliedp = false;
-									Inventory.inventory_ship.get(2).appliedp = true;
+									Inventory.inventory_ship.get(1).appliedp = true;
+									Inventory.inventory_ship.get(2).appliedp = false;
 								}
 								this.selectionCooldown.reset();
 							}
