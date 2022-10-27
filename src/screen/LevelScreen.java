@@ -10,32 +10,31 @@ import engine.Core;
  * Implements the HUD setting screen, it shows setting menu about HUD.
  */
 
-public class HUDSettingScreen extends Screen {
+public class LevelScreen extends Screen {
     /**
      * Screen change parameter
      */
     public static int colorchange;
-    /** Milliseconds between changes in user selection. */
+    /**
+     * Milliseconds between changes in user selection.
+     */
     private static final int SELECTION_TIME = 200;
 
-    /** Time between changes in user selection. */
+    /**
+     * Time between changes in user selection.
+     */
     private Cooldown selectionCooldown;
 
     /**
      * Constructor, establishes the properties of the screen.
      *
-     * @param width
-     *            Screen width.
-     * @param height
-     *            Screen height.
-     * @param fps
-     *            Frames per second, frame rate at which the game is run.
+     * @param width  Screen width.
+     * @param height Screen height.
+     * @param fps    Frames per second, frame rate at which the game is run.
      */
-    public HUDSettingScreen(final int width, final int height, final int fps) {
+    public LevelScreen(final int width, final int height, final int fps) {
         super(width, height, fps);
-        this.colorchange = 1;
-        this.returnCode = 4;
-
+        this.returnCode = 101;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
     }
@@ -64,69 +63,60 @@ public class HUDSettingScreen extends Screen {
 
             if (inputManager.isKeyDown(KeyEvent.VK_UP)
                     || inputManager.isKeyDown(KeyEvent.VK_W)) {
-                previousItem();
+                previouslevel();
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
                     || inputManager.isKeyDown(KeyEvent.VK_S)) {
-                nextItem();
+                nextlevel();
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
                 this.isRunning = false;
-                this.returnCode = 4;
 
         }
     }
 
-    private void nextItem(){
-        if(this.colorchange == 3)
-            this.colorchange = 1;
-        else if(this.colorchange == 1)
-            this.colorchange = 2;
-        else if(this.colorchange == 2)
-            this.colorchange = 3;
+    private void nextlevel() {
+        if (this.returnCode == 1)
+            this.returnCode = 4;
+        else if (this.returnCode == 0)
+            this.returnCode = 2;
+        else if (this.returnCode == 4)
+            this.returnCode = 0;
+        else if (this.returnCode == 2)
+            this.returnCode = 5;
+        else if (this.returnCode == 5)
+            this.returnCode = 3;
         else
-            this.colorchange++;
+            this.returnCode++;
     }
 
-    private void previousItem(){
-        if(this.colorchange == 1)
-            this.colorchange = 3;
-        else if(this.colorchange == 3)
-            this.colorchange = 2;
-        else if(this.colorchange == 2)
-            this.colorchange = 1;
+    /**
+     * Shifts the focus to the previous menu item.
+     */
+    private void previouslevel() {
+        if (this.returnCode == 0)
+            this.returnCode = 4;
+        else if (this.returnCode == 2)
+            this.returnCode = 0;
+        else if (this.returnCode == 4)
+            this.returnCode = 3;
+        else if (this.returnCode == 3)
+            this.returnCode = 5;
+        else if (this.returnCode == 5)
+            this.returnCode = 2;
         else
-            this.colorchange--;
+            this.returnCode--;
     }
+
 
     /**
      * Draws the elements associated with the screen.
      */
     private void draw() {
         drawManager.initDrawing(this);
-        drawManager.drawHUDSettingMenu(this, this.colorchange);
+        drawManager.drawLevelMenu(this, this.returnCode);
         drawManager.completeDrawing(this);
-    }
-
-    /**
-     * Exchange colors according to 'colorchange' parameter
-     * 
-     * @return Color information
-     */
-    public static Color getScreenColor(){
-        if(HUDSettingScreen.colorchange == 1){
-            return Color.GREEN;
-        }
-        else if(HUDSettingScreen.colorchange == 2){
-            return Color.RED;
-        }
-        else if(HUDSettingScreen.colorchange == 3){
-            return Color.BLUE;
-        }
-        else{
-            return Color.GREEN;
-        }
     }
 }

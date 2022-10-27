@@ -10,9 +10,6 @@ import engine.Inventory;
 import engine.DrawManager.SpriteType;
 import engine.Sound;
 
-import screen.ShopScreen;
-
-
 /**
  * Implements a ship, to be controlled by the player.
  *
@@ -61,6 +58,9 @@ public class Ship extends Entity {
 		super(positionX, positionY, 13 * 2, 8 * 2, color);
 		imagep = false;
 		this.spriteType = SpriteType.Ship;
+		if (positionY == 0) {
+			this.spriteType = SpriteType.ShipLive;
+		}
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.itemCooldown = Core.getCooldown(300);
 		this.destructionCooldown = Core.getCooldown(destructCool);
@@ -105,7 +105,6 @@ public class Ship extends Entity {
 	 */
 	public final boolean shoot(final Set<Bullet> bullets) {
 		if (this.shootingCooldown.checkFinished()) {
-
 			new Sound().bulletsound();
 			this.shootingCooldown.reset();
 			bullets.add(BulletPool.getBullet(positionX + this.width / 2,
@@ -157,7 +156,6 @@ public class Ship extends Entity {
 			frameCnt = 0;
 			setColor(baseColor);
 			this.spriteType = SpriteType.Ship;
-
 		}
 	}
 <<<<<<< HEAD
@@ -178,7 +176,6 @@ public class Ship extends Entity {
 	public final void gameOver() {
 		this.setSpriteType(SpriteType.Explosion);
 		this.setColor(Color.MAGENTA);
-
 	}
 
 	/**
