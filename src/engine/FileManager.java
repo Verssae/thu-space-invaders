@@ -206,7 +206,7 @@ public final class FileManager {
 			bufferedReader = new BufferedReader(new InputStreamReader(
 					inputStream, Charset.forName("UTF-8")));
 
-			logger.info("Loading user high scores.");
+			//logger.info("Loading user high scores.");
 
 			Score highScore = null;
 			String name = bufferedReader.readLine();
