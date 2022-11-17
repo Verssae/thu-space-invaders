@@ -586,6 +586,7 @@ public class GameScreen extends Screen {
 				if (per == 0) {
 					if (this.lives < 3) {
 						this.lives++;
+						Sound.playSound("Bgm/lifePoint.wav");
 						this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
 						this.ship.item_number = 1;
 						this.ship.itemimgGet();
@@ -595,9 +596,11 @@ public class GameScreen extends Screen {
 							int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() -100);
 							ship.setSHOOTING_INTERVAL(shootingSpeed);
 							ship.setSHOOTING_COOLDOWN(shootingSpeed);
+							Sound.playSound("Bgm/attackSpeed.wav");
 							this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
 						}
 						else {
+							Sound.playSound("Bgm/itemFail.wav");
 							this.logger.info("Acquire a item_shootingSpeedUp, MAX SHOOTING SPEED!");
 						}
 						this.ship.item_number = 2;
@@ -608,9 +611,11 @@ public class GameScreen extends Screen {
 						int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() -100);
 						ship.setSHOOTING_INTERVAL(shootingSpeed);
 						ship.setSHOOTING_COOLDOWN(shootingSpeed);
+						Sound.playSound("Bgm/attackSpeed.wav");
 						this.logger.info("Acquire a item_shootingSpeedUp," + shootingSpeed + " Time between shots.");
 					}
 					else {
+						Sound.playSound("Bgm/itemFail.wav");
 						this.logger.info("Acquire a item_shootingSpeedUp, MAX SHOOTING SPEED!");
 					}
 					this.ship.item_number = 2;
@@ -619,6 +624,7 @@ public class GameScreen extends Screen {
 				else if (per == 2) {
 					int shipSpeed = (int) (ship.getSPEED() + 1);
 					ship.setSPEED(shipSpeed);
+					Sound.playSound("Bgm/movingSpeed.wav");
 					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
 					this.ship.item_number = 3;
 					this.ship.itemimgGet();
@@ -629,6 +635,7 @@ public class GameScreen extends Screen {
 							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
 					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth,
 							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+					Sound.playSound("Bgm/bullet1.wav");
 					this.logger.info("Three bullets");
 				}else if (per == 4) {
 					bullets.add(BulletPool.getBullet(ship.getPositionX()+shipWidth/2,
@@ -637,6 +644,7 @@ public class GameScreen extends Screen {
 							ship.getPositionY()+shipWidth/2, ship.getBULLET_SPEED(), 0));
 					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth/2,
 							ship.getPositionY()+shipWidth, ship.getBULLET_SPEED(), 0));
+					Sound.playSound("Bgm/bullet2.wav");
 					this.logger.info("Three bullets");
 				}else {
 					bullets.add(BulletPool.getBullet(ship.getPositionX() - shipWidth / 2,
@@ -649,6 +657,7 @@ public class GameScreen extends Screen {
 							ship.getPositionY() - shipWidth / 3, ship.getBULLET_SPEED(), 0));
 					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth + shipWidth / 2,
 							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
+					Sound.playSound("Bgm/bullet3.wav");
 					this.logger.info("Five bullets");
 				}
 				this.ship.getItem();
