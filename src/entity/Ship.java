@@ -33,6 +33,8 @@ public class Ship extends Entity {
 	public int imageid;
 	public int item_number = 0;
 
+	private int ultC = 0;
+
 	/** Minimum time between shots. */
 	private Cooldown shootingCooldown;
 	/** Time spent inactive between hits. */
@@ -216,6 +218,13 @@ public class Ship extends Entity {
 		return this.SHOOTING_INTERVAL;
 	}
 
+	public void setUltC(int ultC) {
+		this.ultC = ultC;
+	}
+
+	public int getUltC() {
+		return this.ultC;
+	}
 	public void setSPEED(int SPEED) {
 		this.SPEED = SPEED;
 	}

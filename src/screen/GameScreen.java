@@ -581,7 +581,7 @@ public class GameScreen extends Screen {
 			if (checkCollision(item, this.ship) && !this.levelFinished) {
 				recyclable.add(item);
 				Random random = new Random();
-				int per = random.nextInt(6);
+				int per = random.nextInt(7);
 
 				if (per == 0) {
 					if (this.lives < 3) {
@@ -623,6 +623,12 @@ public class GameScreen extends Screen {
 					this.ship.item_number = 3;
 					this.ship.itemimgGet();
 				}else if (per == 3) {
+					int ultC = (ship.getUltC() + 1);
+					ship.setUltC(ultC);
+					this.logger.info("Acquire a Ultimate charge," + ultC + " Ultimate charge of the ship.");
+					this.ship.item_number = 4;
+					this.ship.itemimgGet();
+				}else if (per == 4) {
 					bullets.add(BulletPool.getBullet(ship.getPositionX(),
 							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
 					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth/2,
@@ -630,7 +636,7 @@ public class GameScreen extends Screen {
 					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth,
 							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
 					this.logger.info("Three bullets");
-				}else if (per == 4) {
+				}else if (per == 5) {
 					bullets.add(BulletPool.getBullet(ship.getPositionX()+shipWidth/2,
 							ship.getPositionY(), ship.getBULLET_SPEED(), 0));
 					bullets.add(BulletPool.getBullet(ship.getPositionX() + shipWidth/2,
