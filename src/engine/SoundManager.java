@@ -6,7 +6,16 @@ import javax.sound.sampled.Clip;
 import java.io.*;
 
 
-public class Sound {
+public class SoundManager {
+
+    public enum Sound {
+        bullet,
+        background,
+        attack,
+        gameOver,
+        hit
+    }
+
     String background = "Bgm/background.wav";
 
     Clip backgroundClip = null;
@@ -15,10 +24,10 @@ public class Sound {
     String gameOver = "Bgm/gameOver.wav";
     String hit = "Bgm/hit.wav";
 
-    public void startMusic(String what) {
+    public void startMusic(Sound what) {
         String bgm = null;
         switch (what) {
-            case "background":
+            case background:
                 bgm = background;
                 try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(bgm).getAbsoluteFile());
@@ -29,16 +38,16 @@ public class Sound {
                     e.printStackTrace();
                 }
                 break;
-            case "bullet":
+            case bullet:
                 bgm = bullet;
                 break;
-            case "attack":
+            case attack:
                 bgm = attack;
                 break;
-            case "gameover":
+            case gameOver:
                 bgm = gameOver;
                 break;
-            case "hit":
+            case hit:
                 bgm = hit;
                 break;
             default:
