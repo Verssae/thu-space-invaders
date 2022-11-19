@@ -8,7 +8,10 @@ import engine.Cooldown;
 import engine.Core;
 import engine.Inventory;
 import engine.DrawManager.SpriteType;
-import engine.Sound;
+
+import static engine.Core.startMusic;
+import static engine.SoundManager.Sound.*;
+
 
 /**
  * Implements a ship, to be controlled by the player.
@@ -105,7 +108,7 @@ public class Ship extends Entity {
 	 */
 	public final boolean shoot(final Set<Bullet> bullets) {
 		if (this.shootingCooldown.checkFinished()) {
-			new Sound().bulletsound();
+			startMusic(bullet);
 			this.shootingCooldown.reset();
 			bullets.add(BulletPool.getBullet(positionX + this.width / 2,
 					positionY, BULLET_SPEED, 0));
@@ -169,16 +172,15 @@ public class Ship extends Entity {
 	public final void gameOver() {
 		this.setSpriteType(SpriteType.Explosion);
 		this.setColor(Color.MAGENTA);
+		startMusic(gameOver);
 	}
 
 	/**
 	 * Switches the ship to its destroyed state.
 	 */
 	public final void destroy() {
-		new Sound().explosionsound();
+		startMusic(hit);
 		this.destructionCooldown.reset();
-
-		new Sound().explosionsound();
 	}
 
 	/**

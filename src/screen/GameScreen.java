@@ -7,10 +7,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import engine.*;
-import engine.DrawManager.SpriteType;
 import entity.*;
 
-
+import static engine.Core.stopMusic;
 
 
 /**
@@ -300,7 +299,10 @@ public class GameScreen extends Screen {
 				&& !this.levelFinished) {
 			this.levelFinished = true;
 			this.screenFinishedCooldown.reset();
-			if(this.lives==0) this.ship.gameOver();
+			if(this.lives==0) {
+				stopMusic("background");
+				this.ship.gameOver();
+			}
 		}
 
 		if (this.levelFinished && this.screenFinishedCooldown.checkFinished())

@@ -9,12 +9,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Scanner;
 
-import entity.Ship;
 import screen.*;
 
 import javax.sound.sampled.Clip;
 
-import engine.Inventory.InventoryEntry;
+import static engine.SoundManager.Sound.*;
+
 
 /**
  * Implements core game logic.
@@ -160,6 +160,8 @@ public final class Core {
 	private static final Item Test6 =
 			new Item(2002, "Store BGM 2", 1000);
 
+	private static final SoundManager soundManager=new SoundManager();
+
 
 	/**
 	 * Test implementation.
@@ -258,7 +260,8 @@ public final class Core {
 					LOGGER.info("Select your difficulty 0 is practice, 1 is easy, 2 is normal, 3 is hard");
 					diff = sc.nextInt();
 					while(diff < 0 || diff > 3){
-						new Sound().backroundmusic();
+						startMusic(background);
+
 						LOGGER.info("Select your difficulty 0 is practice, 1 is easy, 2 is normal, 3 is hard");
 						diff = sc.nextInt();
 					}
@@ -299,7 +302,7 @@ public final class Core {
 						LOGGER.info("Closing score screen.");
 					} else {
 						do {
-							new Sound().backroundmusic();
+							startMusic(background);
 							// One extra live every few levels.
 							boolean bonusLife = gameState.getLevel()
 									% EXTRA_LIFE_FRECUENCY == 0
@@ -486,4 +489,13 @@ public final class Core {
 	public static int getDiff(){
 		return diff;
 	}
+
+	public static void startMusic(SoundManager.Sound what){
+		soundManager.startMusic(what);
+	}
+
+	public static void stopMusic(String what){
+		soundManager.stopMusic(what);
+	}
+
 }
