@@ -217,111 +217,119 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			boolean isAtLeftSide = positionX <= SIDE_MARGIN;
 			boolean isAtHorizontalAltitude = positionY % DESCENT_DISTANCE == 0;
 
-			if (currentDirection == Direction.DOWN) {
-				if (isAtHorizontalAltitude)
-					if (previousDirection == Direction.RIGHT) {
-						currentDirection = Direction.LEFT;
-						this.logger.info("Formation now moving left 1");
-					} else {
-						currentDirection = Direction.RIGHT;
-						this.logger.info("Formation now moving right 2");
-					}
-			} else if (currentDirection == Direction.LEFT) {
-				if (isAtLeftSide)
-					if (!isAtBottom && movementY != 0) {
-						previousDirection = currentDirection;
-						currentDirection = Direction.DOWN;
-						this.logger.info("Formation now moving down 3");
-					} else {
-						currentDirection = Direction.RIGHT;
-						this.logger.info("Formation now moving right 4");
-					}
-			} else {
-				if (isAtRightSide)
-					if (!isAtBottom && movementY != 0) {
-						previousDirection = currentDirection;
-						currentDirection = Direction.DOWN;
-						this.logger.info("Formation now moving down 5");
-					} else {
-						currentDirection = Direction.LEFT;
-						this.logger.info("Formation now moving left 6");
-					}
-			}
+			update_B();
+		}
+	}
+	public final void update_B() {
 
-			if (currentDirection == Direction.RIGHT)
-				movementX = X_SPEED;
-			else if (currentDirection == Direction.LEFT)
-				movementX = -X_SPEED;
-			else
-				movementY = Y_SPEED;
-
-			positionX += movementX;
-			positionY += movementY;
-
-			// Cleans explosions.
-			List<EnemyShip> destroyed;
-			for (List<EnemyShip> column : this.enemyShips) {
-				destroyed = new ArrayList<EnemyShip>();
-				for (EnemyShip ship : column) {
-					if (ship != null && ship.isDestroyed()) {
-						destroyed.add(ship);
-						this.logger.info("Removed enemy "
-								+ column.indexOf(ship) + " from column "
-								+ this.enemyShips.indexOf(column));
-					}
+		if (currentDirection == Direction.DOWN) {
+			if (isAtHorizontalAltitude)
+				if (previousDirection == Direction.RIGHT) {
+					currentDirection = Direction.LEFT;
+					this.logger.info("Formation now moving left 1");
+				} else {
+					currentDirection = Direction.RIGHT;
+					this.logger.info("Formation now moving right 2");
 				}
-				column.removeAll(destroyed);
-			}
+		} else if (currentDirection == Direction.LEFT) {
+			if (isAtLeftSide)
+				if (!isAtBottom && movementY != 0) {
+					previousDirection = currentDirection;
+					currentDirection = Direction.DOWN;
+					this.logger.info("Formation now moving down 3");
+				} else {
+					currentDirection = Direction.RIGHT;
+					this.logger.info("Formation now moving right 4");
+				}
+		} else {
+			if (isAtRightSide)
+				if (!isAtBottom && movementY != 0) {
+					previousDirection = currentDirection;
+					currentDirection = Direction.DOWN;
+					this.logger.info("Formation now moving down 5");
+				} else {
+					currentDirection = Direction.LEFT;
+					this.logger.info("Formation now moving left 6");
+				}
+		}
 
-			for (List<EnemyShip> column : this.enemyShips)
-				for (EnemyShip enemyShip : column) {
-					if(isLast()){
-						if(!isAtTop) {
-							movementY = -30;
-							enemyShip.move(movementX, movementY);
-						}
-						else if(!isAtBottom){
-							movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
-							enemyShip.move(movementX,movementY);
-						}
-					}else {
-						if (!isAtBottom) {
-							int randomPlace = (int) (Math.random() * column.size() - 1);
-							movementY = 1;
-							if (Math.random() < 0.70) {
-								if (randomPlace < enemyShips.size()) {
-									if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
-										movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
-									}
-								}
-							} else {
-								if (enemyShips.get(enemyShips.size() - 1) == column && column.get(column.size() - 1) == enemyShip) {
+		if (currentDirection == Direction.RIGHT)
+			movementX = X_SPEED;
+		else if (currentDirection == Direction.LEFT)
+			movementX = -X_SPEED;
+		else
+			movementY = Y_SPEED;
+
+		positionX += movementX;
+		positionY += movementY;
+
+		update_C();
+	}
+
+	public final void update_C() {
+		// Cleans explosions.
+		List<EnemyShip> destroyed;
+		for (List<EnemyShip> column : this.enemyShips) {
+			destroyed = new ArrayList<EnemyShip>();
+			for (EnemyShip ship : column) {
+				if (ship != null && ship.isDestroyed()) {
+					destroyed.add(ship);
+					this.logger.info("Removed enemy "
+							+ column.indexOf(ship) + " from column "
+							+ this.enemyShips.indexOf(column));
+				}
+			}
+			column.removeAll(destroyed);
+		}
+
+		for (List<EnemyShip> column : this.enemyShips)
+			for (EnemyShip enemyShip : column) {
+				if(isLast()){
+					if(!isAtTop) {
+						movementY = -30;
+						enemyShip.move(movementX, movementY);
+					}
+					else if(!isAtBottom){
+						movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
+						enemyShip.move(movementX,movementY);
+					}
+				}else {
+					if (!isAtBottom) {
+						int randomPlace = (int) (Math.random() * column.size() - 1);
+						movementY = 1;
+						if (Math.random() < 0.70) {
+							if (randomPlace < enemyShips.size()) {
+								if (enemyShips.get(randomPlace) == column && column.get(column.size() - 1) == enemyShip) {
 									movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
 								}
 							}
+						} else {
+							if (enemyShips.get(enemyShips.size() - 1) == column && column.get(column.size() - 1) == enemyShip) {
+								movementY = (int) (Math.random() * Y_SPEED + Y_SPEED);
+							}
 						}
-						enemyShip.move(movementX, movementY);
-						enemyShip.update();
 					}
+					enemyShip.move(movementX, movementY);
+					enemyShip.update();
 				}
-
-			//마지막줄 남으면 더이상 색 변화 x
-			for (List<EnemyShip> column : this.enemyShips) {
-				for (EnemyShip enemyShip : column)
-					enemyShip.setColor(Color.white);
 			}
 
-			int randomPlace_r = (int) (Math.random() * enemyShips.size() - 1);
-			int randomPlace_c = (int) (Math.random() * enemyShips.get(randomPlace_r).size() - 1);
-			if(this.shipCount>nShipsWide) {
-				if (enemyShips.get(randomPlace_r).get(randomPlace_c) != null)
-					enemyShips.get(randomPlace_r).get(randomPlace_c).changeColor();
-			}
-			//목숨 여러개인 적 색상 변화
-			for (List<EnemyShip> column : this.enemyShips) {
-				for (EnemyShip enemyShip : column)
-					 enemyShip.changeColor_G(enemyShip.getEnemyLives());
-			}
+		//마지막줄 남으면 더이상 색 변화 x
+		for (List<EnemyShip> column : this.enemyShips) {
+			for (EnemyShip enemyShip : column)
+				enemyShip.setColor(Color.white);
+		}
+
+		int randomPlace_r = (int) (Math.random() * enemyShips.size() - 1);
+		int randomPlace_c = (int) (Math.random() * enemyShips.get(randomPlace_r).size() - 1);
+		if(this.shipCount>nShipsWide) {
+			if (enemyShips.get(randomPlace_r).get(randomPlace_c) != null)
+				enemyShips.get(randomPlace_r).get(randomPlace_c).changeColor();
+		}
+		//목숨 여러개인 적 색상 변화
+		for (List<EnemyShip> column : this.enemyShips) {
+			for (EnemyShip enemyShip : column)
+				enemyShip.changeColor_G(enemyShip.getEnemyLives());
 		}
 	}
 
