@@ -46,6 +46,18 @@ public class GameScreen extends Screen {
 	 */
 	private static final int BONUS_SHIP_EXPLOSION = 500;
 	/**
+	 * Minimum time between bonus ship's appearances.
+	 */
+	private static final int PLUS_SHIP_INTERVAL = 18000;
+	/**
+	 * Maximum variance in the time between bonus ship's appearances.
+	 */
+	private static final int PLUS_SHIP_VARIANCE = 8000;
+	/**
+	 * Time until bonus ship explosion disappears.
+	 */
+	private static final int PLUS_SHIP_EXPLOSION = 500;
+	/**
 	 * Time from finishing the level to screen change.
 	 */
 	private static final int SCREEN_CHANGE_INTERVAL = 1500;
@@ -86,6 +98,18 @@ public class GameScreen extends Screen {
 	 * Time until bonus ship explosion disappears.
 	 */
 	private Cooldown enemyShipSpecialExplosionCooldown;
+	/**
+	 * Bonus enemy ship that appears sometimes.
+	 */
+	private EnemyShip enemyShipPlus;
+	/**
+	 * Minimum time between bonus ship appearances.
+	 */
+	private Cooldown enemyShipPlusCooldown;
+	/**
+	 * Time until bonus ship explosion disappears.
+	 */
+	private Cooldown enemyShipPlusExplosionCooldown;
 	/**
 	 * Time from finishing the level to screen change.
 	 */
@@ -185,8 +209,11 @@ public class GameScreen extends Screen {
 		// Appears each 10-30 seconds.
 		this.enemyShipSpecialCooldown = Core.getVariableCooldown(
 				BONUS_SHIP_INTERVAL, BONUS_SHIP_VARIANCE);
+		this.enemyShipPlusCooldown = Core.getVariableCooldown(
+				PLUS_SHIP_INTERVAL, PLUS_SHIP_VARIANCE);
 		this.enemyShipSpecialCooldown.reset();
-		this.enemyShipSpecialExplosionCooldown = Core
+		this.enemyShipPlusCooldown.reset();
+		this.enemyShipPlusExplosionCooldown = Core
 				.getCooldown(BONUS_SHIP_EXPLOSION);
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
@@ -472,6 +499,17 @@ public class GameScreen extends Screen {
 					Coin.balance += this.enemyShipSpecial.getPointValue() / 10;
 					recyclable.add(bullet);
 				}
+				if (this.enemyShipPlus != null
+						&& !this.enemyShipPlus.isDestroyed()
+						&& checkCollision(bullet, this.enemyShipPlus)) {
+					this.score += this.enemyShipPlus.getPointValue();
+					this.shipsDestroyed++;
+					this.enemyShipPlus.destroy();
+					this.enemyShipPlusExplosionCooldown.reset();
+					this.coin += this.enemyShipPlus.getPointValue() / 10;
+					Coin.balance += this.enemyShipPlus.getPointValue() / 10;
+					recyclable.add(bullet);
+				}
 			}
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycle(recyclable);
@@ -514,6 +552,15 @@ public class GameScreen extends Screen {
 					this.enemyShipSpecialExplosionCooldown.reset();
 					recyclable.add(bullet);
 				}
+				if (this.enemyShipPlus != null
+						&& !this.enemyShipPlus.isDestroyed()
+						&& checkCollision(bullet, this.enemyShipPlus)) {
+					this.score += this.enemyShipPlus.getPointValue();
+					this.shipsDestroyed++;
+					this.enemyShipPlus.destroy();
+					this.enemyShipPlusExplosionCooldown.reset();
+					recyclable.add(bullet);
+				}
 			}
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycleN(recyclable);
@@ -554,6 +601,15 @@ public class GameScreen extends Screen {
 					this.shipsDestroyed++;
 					this.enemyShipSpecial.destroy();
 					this.enemyShipSpecialExplosionCooldown.reset();
+					recyclable.add(bullet);
+				}
+				if (this.enemyShipPlus != null
+						&& !this.enemyShipPlus.isDestroyed()
+						&& checkCollision(bullet, this.enemyShipPlus)) {
+					this.score += this.enemyShipPlus.getPointValue();
+					this.shipsDestroyed++;
+					this.enemyShipPlus.destroy();
+					this.enemyShipPlusExplosionCooldown.reset();
 					recyclable.add(bullet);
 				}
 			}
