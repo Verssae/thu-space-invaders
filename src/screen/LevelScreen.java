@@ -34,7 +34,7 @@ public class LevelScreen extends Screen {
      */
     public LevelScreen(final int width, final int height, final int fps) {
         super(width, height, fps);
-        this.returnCode = 101;
+        this.returnCode = 1001;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
     }
@@ -72,42 +72,39 @@ public class LevelScreen extends Screen {
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+
                 this.isRunning = false;
 
         }
     }
 
     private void nextlevel() {
-        if (this.returnCode == 1)
-            this.returnCode = 4;
-        else if (this.returnCode == 0)
-            this.returnCode = 2;
-        else if (this.returnCode == 4)
-            this.returnCode = 0;
-        else if (this.returnCode == 2)
-            this.returnCode = 5;
-        else if (this.returnCode == 5)
-            this.returnCode = 3;
+        if (this.returnCode == 1001)
+            this.returnCode = 1011;
+        else if (this.returnCode == 1011)
+            this.returnCode = 1021;
+        else if (this.returnCode == 1021)
+            this.returnCode = 1031;
+        else if (this.returnCode == 1031)
+            this.returnCode = 1001;
         else
-            this.returnCode++;
+            this.returnCode = 1001;
     }
 
     /**
      * Shifts the focus to the previous menu item.
      */
     private void previouslevel() {
-        if (this.returnCode == 0)
-            this.returnCode = 4;
-        else if (this.returnCode == 2)
-            this.returnCode = 0;
-        else if (this.returnCode == 4)
-            this.returnCode = 3;
-        else if (this.returnCode == 3)
-            this.returnCode = 5;
-        else if (this.returnCode == 5)
-            this.returnCode = 2;
+        if (this.returnCode == 1001)
+            this.returnCode = 1031;
+        else if (this.returnCode == 1011)
+            this.returnCode = 1001;
+        else if (this.returnCode == 1021)
+            this.returnCode = 1011;
+        else if (this.returnCode == 1031)
+            this.returnCode = 1021;
         else
-            this.returnCode--;
+            this.returnCode = 1001;
     }
 
 
